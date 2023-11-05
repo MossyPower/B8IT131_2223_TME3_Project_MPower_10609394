@@ -1,0 +1,25 @@
+@model MvcRugby.Mappings.PrimaryFeeds;
+@{
+    ViewData["Title"] = "Rugby Competitions";
+}
+
+<h1>Step 1: Select a Competition:</h1>
+
+@if (Model != null && Model.competitions != null)
+{
+    foreach (var item in Model.competitions)
+    {
+        <p>@item.name</p>
+    }
+}
+else
+{
+    <p>No competitions available.</p>
+}
+
+
+@* Competition dropdown *@
+@* Teams dropdown *@
+@* if statement, show table if data - JS*@
+@* Table / Card *@
+@* Each player should be displayed on a card - for loop*@

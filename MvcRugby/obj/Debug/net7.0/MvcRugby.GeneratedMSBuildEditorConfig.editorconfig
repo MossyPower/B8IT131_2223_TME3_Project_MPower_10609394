@@ -20,10 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Comparison/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyaXNvblxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,6 +38,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/Teams.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxUZWFtcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/_ViewImports.cshtml]
