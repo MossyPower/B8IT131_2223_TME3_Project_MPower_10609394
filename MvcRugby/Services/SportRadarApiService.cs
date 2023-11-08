@@ -8,16 +8,29 @@ namespace MvcRugby.Services
     public class SportRadarApiService : ISportRadarApiService
     {
         private readonly HttpClient _httpClient;
-        private string API_KEY = "r577fne89ddc78h7vc9zpq5v";
+        private string API_KEY = ".json?api_key=r577fne89ddc78h7vc9zpq5v";
 
         public SportRadarApiService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri("http://api.sportradar.com/");
+            _httpClient.BaseAddress = new Uri("http://api.sportradar.com/rugby-union/trial/v3/en/");
         }
+        
+        // Get Competitions
         public async Task<PrimaryFeeds?> GetCompetitions()
         {   
-            return await _httpClient.GetFromJsonAsync<PrimaryFeeds>("rugby-union/trial/v3/en/competitions.json?api_key="+API_KEY);
+            return await _httpClient.GetFromJsonAsync<PrimaryFeeds>("competitions"+API_KEY);
         }
+
+        // Get Seasons
+        public async Task<SeasonInfo?> GetSeasons()
+        {   
+            return await _httpClient.GetFromJsonAsync<SeasonInfo>("seasons"+API_KEY);
+        }        
+             
+        // GetLineUps()
+        
+        // GetPlayers()
+
     }
 }

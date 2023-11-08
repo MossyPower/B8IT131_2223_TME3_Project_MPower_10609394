@@ -7,30 +7,17 @@ using Microsoft.AspNetCore.Authorization;
 namespace MvcRugby.Controllers
 {
     // [Authorize]
-    public class SportRadarController : Controller
+    public class SeasonController : Controller
     {       
         //Create an instance of the SportRadarApiService class
         private readonly SportRadarApiService _sportRadarApiService;
         
-        public SportRadarController(SportRadarApiService sportRadarApiService)
+        public SeasonController(SportRadarApiService sportRadarApiService)
         {
             _sportRadarApiService = sportRadarApiService;
         }
         
         //Create new method for calling GetCompetitions method
-        public async Task<IActionResult> Index()
-        {
-            var competitions = await _sportRadarApiService.GetCompetitions();
-            if (competitions != null)
-            {
-                return View(competitions);
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
-        
         public async Task<IActionResult> Season()
         {
             var seasons = await _sportRadarApiService.GetSeasons();
@@ -43,7 +30,7 @@ namespace MvcRugby.Controllers
                 return NotFound();
             }
         }
-
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

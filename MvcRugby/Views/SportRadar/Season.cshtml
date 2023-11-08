@@ -1,0 +1,29 @@
+@model MvcRugby.Mappings.SeasonInfo;
+@{
+    ViewData["Title"] = "Competition Seasons";
+}
+
+<h1>Step 2: Select a Competition:</h1>
+
+@if (Model != null && Model.seasons != null)
+{
+    foreach (var item in Model.seasons)
+    {
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card text-center" style="width: 18rem;">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@item.name</h5>                   
+                    @* Pass the season id as a parameter to the next call *@
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.id">
+                        <i class="bi bi-eye-fill"></i> Select competition
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No Teams available</p>
+}
