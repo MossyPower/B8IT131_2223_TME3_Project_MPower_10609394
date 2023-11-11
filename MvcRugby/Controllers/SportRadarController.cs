@@ -31,6 +31,7 @@ namespace MvcRugby.Controllers
             }
         }
         
+        // URI: http://localhost:5254/SportRadar/Season
         public async Task<IActionResult> Season()
         {
             var seasons = await _sportRadarApiService.GetSeasons();
@@ -43,6 +44,21 @@ namespace MvcRugby.Controllers
                 return NotFound();
             }
         }
+        
+        // URI: http://localhost:5254/SportRadar/GetSeasonLineups/sr%3Aseason%3A107205
+        public async Task<IActionResult> SeasonLineups(string? id)
+        {
+            var seasonLineup = await _sportRadarApiService.GetSeasonLineups(id);
+            if (seasonLineup != null)
+            {
+                return View(seasonLineup);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

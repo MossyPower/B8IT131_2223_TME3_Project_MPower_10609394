@@ -8,6 +8,6 @@ namespace MvcRugby.Mappings
         public SECSeason? season {get; set;}
         public SECStage? stage {get; set;}
         public SECRound? round {get; set;}
-        public SECGroups? groups {get; set;}
+        public List<SECGroups>? groups {get; set;}
     }
 }

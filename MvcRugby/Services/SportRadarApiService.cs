@@ -1,7 +1,12 @@
 // Implement the interface of ISportRadarService and its method GetCompetitions(). Builds methods you are declaring
 
+using System.Net.Http.Json;
 using Microsoft.AspNetCore.Http;
 using MvcRugby.Mappings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+//using Newtonsoft.Json;
 
 namespace MvcRugby.Services
 {
@@ -27,9 +32,14 @@ namespace MvcRugby.Services
         {   
             return await _httpClient.GetFromJsonAsync<SeasonInfo>("seasons"+API_KEY);
         }        
-             
-        // GetLineUps()
-        
+
+        //Geat Season Lineups
+        public async Task<SeasonLineups?> GetSeasonLineups(string? SeasonId)
+        {   
+            // Sample Request URI: http://api.sportradar.us/rugby-union/trial/v3/en/seasons/sr:season:59620/lineups.json?api_key=r577fne89ddc78h7vc9zpq5v
+            return await _httpClient.GetFromJsonAsync<SeasonLineups>($"seasons/{SeasonId}/lineups{API_KEY}");
+        }
+
         // GetPlayers()
 
     }
