@@ -40,16 +40,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/CompRounds.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxDb21wUm91bmRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/Season.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxTZWFzb24uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/SeasonLineups.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxTZWFzb25MaW5ldXBzLmNzaHRtbA==
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/SportRadar/RoundLineup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BvcnRSYWRhclxSb3VuZExpbmV1cC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/_ViewImports.cshtml]

@@ -1,0 +1,43 @@
+<!-- This view lists all Rounds in a given Competition for user selection -->
+@model MvcRugby.Models.RoundLineupViewModel
+@{
+    ViewData["Title"] = "Round Info";
+}
+
+<!-- "{Competition Name}, Round: {Number}"  -->
+<h1>@Model.CompetitionName - Round @Model.RoundNumber</h1>
+<br>
+<!-- Back to previous page button - should have asp.action of season id-->
+<a class="btn btn-secondary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@Model.RoundNumber">
+    <i class="bi bi-eye-fill"></i> Back to Competition Rounds
+</a>
+<br>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Position</th>
+            @foreach (var team in Model.Teams)
+            {
+                <th scope="col">@team.TeamName</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i <= 23; i++)
+        {
+            <tr>
+                <td>@i</td>
+                @foreach (var team in Model.Teams)
+                {
+                    <td>
+                        @foreach (var player in team.Players.Where(p => p.PlayerNumber == i))
+                        {
+                            <div>@player.PlayerName</div>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
