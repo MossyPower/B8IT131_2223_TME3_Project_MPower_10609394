@@ -4,8 +4,10 @@ namespace MvcRugby.Models
     // Model 1: Pull info from Mappings / SeasonLineups
     public class RoundLineupViewModel
     {
+        public string? SeasonId { get; set; }
         public string? CompetitionName { get; set; } // One competition name, hence a single attribute is sufficient
         public int RoundNumber { get; set; } // Single round per view, hence one attribute sufficient
+        
         public List<RoundTeams>? Teams { get; set; } // multiple teams in a round, hence a list is required
     }
     

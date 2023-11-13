@@ -8,7 +8,7 @@
 <h1>@Model.CompetitionName - Round @Model.RoundNumber</h1>
 <br>
 <!-- Back to previous page button - should have asp.action of season id-->
-<a class="btn btn-secondary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@Model.RoundNumber">
+<a class="btn btn-secondary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@Model.SeasonId">
     <i class="bi bi-eye-fill"></i> Back to Competition Rounds
 </a>
 <br>

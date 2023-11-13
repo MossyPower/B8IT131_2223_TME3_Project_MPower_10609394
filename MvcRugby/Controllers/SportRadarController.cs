@@ -103,6 +103,7 @@ namespace MvcRugby.Controllers
                     {
                         var ViewModel = new RoundLineupViewModel()
                         {
+                            SeasonId = sportEvent.sport_event.sport_event_context.season?.id,
                             CompetitionName = sportEvent.sport_event.sport_event_context.groups?.FirstOrDefault()?.name,
                             RoundNumber = sportEvent.sport_event.sport_event_context.round?.number ?? -1,
                             Teams = new List<RoundTeams>()
