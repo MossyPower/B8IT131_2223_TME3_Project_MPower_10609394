@@ -32,6 +32,9 @@ namespace MvcRugby.Services
         }
 
         // Get Player Statistics
-        
+        public async Task<Players?> GetPlayerStatistics(string? PlayerId)
+        {   
+            return await _httpClient.GetFromJsonAsync<Players>($"players/{PlayerId}/profile{API_KEY}");
+        }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\MvcRugby.csproj": {}
+    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\MvcRugby.csproj": {
+    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\MvcRugby.csproj",
-        "projectName": "MvcRugby",
-        "projectPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\MvcRugby.csproj",
+        "projectUniqueName": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj",
+        "projectName": "RugbyDataApi",
+        "projectPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj",
         "packagesPath": "C:\\Users\\mossy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\obj\\",
+        "outputPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mossy\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,25 +38,13 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+            "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.4, )"
             },
-            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+            "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[7.0.4, )"
-            },
-            "Microsoft.AspNetCore.Identity.UI": {
-              "target": "Package",
-              "version": "[7.0.4, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[7.0.4, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "target": "Package",
-              "version": "[7.0.4, )"
+              "version": "[6.4.0, )"
             }
           },
           "imports": [

@@ -9,4 +9,7 @@ public interface ISportRadarApiService
     
     // Get Competition Round Teams
     Task<SeasonLineups?> GetRoundLineup(string? SeasonId);
+
+    // Get Player Statistics
+    Task<Players?> GetPlayerStatistics(string? PlayerId);
 }
