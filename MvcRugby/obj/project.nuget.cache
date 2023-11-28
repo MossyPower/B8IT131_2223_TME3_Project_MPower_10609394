@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "npNQli9WCVmN0RfQBrAQdaziR0PLrMiCrGE8W9M5jwGwcWb1Sr5n+P+XZC1SRM/+0Z5sBF50c+OMfi+lewaPag==",
+  "dgSpecHash": "cYZ42vK+nyTof4ziyP+PTOdtNXIDZcMQpWcdcTzkOmQqz5DqDpEKXFJd/yyWfmND2DqH8Uh3R68sBtiFo0c2ww==",
   "success": true,
   "projectFilePath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\MvcRugby.csproj",
   "expectedPackageFiles": [
@@ -41,7 +41,11 @@
     "C:\\Users\\mossy\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\mossy\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\mossy\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
-    "C:\\Users\\mossy\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
+    "C:\\Users\\mossy\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
+    "C:\\Users\\mossy\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\mossy\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\mossy\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\mossy\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
   ],
   "logs": []
 }

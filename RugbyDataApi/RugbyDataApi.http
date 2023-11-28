@@ -1,0 +1,6 @@
+@RugbyDataApi_HostAddress = http://localhost:5221
+
+GET {{RugbyDataApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
