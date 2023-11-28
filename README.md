@@ -1,2 +1,0 @@
-# B8IT131_2223_TME3_Project_MPower_10609394
-Rugby Player Statistics Comparison App
