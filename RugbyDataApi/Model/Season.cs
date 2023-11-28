@@ -7,7 +7,7 @@ namespace RugbyDataApi.Models
         public string? Year { get; set; } // e.g.: 2023 / 2024
         public DateOnly Start_Date { get; set; } 
         public DateOnly End_Date { get; set; } 
-        // public string? Competition_Id { get; set; } 
-        // public List<Competition>? Competition { get; set; } 
+        public string? Competition_Id { get; set; } 
+        public List<Competition>? Competition { get; set; } 
     }
 }
