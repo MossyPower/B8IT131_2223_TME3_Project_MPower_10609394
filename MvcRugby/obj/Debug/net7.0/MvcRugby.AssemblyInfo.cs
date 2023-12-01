@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MvcRugby")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7fa53ec1261f661c524d81bfceb46398b9b857c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70af2df1fb46e42b1428392f333deb75e613c4b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("MvcRugby")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MvcRugby")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
