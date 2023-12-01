@@ -1,4 +1,4 @@
-namespace MvcRugby.Mappings;
+namespace RugbyDataApi.Mappings;
 public class Seasons
 {
     public string? id {get; set;} // E.g: "sr:season:106497"

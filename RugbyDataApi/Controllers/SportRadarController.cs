@@ -1,7 +1,12 @@
+// This controller fetchs data from Sport Radar third-party API and stores in locally only. 
+// Includes an automated background service to complete this.
+// Background service restricts number of calls per second / month to comply with third-party call limits.
+// This controller has no interaction with the MvcRugby App 
+
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using RugbyDataApi.Services;
 using System.Text.RegularExpressions;
+using RugbyDataApi.Services;
 using RugbyDataApi.Models;
 using RugbyDataApi.Mappings;
 
@@ -18,6 +23,15 @@ namespace RugbyDataApi.Controllers
             _sportRadarApiService = sportRadarApiService;
         }
         
+        // Start background service / fect & store methods here
+        // Assumed one required for each end point in the Sports Radar Api, i.e.: 
+        // Seasons
+        // SeasonLineup
+        // Players ==> this should be changed to match results
+        //    ^^^^ Save each players statistics to a seperate mode in the local database
+
+
+
         // URI: http://localhost:5254/SportRadar/Season
         public async Task<IActionResult> Index()
         {

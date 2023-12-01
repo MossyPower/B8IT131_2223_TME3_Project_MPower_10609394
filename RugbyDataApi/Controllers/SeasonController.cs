@@ -1,3 +1,5 @@
+// Need to scaffold a new controller for each model created?
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
