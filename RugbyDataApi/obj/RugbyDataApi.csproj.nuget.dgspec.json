@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataapi\\RugbyDataApi.csproj": {}
+    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataapi\\RugbyDataApi.csproj": {
+    "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataapi\\RugbyDataApi.csproj",
+        "projectUniqueName": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj",
         "projectName": "RugbyDataApi",
-        "projectPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataapi\\RugbyDataApi.csproj",
+        "projectPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj",
         "packagesPath": "C:\\Users\\mossy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataapi\\obj\\",
+        "outputPath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mossy\\AppData\\Roaming\\NuGet\\NuGet.Config"
