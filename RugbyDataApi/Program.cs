@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using RugbyDataApi.Models;
+using RugbyDataApi.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration
+    .GetConnectionString("RugbyDataApiDbConnection") ?? throw new InvalidOperationException("Connection string'RugbyDataApiDbConnection' not found.");
+
+builder.Services.AddDbContext<RugbyDataDbContext>(options =>
+    options.UseSqlite(connectionString));
 
 // Add services to the container.
 

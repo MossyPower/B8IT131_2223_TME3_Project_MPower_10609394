@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7byeQkaiNMAQMyjDogUC2StYP3tUyOeuVcOGH4UoiYbs1YBzimtDv6VZf+jO1uVhUZ9H1awNFqeynXeDVS0jkw==",
+  "dgSpecHash": "PpQokHGO301XfPhMtZpGQaHs8TOtlh1Q7rA11K3nUpPX0nBcLgmVdrqP7uAvNw7CfZ28vfwrAFZb1oPc1xc4rQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataApi\\RugbyDataApi.csproj",
+  "projectFilePath": "C:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\RugbyDataapi\\RugbyDataApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mossy\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\mossy\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
