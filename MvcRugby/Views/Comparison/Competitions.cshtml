@@ -1,0 +1,27 @@
+<!-- This view lists all current Competitions & Seasons for user selection -->
+@* @model MvcRugby.Models.CompetitionsViewModel *@
+@{
+    ViewData["Title"] = "Competition Seasons";
+}
+
+<h1>Competitions</h1>
+<p>To get started, select a competition:</p>
+
+@* <div class="container">
+    <div class="row">
+        <!-- Add condition, if the end-date of a season is before todays date, don't render the data about that competition -->
+        @foreach (var item in Model.Seasons)
+        {
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card text-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>                   
+                        <a class="btn btn-primary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@item.Id">
+                            <i class="bi bi-eye-fill"></i> Select competition
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div> *@

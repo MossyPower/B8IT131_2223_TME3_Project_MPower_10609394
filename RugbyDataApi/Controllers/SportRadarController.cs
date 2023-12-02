@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using RugbyDataApi.Services;
 using RugbyDataApi.Models;
 using RugbyDataApi.Mappings;
+using RugbyDataApi.Data;
 
 namespace RugbyDataApi.Controllers
 {
@@ -16,10 +17,12 @@ namespace RugbyDataApi.Controllers
     public class SportRadarController : Controller
     {       
         //Create an instance of the SportRadarApiService class
+        private readonly RugbyDataDbContext _rugbyDataDbContext;
         private readonly SportRadarApiService _sportRadarApiService;
         
-        public SportRadarController(SportRadarApiService sportRadarApiService)
+        public SportRadarController(RugbyDataDbContext rugbyDataDbContext, SportRadarApiService sportRadarApiService)
         {
+            _rugbyDataDbContext = rugbyDataDbContext;
             _sportRadarApiService = sportRadarApiService;
         }
         
@@ -30,7 +33,17 @@ namespace RugbyDataApi.Controllers
         // Players ==> this should be changed to match results
         //    ^^^^ Save each players statistics to a seperate mode in the local database
 
+            [HttpGet]
+            public async Task<IActionResult> SyncSeasons()
+            {
+                var seasonsFromApi = await _sportRadarApiService.GetSeasonsFromApi();
 
+                // Save to the database
+                _rugbyDataDbContext.Seasons.AddRange(seasonsFromApi);
+                await __rugbyDataDbContext.SaveChangesAsync();
+
+                return Ok("Seasons data synced successfully.");
+            }
 
         // URI: http://localhost:5254/SportRadar/Season
         public async Task<IActionResult> Index()

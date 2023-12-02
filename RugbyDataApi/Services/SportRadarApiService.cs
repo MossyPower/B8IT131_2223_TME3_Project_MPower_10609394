@@ -17,7 +17,7 @@ namespace RugbyDataApi.Services
         public async Task<SeasonInfo?> GetCompetitions()
         {   
             return await _httpClient.GetFromJsonAsync<SeasonInfo>("seasons"+API_KEY);
-        }     
+        }
 
         // Get Competition Rounds
         public async Task<SeasonLineups?> GetCompetitionRounds(string? SeasonId)

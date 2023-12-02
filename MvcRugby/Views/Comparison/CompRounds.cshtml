@@ -1,0 +1,55 @@
+<!-- This view lists all Rounds in a given Competition for user selection -->
+@* @model MvcRugby.Models.CompRoundsViewModel *@
+@{
+    ViewData["Title"] = "Competition Rounds";
+}
+
+@* <!-- "Rounds for: {Competition Name}"  -->
+<h1>Rounds for: @Model.CompetitionName</h1>
+<br>
+<!-- Back to previous page button -->
+<a class="btn btn-secondary" asp-controller="SportRadar" asp-action="Index">
+    <i class="bi bi-eye-fill"></i> Back to Competitions
+</a>
+<br>
+
+<!-- Get one of each round in the competition -->
+@foreach (var round in Model.Rounds)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"> Round</th> <!-- Round Number -->
+                <th scope="col"> Status</th> <!-- Status: i.e. Not started, Running or Completed -->
+                <th scope="col"> Date Started</th> <!--  Date the round starts / started -->
+                <th scope="col"> Date Ended</th> <!--   Date the round ends / ended -->
+                <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- For each round, show the upcoming / completed games -->
+            @foreach (var item in Model.Rounds)
+            {
+                <tr>
+                    @if(item.RoundNumber == null)
+                    {
+                        <td scope="row"> Nr. Unavailable</td>  <!-- Round Number -->
+                    }
+                    else
+                    {
+                        <th scope="row">@item.RoundNumber</th>  <!-- Round Number -->
+                    }
+                    <td>@item.Status</td> <!-- Status: i.e. Not started, Running or Completed -->
+                    <td>@item.StartTime</td> <!--  Date the round starts / started -->
+                    <td>@(item.StartTimeConfirmed == true ? "Yes" : "No")</td> <!--   Date the round ends / ended -->
+                    <!-- Button to select a round, pass round number to next controller -->
+                    <td>
+                        <a class="btn btn-primary" asp-controller="SportRadar" asp-action="RoundLineup" asp-route-id="@Model.SeasonId">
+                            <i class="bi bi-eye-fill"></i> Select Round
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} *@

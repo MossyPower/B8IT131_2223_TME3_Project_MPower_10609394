@@ -1,4 +1,4 @@
-// Need to scaffold a new controller for each model created?
+// Need to scaffold a new controller for each model
 
 using System;
 using System.Collections.Generic;
