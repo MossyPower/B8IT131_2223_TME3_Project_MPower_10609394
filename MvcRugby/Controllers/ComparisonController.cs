@@ -1,25 +1,25 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using MvcRugby.Models;
 using MvcRugby.Services;
-using Microsoft.AspNetCore.Authorization;
 using MvcRugby.Mappings;
 using System.Text.RegularExpressions;
 
 namespace MvcRugby.Controllers
 {
     // [Authorize]
-    public class SportRadarController : Controller
+    public class ComparisonController : Controller
     {       
-        //Create an instance of the SportRadarApiService class
+        //Create an instance of the ComparisonApiService class
         private readonly RugbyDataApiService _rugbyDataApiService;
         
-        public SportRadarController(RugbyDataApiService rugbyDataApiService)
+        public ComparisonController(RugbyDataApiService rugbyDataApiService)
         {
             _rugbyDataApiService = rugbyDataApiService;
         }
         
-        // URI: http://localhost:5254/SportRadar/Season
+        // URI: https://localhost:7286/RugbyDataApi/Seasons
         public async Task<IActionResult> Index()
         {
             // Get SportsRadar data from Api via services
@@ -47,7 +47,7 @@ namespace MvcRugby.Controllers
             }
         }
         
-        // URI: http://localhost:5254/SportRadar/GetSeasonLineups/sr%3Aseason%3A107205
+        // URI: https://localhost:7286/RugbyDataApi/SeasonLineups/sr%3Aseason%3A107205
         public async Task<IActionResult> CompRounds(string? id)
         {
             // Get SportsRadar data from Api via services, using id passed from Index() view by the user selection
@@ -87,7 +87,7 @@ namespace MvcRugby.Controllers
         }
         
         
-        // URI: http://localhost:5254/SportRadar/RoundLineup/sr%3Aseason%3A107205
+        // URI: https://localhost:7286/RugbyDataApi/RoundLineup/sr%3Aseason%3A107205
         //[HttpGet("RoundLineup/{id}")]
         public async Task<IActionResult> RoundLineup(string? id)
         {

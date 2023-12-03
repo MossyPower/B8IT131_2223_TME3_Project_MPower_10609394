@@ -8,6 +8,8 @@ namespace RugbyDataApi.Data
         public RugbyDataDbContext(DbContextOptions<RugbyDataDbContext> options) :
         base(options)
         {}
-        public DbSet<Season> Seasons { get; set; } = null!;
+        public DbSet<Seasons> seasons { get; set; } = null!;
+        public DbSet<SeasonLineups> seasonLineups { get; set; } = null!;
+        public DbSet<Players> players { get; set; } = null!;
     }
 }

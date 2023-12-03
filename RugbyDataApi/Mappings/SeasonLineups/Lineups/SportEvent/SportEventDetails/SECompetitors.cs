@@ -1,4 +1,4 @@
-namespace MvcRugby.Mappings
+namespace RugbyDataApi.Mappings
 {
     // Competing Team (e.g.: 75331, Zebre, ZEB, home, male)
     public class SECompetitors

@@ -1,4 +1,4 @@
-namespace MvcRugby.Mappings
+namespace RugbyDataApi.Mappings
 {
     public class SEContext
     {
