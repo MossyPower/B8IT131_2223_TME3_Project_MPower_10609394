@@ -14,21 +14,21 @@ namespace RugbyDataApi.Services
         }
         
         // Get Competitions
-        public async Task<SeasonInfo?> GetCompetitions()
+        public async Task<SrSeasonInfo?> GetCompetitions()
         {   
-            return await _httpClient.GetFromJsonAsync<SeasonInfo>("seasons"+API_KEY);
+            return await _httpClient.GetFromJsonAsync<SrSeasonInfo>("seasons"+API_KEY);
         }
 
         // Get Competition Rounds
-        public async Task<SeasonLineups?> GetCompetitionRounds(string? SeasonId)
+        public async Task<Sr_Season_Lineups?> GetCompetitionRounds(string? SeasonId)
         {   
-            return await _httpClient.GetFromJsonAsync<SeasonLineups>($"seasons/{SeasonId}/lineups{API_KEY}");
+            return await _httpClient.GetFromJsonAsync<Sr_Season_Lineups>($"seasons/{SeasonId}/lineups{API_KEY}");
         }
         
         // Get Competition Round Teams
-        public async Task<SeasonLineups?> GetRoundLineup(string? SeasonId)
+        public async Task<Sr_Season_Lineups?> GetRoundLineup(string? SeasonId)
         {   
-            return await _httpClient.GetFromJsonAsync<SeasonLineups>($"seasons/{SeasonId}/lineups{API_KEY}");
+            return await _httpClient.GetFromJsonAsync<Sr_Season_Lineups>($"seasons/{SeasonId}/lineups{API_KEY}");
         }
 
         // Get Player Statistics

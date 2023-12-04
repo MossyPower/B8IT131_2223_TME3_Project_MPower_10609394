@@ -17,6 +17,7 @@ using System.Text.RegularExpressions;
 using RugbyDataApi.Services;
 using RugbyDataApi.Models;
 using RugbyDataApi.Data;
+using RugbyDataApi.Mappings;
 
 namespace MvcRugby.Controllers
 {
@@ -33,21 +34,77 @@ namespace MvcRugby.Controllers
             _rugbyDataDbContext = rugbyDataDbContext;
             _sportRadarApiService = sportRadarApiService;
         }
-    
-        // Get Seasons from Sports Radar Api
-        [HttpGet]
+
+        // Sync Competitions Info from Sport Radar Api
         public async Task<IActionResult> SyncSeasons()
         {
             var seasonsFromApi = await _sportRadarApiService.GetCompetitions();
+            
+            // Assuming seasonInfo is not null and contains a list of seasons
+            List<Seasons> seasonsModel = new List<Seasons>();
+            
+            foreach (var srSeasons in seasonsFromApi.SrSeasons)
+            {
+                var existingSeason = _rugbyDataDbContext.seasons.FirstOrDefault(s => s.id == srSeasons.id);
 
-            // Save to the database
-            // MP Resources:
-            //      https://learn.microsoft.com/en-us/ef/core/change-tracking/miscellaneous#addrange-updaterange-attachrange-and-removerange
-            //      
-            _rugbyDataDbContext.seasons.AddRange(seasonsFromApi);
+                if (existingSeason == null)
+                {
+                    seasonsModel.Add(new Seasons{
+                        id = srSeasons.id,
+                        name = srSeasons.name,
+                        start_date = srSeasons.start_date,
+                        end_date = srSeasons.end_date,
+                        year = srSeasons.year,
+                        competition_id = srSeasons.competition_id
+                    });
+                }
+            }
+            
+            // Add the entire collection to the DbContext
+            _rugbyDataDbContext.seasons.AddRange(seasonsModel);
+
+            // Save changes once, after adding all seasons
             await _rugbyDataDbContext.SaveChangesAsync();
 
             return Ok("Data synced successfully.");
         }
+
+        // public async Task<IActionResult> SyncSeasonLineups()
+        // {
+        //     var season_Lineups_From_Api = await _sportRadarApiService.GetCompetitionRounds(SeasonId);
+            
+        //     // Assuming seasonInfo is not null and contains a list of seasons
+        //     List<SeasonLineups> seasonLineups = new List<SeasonLineups>();
+            
+        //     foreach (var sR_Season_Lineup in season_Lineups_From_Api.Sr_Seasons)
+        //     {
+        //         var existingSeasonLineup = _rugbyDataDbContext.seasonLineups.FirstOrDefault(sL => sL.lineups == sR_Season_Lineup.);
+
+        //         if (existingSeasonLineup == null)
+        //         {
+        //             SeasonLineups.Add(new SeasonLineups{
+        //                 id = sR_Season_Lineup.id,
+        //                 name = sR_Season_Lineup.name,
+        //                 start_date = sR_Season_Lineup.start_date,
+        //                 end_date = sR_Season_Lineup.end_date,
+        //                 year = sR_Season_Lineup.year,
+        //                 competition_id = sR_Season_Lineup.competition_id
+        //             });
+        //         }
+        //     }
+            
+        //     // Add the entire collection to the DbContext
+        //     _rugbyDataDbContext.seasons.AddRange(seasonsModel);
+
+        //     // Save changes once, after adding all seasons
+        //     await _rugbyDataDbContext.SaveChangesAsync();
+
+        //     return Ok("Data synced successfully.");
+        // }
+        
+        // public async Task<IActionResult> Syncplayers()
+        // {
+        //     return null;
+        // }
     }
 }
