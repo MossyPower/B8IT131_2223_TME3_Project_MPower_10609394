@@ -3,6 +3,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the rugby player statistics comparison website</h1>
+</div>
+<div>
+    <h2>How It Works</h2>
+    <ol>
+        <br>
+        <li>Select a Competition</li>
+        <br>
+        <p>All of the tier 1 main competitions are supported: 6 Nations, Champions Cup, URC, Top 14, Premiership</p>
+        <br>
+        <li>Select a round</li>
+        <br>
+        <p>All Teams for the selected round will be shown, including the Average statistics for each player for the competition to date.</p>
+        <br>
+        <a class="btn btn-primary" asp-controller="SportRadar" asp-action="Index">
+            <i class="bi bi-eye-fill"></i> Get Started
+        </a>
+    </ol>
 </div>

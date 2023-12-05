@@ -1,5 +1,5 @@
 <!-- This view lists all current Competitions & Seasons for user selection -->
-@* @model MvcRugby.Models.CompetitionsViewModel *@
+@model MvcRugby.Models.CompetitionsViewModel
 @{
     ViewData["Title"] = "Competition Seasons";
 }
@@ -7,7 +7,7 @@
 <h1>Competitions</h1>
 <p>To get started, select a competition:</p>
 
-@* <div class="container">
+<div class="container">
     <div class="row">
         <!-- Add condition, if the end-date of a season is before todays date, don't render the data about that competition -->
         @foreach (var item in Model.Seasons)
@@ -24,4 +24,4 @@
             </div>
         }
     </div>
-</div> *@
+</div>

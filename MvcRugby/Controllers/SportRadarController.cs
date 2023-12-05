@@ -19,8 +19,13 @@ namespace MvcRugby.Controllers
             _sportRadarApiService = sportRadarApiService;
         }
         
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         // URI: http://localhost:5254/SportRadar/Season
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Competitions()
         {
             // Get SportsRadar data from Api via services
             var competitions = await _sportRadarApiService.GetCompetitions();
@@ -34,8 +39,8 @@ namespace MvcRugby.Controllers
                 if (competitions != null)
                 {
                     ViewModel.Seasons = competitions?.Sr_Seasons? // initialise ViewModel with the info from mappings.Sr_Season_Info.Sr_Seasons
-                        .Where(season => DateTime.Parse(season.end_date) >= DateTime.Today) // where the seasons end date is the same or later than todays date
-                        .Select(season => new SeasonViewModel { Name = season.name, Id = season.id }) // the info to initialise: name and ID
+                        .Where(Sr_Seasons => DateTime.Parse(Sr_Seasons?.Sr_End_Date) >= DateTime.Today) // where the seasons end date is the same or later than todays date
+                        .Select(Sr_Seasons => new SeasonViewModel { Name = Sr_Seasons.Sr_Name, Id = Sr_Seasons.Sr_Id }) // the info to initialise: name and ID
                         .ToList(); // way to initialse the data, i.e. as a list
                 };
                 
@@ -46,7 +51,7 @@ namespace MvcRugby.Controllers
                 return NotFound(); // else return 404 error
             }
         }
-        
+
         // URI: http://localhost:5254/SportRadar/GetSeasonLineups/sr%3Aseason%3A107205
         public async Task<IActionResult> CompRounds(string? id)
         {

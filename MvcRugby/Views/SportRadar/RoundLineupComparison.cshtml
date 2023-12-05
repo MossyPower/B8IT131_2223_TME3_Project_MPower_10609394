@@ -1,10 +1,10 @@
 <!-- This view lists all Rounds in a given Competition for user selection -->
-@* @model MvcRugby.Models.RoundLineupViewModel *@
+@model MvcRugby.Models.RoundLineupViewModel
 @{
     ViewData["Title"] = "Round Info";
 }
 
-@* <!-- "{Competition Name}, Round: {Number}"  -->
+<!-- "{Competition Name}, Round: {Number}"  -->
 <h1>@Model.RoundDetails?.FirstOrDefault()?.CompetitionName - Round @Model.RoundDetails?.FirstOrDefault()?.RoundNumber</h1>
 <br>
 <!-- Back to previous page button - should have asp.action of season id-->
@@ -69,7 +69,7 @@
                             <!-- return that player name, against the correct jersey number -->
                             <div>@player.PlayerName</div>                        
                             
-                            @* @foreach (var stat in Model.Players)
+                            @foreach (var stat in Model.Players)
                             {
                                 <td>@stat.BallPossession?</td>
                                 <td>@stat.Carries?</td>
@@ -99,4 +99,4 @@
             </tr>
         }
     </tbody>
-</table> *@
+</table>
