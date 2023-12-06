@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using MvcRugby.Models;
 using MvcRugby.Services;
+using Microsoft.AspNetCore.Authorization;
 using MvcRugby.Mappings;
 using System.Text.RegularExpressions;
 
@@ -11,7 +11,7 @@ namespace MvcRugby.Controllers
     // [Authorize]
     public class SportRadarController : Controller
     {       
-        //Create an instance of the ComparisonApiService class
+        //Create an instance of the SportRadarApiService class
         private readonly SportRadarApiService _sportRadarApiService;
         
         public SportRadarController(SportRadarApiService sportRadarApiService)
@@ -19,12 +19,13 @@ namespace MvcRugby.Controllers
             _sportRadarApiService = sportRadarApiService;
         }
         
+        // URI: http://localhost:5254/SportRadar/Season
+        
         public IActionResult Index()
         {
             return View();
         }
-
-        // URI: http://localhost:5254/SportRadar/Season
+        
         public async Task<IActionResult> Competitions()
         {
             // Get SportsRadar data from Api via services
@@ -38,9 +39,9 @@ namespace MvcRugby.Controllers
 
                 if (competitions != null)
                 {
-                    ViewModel.Seasons = competitions?.Sr_Seasons? // initialise ViewModel with the info from mappings.Sr_Season_Info.Sr_Seasons
-                        .Where(Sr_Seasons => DateTime.Parse(Sr_Seasons?.Sr_End_Date) >= DateTime.Today) // where the seasons end date is the same or later than todays date
-                        .Select(Sr_Seasons => new SeasonViewModel { Name = Sr_Seasons.Sr_Name, Id = Sr_Seasons.Sr_Id }) // the info to initialise: name and ID
+                    ViewModel.Seasons = competitions?.seasons? // initialise ViewModel with the info from mappings.SeasonInfo.seasons
+                        .Where(season => DateTime.Parse(season.end_date) >= DateTime.Today) // where the seasons end date is the same or later than todays date
+                        .Select(season => new SeasonViewModel { Name = season.name, Id = season.id }) // the info to initialise: name and ID
                         .ToList(); // way to initialse the data, i.e. as a list
                 };
                 
@@ -51,7 +52,7 @@ namespace MvcRugby.Controllers
                 return NotFound(); // else return 404 error
             }
         }
-
+        
         // URI: http://localhost:5254/SportRadar/GetSeasonLineups/sr%3Aseason%3A107205
         public async Task<IActionResult> CompRounds(string? id)
         {
@@ -65,20 +66,20 @@ namespace MvcRugby.Controllers
                 var ViewModel = new CompRoundsViewModel()
                 {
                     // Initialise the ViewModel CompetitionName attribute with the API data, using Mappings -> lineups () -> sport_event -> sport_event_context -> groups () -> name 
-                    CompetitionName = CompetitionRounds?.Sr_Lineups?.FirstOrDefault()?.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Groups?.FirstOrDefault()?.Sr_Name, 
+                    CompetitionName = CompetitionRounds?.lineups?.FirstOrDefault()?.sport_event?.sport_event_context?.groups?.FirstOrDefault()?.name, 
                     
                     // Get the season ID for the next call
-                    SeasonId = CompetitionRounds?.Sr_Lineups[0]?.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Season?.Sr_Id,
+                    SeasonId = CompetitionRounds?.lineups[0]?.sport_event?.sport_event_context?.season?.id,
 
                     // Initialise the CompRoundsViewModel list<Rounds>, with info from the Api via services, using mappings -> SeasonLineups -> List<Lineups> lineups 
-                    Rounds = CompetitionRounds?.Sr_Lineups?
-                        .GroupBy(item => item.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Round?.Sr_Number)
+                    Rounds = CompetitionRounds?.lineups?
+                        .GroupBy(item => item.sport_event?.sport_event_context?.round?.number)
                         .Select(group => new RoundViewModel //each item in the list is an instance of the RoundsViewModel (within the CompRoundsViewModel) 
                         {
                             RoundNumber = group.Key ?? -1, // Group key is the round number
-                            Status = group.First().Sr_Sport_Event_Status?.Sr_Status,
-                            StartTime = DateTime.Parse(group.First().Sr_Sport_Event?.Sr_start_Time),
-                            StartTimeConfirmed = group.First().Sr_Sport_Event?.Sr_Start_Time_Confirmed ?? false
+                            Status = group.First().sport_event_status?.status,
+                            StartTime = DateTime.Parse(group.First().sport_event?.start_time),
+                            StartTimeConfirmed = group.First().sport_event?.start_time_confirmed ?? false
                         })
                         .ToList()
                 };  
@@ -92,7 +93,7 @@ namespace MvcRugby.Controllers
         }
         
         
-        // URI: https://localhost:7286/RugbyDataApi/RoundLineup/sr%3Aseason%3A107205
+        // URI: http://localhost:5254/SportRadar/RoundLineup/sr%3Aseason%3A107205
         //[HttpGet("RoundLineup/{id}")]
         public async Task<IActionResult> RoundLineup(string? id)
         {
@@ -100,11 +101,11 @@ namespace MvcRugby.Controllers
             var roundLineup = await _sportRadarApiService.GetRoundLineup(id);
 
             // Check to see if data returned from API
-            if (roundLineup != null && roundLineup.Sr_Lineups != null)
+            if (roundLineup != null && roundLineup.lineups != null)
             {
-                foreach (var sportEvent in roundLineup.Sr_Lineups)
+                foreach (var sportEvent in roundLineup.lineups)
                 {
-                    if (sportEvent?.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Round?.Sr_Number == 4)
+                    if (sportEvent?.sport_event?.sport_event_context?.round?.number == 4)
                     {
                         var viewModel = new RoundLineupViewModel()
                         {
@@ -112,9 +113,9 @@ namespace MvcRugby.Controllers
                             {
                                 new RoundDetail
                                 {
-                                    SeasonId = sportEvent.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Season?.Sr_Id,
-                                    CompetitionName = sportEvent.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Groups?.FirstOrDefault()?.Sr_Name,
-                                    RoundNumber = sportEvent.Sr_Sport_Event?.Sr_Sport_Event_Context?.Sr_Round?.Sr_Number ?? -1,
+                                    SeasonId = sportEvent.sport_event.sport_event_context.season?.id,
+                                    CompetitionName = sportEvent.sport_event.sport_event_context.groups?.FirstOrDefault()?.name,
+                                    RoundNumber = sportEvent.sport_event.sport_event_context.round?.number ?? -1,
                                     Teams = new List<RoundTeams>()
                                 }
                             },
@@ -122,30 +123,30 @@ namespace MvcRugby.Controllers
                         };
 
                         // Check if there are competitors (i.e. Teams) in the lineups for the round
-                        if (sportEvent.Lineups?.Sr_Sport_Event_Lineup_Competitors?.Any() == true)
+                        if (sportEvent.lineups?.competitors?.Any() == true)
                         {
                             //var tasks = new List<Task>();
 
-                            foreach (var competitor in sportEvent.Lineups.Sr_Sport_Event_Lineup_Competitors)
+                            foreach (var competitor in sportEvent.lineups.competitors)
                             {
                                 var teamViewModel = new RoundTeams
                                 {
-                                    TeamId = competitor.Sr_Id,
-                                    TeamName = competitor.Sr_name,
+                                    TeamId = competitor.id,
+                                    TeamName = competitor.name,
                                     Players = new List<MatchSquad>()
                                 };
 
                                 // Check if there are players in the competitor
-                                if (competitor.Sr_Players != null)
+                                if (competitor.players != null)
                                 {
-                                    foreach (var player in competitor.Sr_Players)
+                                    foreach (var player in competitor.players)
                                     {
                                         var matchSquad = new MatchSquad
                                         {
-                                            PlayerId = player.Sr_Id,
-                                            PlayerName = player.Sr_Name,
-                                            PlayerNumber = player.Sr_Jersey_Number ?? -1,
-                                            PlayerPosition = player.Sr_Type
+                                            PlayerId = player.id,
+                                            PlayerName = player.name,
+                                            PlayerNumber = player.jersey_number ?? -1,
+                                            PlayerPosition = player.type
                                         };
 
                                         teamViewModel.Players.Add(matchSquad);

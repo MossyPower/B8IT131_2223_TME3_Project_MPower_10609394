@@ -6,6 +6,7 @@ namespace MvcRugby.Models
     {
         public List<SeasonViewModel>? Seasons { get; set; } //multiple Comps/Seasons, hence a list is required 
     }
+    
     public class SeasonViewModel
     {
         public string? Id { get; set; } // Season Id

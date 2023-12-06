@@ -2,14 +2,14 @@ using MvcRugby.Mappings;
 public interface ISportRadarApiService
 {
     // Get Competitions
-    Task<Sr_Season_Info?> GetCompetitions();
+    Task<SeasonInfo?> GetCompetitions();
     
-    // Get Competition Rounds
-    Task<Sr_Season_Lineups?> GetCompetitionRounds(string? SeasonId);
+    //Get Competition Rounds
+    Task<SeasonLineups?> GetCompetitionRounds(string? SeasonId);
     
-    // Get Competition Round Teams
-    Task<Sr_Season_Lineups?> GetRoundLineup(string? SeasonId);
+    //Get Competition Round Teams
+    Task<SeasonLineups?> GetRoundLineup(string? SeasonId);
 
-    // Get Player Statistics
+    //Get Player Statistics
     Task<Players?> GetPlayerStatistics(string? PlayerId);
 }

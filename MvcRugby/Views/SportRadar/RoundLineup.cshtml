@@ -1,0 +1,156 @@
+<!-- This view lists all Rounds in a given Competition for user selection -->
+@model MvcRugby.Models.RoundLineupViewModel
+@{
+    ViewData["Title"] = "Round Info";
+}
+
+<!-- "{Competition Name}, Round: {Number}"  -->
+<h1>@Model.RoundDetails?.FirstOrDefault()?.CompetitionName - Round @Model.RoundDetails?.FirstOrDefault()?.RoundNumber</h1>
+<br>
+<!-- Back to previous page button - should have asp.action of season id-->
+<a class="btn btn-secondary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@Model.RoundDetails?.FirstOrDefault()?.SeasonId">
+    <i class="bi bi-eye-fill"></i> Back to Competition Rounds
+</a>
+<br>
+<br>
+
+<table class="table table-dark">
+    <!-- Table headers -->
+    <thead>
+        <tr>
+            <!-- static left column header -->
+            <th scope="col">Position</th>
+            <!-- Name each individual Team in the round -->
+            @foreach (var team in Model.RoundDetails?.FirstOrDefault()?.Teams)
+            {
+                <th scope="col">@team.TeamName</th>
+            }
+        </tr>
+    </thead>
+    <!-- table content -->
+    <tbody>
+        <!-- iterate over each team position -->
+        @for (int i = 1; i <= 23; i++)
+        {
+            <!-- Add row of data -->
+            <tr>
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Player Name: </th>
+                        </tr>
+                        <tr>
+                            <td>Number: @i</td>
+                        </tr>
+                        <tr>
+                            <td>Position: </td>
+                        </tr>
+                        <tr>
+                            <td>Ball Possession: </td>
+                        </tr>
+                        <tr>
+                            <td>Carries: </td>
+                        </tr>
+                        <tr>
+                            <td>Clean Breaks: </td>
+                        </tr>
+                        <tr>
+                            <td>Conversions: </td>
+                        </tr>
+                        <tr>
+                            <td>Drop Goals: </td>
+                        </tr>
+                        <tr>
+                            <td>Lineouts won: </td>
+                        </tr>
+                        <tr>
+                            <td>Meters run: </td>
+                        </tr>
+                        <tr>
+                            <td>Offloads: </td>
+                        </tr>
+                        <tr>
+                            <td>Passes: </td>
+                        </tr>
+                        <tr>
+                            <td>Penalties Conceded: </td>
+                        </tr>
+                        <tr>
+                            <td>PenaltyGoals: </td>
+                        </tr>
+                        <tr>
+                            <td>Red Cards: </td>
+                        </tr>
+                        <tr>
+                            <td>Scrums Lost: </td>
+                        </tr>
+                        <tr>
+                            <td>Scrums Won: </td>
+                        </tr>
+                        <tr>
+                            <td>Total Scrums: </td>
+                        </tr>
+                        <tr>
+                            <td>Tackle Missed: </td>
+                        </tr>
+                        <tr>
+                            <td>Tackles: </td>
+                        </tr>
+                        <tr>
+                            <td>Tries: </td>
+                        </tr>
+                        <tr>
+                            <td>Try Assist: </td>
+                        </tr>
+                        <tr>
+                            <td>Turnovers Won: </td>
+                        </tr>
+                        <tr>
+                            <td>Yellow Cards: </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tr>
+            @* <tr> *@
+                <!-- iterate over every team returned in the JSON data, -->
+                @* @foreach (var team in Model.RoundDetails?.FirstOrDefault()?.Teams)
+                {
+                    <!-- Individual cell -->
+                    <td>
+                        <!-- for each player in each team of the JSON data, with the player number == to i -->
+                        @foreach (var player in team.Players.Where(p => p.PlayerNumber == i))
+                        {
+                            <!-- return that player name, against the correct jersey number -->
+                            <div>@player.PlayerName</div>                        
+                            
+                            @foreach (var stat in Model.Players)
+                            {
+                                <td>@stat.BallPossession?</td>
+                                <td>@stat.Carries?</td>
+                                <td>@stat.CleanBreaks?</td>
+                                <td>@stat.Conversions?</td>
+                                <td>@stat.DropGoals?</td>
+                                <td>@stat.LineoutsWon?</td>
+                                <td>@stat.MetersRun?</td>
+                                <td>@stat.Offloads?</td>
+                                <td>@stat.Passes?</td>
+                                <td>@stat.PenaltiesConceded?</td>
+                                <td>@stat.PenaltyGoals?</td>
+                                <td>@stat.RedCards?</td>
+                                <td>@stat.ScrumsLost?</td>
+                                <td>@stat.ScrumsWon?</td>
+                                <td>@stat.TackleMissed?</td>
+                                <td>@stat.Tackles?</td>
+                                <td>@stat.TotalScrums?</td>
+                                <td>@stat.Tries?</td>
+                                <td>@stat.TryAssist?</td>
+                                <td>@stat.TurnoversWon?</td>
+                                <td>@stat.YellowCards?</td>
+                            }
+                        }
+                    </td> *@
+                @* } *@
+            @* </tr> *@
+        }
+    </tbody>
+</table>
