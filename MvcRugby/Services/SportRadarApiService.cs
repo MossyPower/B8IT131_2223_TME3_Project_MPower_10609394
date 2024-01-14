@@ -5,7 +5,7 @@ namespace MvcRugby.Services
     public class SportRadarApiService : ISportRadarApiService
     {
         private readonly HttpClient _httpClient;
-        private string API_KEY = ".json?api_key=r577fne89ddc78h7vc9zpq5v";
+        private string API_KEY = ".json?api_key=gs7gsba9bhgtabs32wpuh3pw";
 
         public SportRadarApiService(HttpClient httpClient)
         {
@@ -16,7 +16,7 @@ namespace MvcRugby.Services
         // Get Competitions
         public async Task<SeasonInfo?> GetCompetitions()
         {   
-            return await _httpClient.GetFromJsonAsync<SeasonInfo>("seasons"+API_KEY);
+            return await _httpClient.GetFromJsonAsync<SeasonInfo>($"seasons"+API_KEY);
         }     
 
         //Get Competition Rounds

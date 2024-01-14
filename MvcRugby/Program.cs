@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MvcRugby.Data;
@@ -6,16 +7,34 @@ using MvcRugby.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Add Authorisation at startup
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
+// Add Sport Radar API service
 builder.Services.AddHttpClient<SportRadarApiService>();
+
+// Add Http Client at startup
+builder.Services.AddHttpClient("RugbyDataApi", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5217");
+    client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue(
+            mediaType: "application/json",
+            quality: 1.0
+        )
+    );
+});
 
 var app = builder.Build();
 

@@ -41,7 +41,7 @@ namespace MvcRugby.Controllers
                 {
                     ViewModel.Seasons = competitions?.seasons? // initialise ViewModel with the info from mappings.SeasonInfo.seasons
                         .Where(season => DateTime.Parse(season.end_date) >= DateTime.Today) // where the seasons end date is the same or later than todays date
-                        .Select(season => new SeasonViewModel { Name = season.name, Id = season.id }) // the info to initialise: name and ID
+                        .Select(season => new SeasonViewModel { Name = season.name, Id = season.Id }) // the info to initialise: name and ID
                         .ToList(); // way to initialse the data, i.e. as a list
                 };
                 

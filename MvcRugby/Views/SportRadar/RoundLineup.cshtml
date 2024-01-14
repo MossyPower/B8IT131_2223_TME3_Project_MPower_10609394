@@ -14,7 +14,7 @@
 <br>
 <br>
 
-<table class="table table-dark">
+<table class="table table-dark table-bordered">
     <!-- Table headers -->
     <thead>
         <tr>
@@ -38,79 +38,112 @@
                     <tbody>
                         <tr>
                             <th>Player Name: </th>
+                            <td>Zeb PLayer 1 </td>
+                            <td>Sharks Player 1</td>
                         </tr>
                         <tr>
-                            <td>Number: @i</td>
+                            <td scope="col">Number: @i</td>
+                            <!-- Note: Include a foreach loop under each statistic. For each team, add a column with the relevant data agaians each statistic -->
+                            <!-- foreach (var team in Model.RoundDetails?.FirstOrDefault()?.Teams) -->
+                            <!-- <td> Corresponding statistic </td> -->
                         </tr>
                         <tr>
                             <td>Position: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Ball Possession: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Carries: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Clean Breaks: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Conversions: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Drop Goals: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Lineouts won: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Meters run: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Offloads: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Passes: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Penalties Conceded: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>PenaltyGoals: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Red Cards: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Scrums Lost: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Scrums Won: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Total Scrums: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Tackle Missed: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Tackles: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Tries: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Try Assist: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Turnovers Won: </td>
+                            <!-- Ditto above -->
                         </tr>
                         <tr>
                             <td>Yellow Cards: </td>
+                            <!-- Ditto above -->
                         </tr>
                     </tbody>
                 </table>
             </tr>
+            
+            
+            
+            
+            
+            
             @* <tr> *@
                 <!-- iterate over every team returned in the JSON data, -->
                 @* @foreach (var team in Model.RoundDetails?.FirstOrDefault()?.Teams)

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RugbyDataApi.Data;
 
@@ -10,9 +11,11 @@ using RugbyDataApi.Data;
 namespace RugbyDataApi.Migrations
 {
     [DbContext(typeof(RugbyDataDbContext))]
-    partial class RugbyDataDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240114113812_AddRugbyData")]
+    partial class AddRugbyData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
