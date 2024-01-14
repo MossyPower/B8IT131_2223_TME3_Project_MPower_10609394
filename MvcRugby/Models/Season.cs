@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RugbyDataApi.Models
+namespace MvcRugby.Models
 {
     public class Season
     {
         [Required]
-        public string? Id { get; set; }
+        public int Id { get; set; }
         public string? SportRadar_Id {get; set;} // "sr:season:106497"  **use source ID system
         public string? Year { get; set; } // "23/24"
         public DateTime? Start_Date { get; set; } // 2023-10-21  **Need to convert string to DateTime from incoming JSON data

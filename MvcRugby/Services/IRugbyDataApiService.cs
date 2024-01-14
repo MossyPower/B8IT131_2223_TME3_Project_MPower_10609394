@@ -1,15 +1,13 @@
-// using MvcRugby.Mappings;
-// public interface IRugbyDataApiService
-// {
-//     // Get Competitions
-//     Task<SeasonInfo?> GetCompetitions();
-    
-//     // Get Competition Rounds
-//     Task<SeasonLineups?> GetCompetitionRounds(string? SeasonId);
-    
-//     // Get Competition Round Teams
-//     Task<SeasonLineups?> GetRoundLineup(string? SeasonId);
+using MvcRugby.Models;
 
-//     // Get Player Statistics
-//     Task<Players?> GetPlayerStatistics(string? PlayerId);
-// }
+public interface IRugbyDataApiService
+{
+    Task<IEnumerable<Club>?> GetClubs();
+    Task<IEnumerable<Season>?> GetSeasons();
+    Task<IEnumerable<Competition>?> GetCompetitions();
+    Task<IEnumerable<CompetitionRound>?> GetCompetitionRounds();
+    Task<IEnumerable<CompetitionGame>?> GetCompetitionGames();
+    Task<IEnumerable<MatchDayTeam>?> GetMatchDayTeams();
+    Task<IEnumerable<Player>?> GetPlayers();
+    Task<IEnumerable<PlayerMatchStatistics>?> GetPlayerMatchStatistics();
+}

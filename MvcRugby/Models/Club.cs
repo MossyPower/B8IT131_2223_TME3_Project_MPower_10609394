@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RugbyDataApi.Models
+namespace MvcRugby.Models
 {
     public class Club
     {
         [Required]
-        public string? Id { get; set; }
+        public int Id { get; set; }
         public string? SportRadar_Id {get; set;}
         public string? Competition_Name { get; set; } // e.g.: United Rugby Championship
         public string? Club_Name { get; set; } // E.g.: Munster

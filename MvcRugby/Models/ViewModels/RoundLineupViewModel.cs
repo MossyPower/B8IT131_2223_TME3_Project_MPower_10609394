@@ -33,7 +33,7 @@ namespace MvcRugby.Models
     }
     
     // Model 2: Pull info from Mappings / Players    
-    public class Player
+    public class Players
     {
         public int? BallPossession { get; set; }
         public int? Carries { get; set; }

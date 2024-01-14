@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RugbyDataApi.Models
+namespace MvcRugby.Models
 {
     public class MatchDayTeam
     {
         [Required]
-        public string? Id { get; set; }
+        public int Id { get; set; }
         public string? SportRadar_Id {get; set;}    
         
         // Relationship with 

@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RugbyDataApi.Models
+namespace MvcRugby.Models
 {
     public class Competition
     {
               
         [Required]
-        public string? Id { get; set; }
+        public int Id { get; set; }
         public string? SportRadar_Id {get; set;}
         public string? Competition_Name { get; set; }
         public  DateTime? Start_Date { get; set; }
