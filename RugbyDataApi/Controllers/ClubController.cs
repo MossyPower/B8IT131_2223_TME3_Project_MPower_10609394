@@ -34,7 +34,7 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/Club/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Club>> GetClub(string id)
+        public async Task<ActionResult<Club>> GetClub(int id)
         {
           if (_context.Club == null)
           {
@@ -53,7 +53,7 @@ namespace RugbyDataApi.Controllers
         // PUT: api/Club/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClub(string id, Club club)
+        public async Task<IActionResult> PutClub(int id, Club club)
         {
             if (id != club.Id)
             {
@@ -112,7 +112,7 @@ namespace RugbyDataApi.Controllers
 
         // DELETE: api/Club/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClub(string id)
+        public async Task<IActionResult> DeleteClub(int id)
         {
             if (_context.Club == null)
             {
@@ -130,7 +130,7 @@ namespace RugbyDataApi.Controllers
             return NoContent();
         }
 
-        private bool ClubExists(string id)
+        private bool ClubExists(int id)
         {
             return (_context.Club?.Any(e => e.Id == id)).GetValueOrDefault();
         }

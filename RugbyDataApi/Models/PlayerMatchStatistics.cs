@@ -5,7 +5,7 @@ namespace RugbyDataApi.Models
     public class PlayerMatchStatistics
     {
         [Required]
-        public string? Id { get; set; }
+        public int Id { get; set; }
         public string? SportRadar_Id {get; set;}
         public string? Tries { get; set; }
         public int? Try_Assists { get; set; } 

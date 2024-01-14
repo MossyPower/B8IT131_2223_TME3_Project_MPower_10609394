@@ -11,7 +11,7 @@ using RugbyDataApi.Data;
 namespace RugbyDataApi.Migrations
 {
     [DbContext(typeof(RugbyDataDbContext))]
-    [Migration("20240114113812_AddRugbyData")]
+    [Migration("20240114155135_AddRugbyData")]
     partial class AddRugbyData
     {
         /// <inheritdoc />
@@ -22,8 +22,9 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.Club", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Club_Name")
                         .HasColumnType("TEXT");
@@ -34,8 +35,8 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MatchDayTeamId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("MatchDayTeamId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SportRadar_Id")
                         .HasColumnType("TEXT");
@@ -49,11 +50,12 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.Competition", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("ClubsId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("ClubsId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Competition_Name")
                         .HasColumnType("TEXT");
@@ -61,8 +63,8 @@ namespace RugbyDataApi.Migrations
                     b.Property<DateOnly?>("End_Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SeasonId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("SeasonId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SportRadar_Id")
                         .HasColumnType("TEXT");
@@ -81,17 +83,18 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.CompetitionGame", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Away_Score")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CompetitionId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("CompetitionId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("CompetitionRoundId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("CompetitionRoundId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Home_Score")
                         .HasColumnType("TEXT");
@@ -113,11 +116,12 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.CompetitionRound", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("CompetitionId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("CompetitionId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("End_Date")
                         .HasColumnType("TEXT");
@@ -143,11 +147,12 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.MatchDayTeam", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("CompetitionGameId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("CompetitionGameId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SportRadar_Id")
                         .HasColumnType("TEXT");
@@ -161,14 +166,15 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Age")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ClubId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("First_Name")
                         .HasColumnType("TEXT");
@@ -179,8 +185,8 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("Last_Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MatchDayTeamId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("MatchDayTeamId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nationality")
                         .HasColumnType("TEXT");
@@ -205,8 +211,9 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.PlayerMatchStatistics", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Ball_Possessition")
                         .HasColumnType("INTEGER");
@@ -217,8 +224,8 @@ namespace RugbyDataApi.Migrations
                     b.Property<int?>("Clean_Breaks")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CompetitionGameId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("CompetitionGameId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Conversions")
                         .HasColumnType("INTEGER");
@@ -247,8 +254,8 @@ namespace RugbyDataApi.Migrations
                     b.Property<int?>("Penalty_Goals")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PlayerId")
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Red_Cards")
                         .HasColumnType("INTEGER");
@@ -294,8 +301,9 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.Season", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Competition_Name")
                         .HasColumnType("TEXT");

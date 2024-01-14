@@ -34,7 +34,7 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/MatchDayTeam/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MatchDayTeam>> GetMatchDayTeam(string id)
+        public async Task<ActionResult<MatchDayTeam>> GetMatchDayTeam(int id)
         {
           if (_context.MatchDayTeams == null)
           {
@@ -53,7 +53,7 @@ namespace RugbyDataApi.Controllers
         // PUT: api/MatchDayTeam/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMatchDayTeam(string id, MatchDayTeam matchDayTeam)
+        public async Task<IActionResult> PutMatchDayTeam(int id, MatchDayTeam matchDayTeam)
         {
             if (id != matchDayTeam.Id)
             {
@@ -112,7 +112,7 @@ namespace RugbyDataApi.Controllers
 
         // DELETE: api/MatchDayTeam/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMatchDayTeam(string id)
+        public async Task<IActionResult> DeleteMatchDayTeam(int id)
         {
             if (_context.MatchDayTeams == null)
             {
@@ -130,7 +130,7 @@ namespace RugbyDataApi.Controllers
             return NoContent();
         }
 
-        private bool MatchDayTeamExists(string id)
+        private bool MatchDayTeamExists(int id)
         {
             return (_context.MatchDayTeams?.Any(e => e.Id == id)).GetValueOrDefault();
         }

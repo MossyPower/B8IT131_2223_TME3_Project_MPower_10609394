@@ -11,21 +11,34 @@ namespace RugbyDataApi.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Competition_Id",
-                table: "Seasons",
-                newName: "SportRadar_Id");
+            migrationBuilder.CreateTable(
+                name: "Seasons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
+                    Year = table.Column<string>(type: "TEXT", nullable: true),
+                    StartDate = table.Column<DateTime>(name: "Start_Date", type: "TEXT", nullable: true),
+                    EndDate = table.Column<DateTime>(name: "End_Date", type: "TEXT", nullable: true),
+                    CompetitionName = table.Column<string>(name: "Competition_Name", type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seasons", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Club",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     CompetitionName = table.Column<string>(name: "Competition_Name", type: "TEXT", nullable: true),
                     ClubName = table.Column<string>(name: "Club_Name", type: "TEXT", nullable: true),
                     Country = table.Column<string>(type: "TEXT", nullable: true),
-                    MatchDayTeamId = table.Column<string>(type: "TEXT", nullable: true)
+                    MatchDayTeamId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,13 +49,14 @@ namespace RugbyDataApi.Migrations
                 name: "Competitions",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     CompetitionName = table.Column<string>(name: "Competition_Name", type: "TEXT", nullable: true),
                     StartDate = table.Column<DateTime>(name: "Start_Date", type: "TEXT", nullable: true),
                     EndDate = table.Column<DateOnly>(name: "End_Date", type: "TEXT", nullable: true),
-                    SeasonId = table.Column<string>(type: "TEXT", nullable: true),
-                    ClubsId = table.Column<string>(type: "TEXT", nullable: true)
+                    SeasonId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ClubsId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -63,13 +77,14 @@ namespace RugbyDataApi.Migrations
                 name: "CompetitionRounds",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     RoundNumber = table.Column<int>(name: "Round_Number", type: "INTEGER", nullable: true),
                     Status = table.Column<string>(type: "TEXT", nullable: true),
                     StartDate = table.Column<DateOnly>(name: "Start_Date", type: "TEXT", nullable: false),
                     EndDate = table.Column<DateOnly>(name: "End_Date", type: "TEXT", nullable: false),
-                    CompetitionId = table.Column<string>(type: "TEXT", nullable: true)
+                    CompetitionId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,13 +100,14 @@ namespace RugbyDataApi.Migrations
                 name: "CompetitionGames",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     Venue = table.Column<string>(type: "TEXT", nullable: true),
                     HomeScore = table.Column<string>(name: "Home_Score", type: "TEXT", nullable: true),
                     AwayScore = table.Column<int>(name: "Away_Score", type: "INTEGER", nullable: true),
-                    CompetitionRoundId = table.Column<string>(type: "TEXT", nullable: true),
-                    CompetitionId = table.Column<string>(type: "TEXT", nullable: true)
+                    CompetitionRoundId = table.Column<int>(type: "INTEGER", nullable: true),
+                    CompetitionId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,9 +128,10 @@ namespace RugbyDataApi.Migrations
                 name: "MatchDayTeams",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
-                    CompetitionGameId = table.Column<string>(type: "TEXT", nullable: true)
+                    CompetitionGameId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -130,7 +147,8 @@ namespace RugbyDataApi.Migrations
                 name: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     FirstName = table.Column<string>(name: "First_Name", type: "TEXT", nullable: true),
                     LastName = table.Column<string>(name: "Last_Name", type: "TEXT", nullable: true),
@@ -139,8 +157,8 @@ namespace RugbyDataApi.Migrations
                     JerseyNumber = table.Column<string>(name: "Jersey_Number", type: "TEXT", nullable: true),
                     Age = table.Column<string>(type: "TEXT", nullable: true),
                     Weight = table.Column<string>(type: "TEXT", nullable: true),
-                    ClubId = table.Column<string>(type: "TEXT", nullable: true),
-                    MatchDayTeamId = table.Column<string>(type: "TEXT", nullable: true)
+                    ClubId = table.Column<int>(type: "INTEGER", nullable: true),
+                    MatchDayTeamId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -161,7 +179,8 @@ namespace RugbyDataApi.Migrations
                 name: "PlayersMatchStatistics",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     Tries = table.Column<string>(type: "TEXT", nullable: true),
                     TryAssists = table.Column<int>(name: "Try_Assists", type: "INTEGER", nullable: true),
@@ -185,8 +204,8 @@ namespace RugbyDataApi.Migrations
                     PenaltiesConceded = table.Column<int>(name: "Penalties_Conceded", type: "INTEGER", nullable: true),
                     YellowCards = table.Column<int>(name: "Yellow_Cards", type: "INTEGER", nullable: true),
                     RedCards = table.Column<int>(name: "Red_Cards", type: "INTEGER", nullable: true),
-                    CompetitionGameId = table.Column<string>(type: "TEXT", nullable: true),
-                    PlayerId = table.Column<string>(type: "TEXT", nullable: true)
+                    CompetitionGameId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PlayerId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -294,10 +313,8 @@ namespace RugbyDataApi.Migrations
             migrationBuilder.DropTable(
                 name: "Club");
 
-            migrationBuilder.RenameColumn(
-                name: "SportRadar_Id",
-                table: "Seasons",
-                newName: "Competition_Id");
+            migrationBuilder.DropTable(
+                name: "Seasons");
         }
     }
 }

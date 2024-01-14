@@ -34,7 +34,7 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/PlayerMatchStatistics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PlayerMatchStatistics>> GetPlayerMatchStatistics(string id)
+        public async Task<ActionResult<PlayerMatchStatistics>> GetPlayerMatchStatistics(int id)
         {
           if (_context.PlayersMatchStatistics == null)
           {
@@ -53,7 +53,7 @@ namespace RugbyDataApi.Controllers
         // PUT: api/PlayerMatchStatistics/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayerMatchStatistics(string id, PlayerMatchStatistics playerMatchStatistics)
+        public async Task<IActionResult> PutPlayerMatchStatistics(int id, PlayerMatchStatistics playerMatchStatistics)
         {
             if (id != playerMatchStatistics.Id)
             {
@@ -112,7 +112,7 @@ namespace RugbyDataApi.Controllers
 
         // DELETE: api/PlayerMatchStatistics/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayerMatchStatistics(string id)
+        public async Task<IActionResult> DeletePlayerMatchStatistics(int id)
         {
             if (_context.PlayersMatchStatistics == null)
             {
@@ -130,7 +130,7 @@ namespace RugbyDataApi.Controllers
             return NoContent();
         }
 
-        private bool PlayerMatchStatisticsExists(string id)
+        private bool PlayerMatchStatisticsExists(int id)
         {
             return (_context.PlayersMatchStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
         }

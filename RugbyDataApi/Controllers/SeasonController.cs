@@ -34,7 +34,7 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/Season/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Season>> GetSeason(string id)
+        public async Task<ActionResult<Season>> GetSeason(int id)
         {
           if (_context.Seasons == null)
           {
@@ -53,7 +53,7 @@ namespace RugbyDataApi.Controllers
         // PUT: api/Season/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSeason(string id, Season season)
+        public async Task<IActionResult> PutSeason(int id, Season season)
         {
             if (id != season.Id)
             {
@@ -112,7 +112,7 @@ namespace RugbyDataApi.Controllers
 
         // DELETE: api/Season/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSeason(string id)
+        public async Task<IActionResult> DeleteSeason(int id)
         {
             if (_context.Seasons == null)
             {
@@ -130,7 +130,7 @@ namespace RugbyDataApi.Controllers
             return NoContent();
         }
 
-        private bool SeasonExists(string id)
+        private bool SeasonExists(int id)
         {
             return (_context.Seasons?.Any(e => e.Id == id)).GetValueOrDefault();
         }
