@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MvcRugby")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06da0a7e822296408e8c9ea164495eaae01f7d05")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("MvcRugby")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MvcRugby")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

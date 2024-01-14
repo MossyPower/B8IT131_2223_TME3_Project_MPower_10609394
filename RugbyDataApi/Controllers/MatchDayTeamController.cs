@@ -25,22 +25,22 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MatchDayTeam>>> GetMatchDayTeams()
         {
-          if (_context.MatchDayTeams == null)
+          if (_context.MatchDayTeam == null)
           {
               return NotFound();
           }
-            return await _context.MatchDayTeams.ToListAsync();
+            return await _context.MatchDayTeam.ToListAsync();
         }
 
         // GET: api/MatchDayTeam/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MatchDayTeam>> GetMatchDayTeam(int id)
         {
-          if (_context.MatchDayTeams == null)
+          if (_context.MatchDayTeam == null)
           {
               return NotFound();
           }
-            var matchDayTeam = await _context.MatchDayTeams.FindAsync(id);
+            var matchDayTeam = await _context.MatchDayTeam.FindAsync(id);
 
             if (matchDayTeam == null)
             {
@@ -86,11 +86,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<MatchDayTeam>> PostMatchDayTeam(MatchDayTeam matchDayTeam)
         {
-          if (_context.MatchDayTeams == null)
+          if (_context.MatchDayTeam == null)
           {
               return Problem("Entity set 'RugbyDataDbContext.MatchDayTeams'  is null.");
           }
-            _context.MatchDayTeams.Add(matchDayTeam);
+            _context.MatchDayTeam.Add(matchDayTeam);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMatchDayTeam(int id)
         {
-            if (_context.MatchDayTeams == null)
+            if (_context.MatchDayTeam == null)
             {
                 return NotFound();
             }
-            var matchDayTeam = await _context.MatchDayTeams.FindAsync(id);
+            var matchDayTeam = await _context.MatchDayTeam.FindAsync(id);
             if (matchDayTeam == null)
             {
                 return NotFound();
             }
 
-            _context.MatchDayTeams.Remove(matchDayTeam);
+            _context.MatchDayTeam.Remove(matchDayTeam);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool MatchDayTeamExists(int id)
         {
-            return (_context.MatchDayTeams?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.MatchDayTeam?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

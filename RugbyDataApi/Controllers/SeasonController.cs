@@ -25,22 +25,22 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Season>>> GetSeasons()
         {
-          if (_context.Seasons == null)
+          if (_context.Season == null)
           {
               return NotFound();
           }
-            return await _context.Seasons.ToListAsync();
+            return await _context.Season.ToListAsync();
         }
 
         // GET: api/Season/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Season>> GetSeason(int id)
         {
-          if (_context.Seasons == null)
+          if (_context.Season == null)
           {
               return NotFound();
           }
-            var season = await _context.Seasons.FindAsync(id);
+            var season = await _context.Season.FindAsync(id);
 
             if (season == null)
             {
@@ -86,11 +86,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Season>> PostSeason(Season season)
         {
-          if (_context.Seasons == null)
+          if (_context.Season == null)
           {
               return Problem("Entity set 'RugbyDataDbContext.Seasons'  is null.");
           }
-            _context.Seasons.Add(season);
+            _context.Season.Add(season);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSeason(int id)
         {
-            if (_context.Seasons == null)
+            if (_context.Season == null)
             {
                 return NotFound();
             }
-            var season = await _context.Seasons.FindAsync(id);
+            var season = await _context.Season.FindAsync(id);
             if (season == null)
             {
                 return NotFound();
             }
 
-            _context.Seasons.Remove(season);
+            _context.Season.Remove(season);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool SeasonExists(int id)
         {
-            return (_context.Seasons?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Season?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

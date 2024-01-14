@@ -25,10 +25,10 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Club>>> GetClub()
         {
-          if (_context.Club == null)
-          {
-              return NotFound();
-          }
+            if (_context.Club == null)
+            {
+                return NotFound();
+            }
             return await _context.Club.ToListAsync();
         }
 
@@ -37,9 +37,9 @@ namespace RugbyDataApi.Controllers
         public async Task<ActionResult<Club>> GetClub(int id)
         {
           if (_context.Club == null)
-          {
-              return NotFound();
-          }
+            {
+                return NotFound();
+            }
             var club = await _context.Club.FindAsync(id);
 
             if (club == null)
@@ -87,9 +87,9 @@ namespace RugbyDataApi.Controllers
         public async Task<ActionResult<Club>> PostClub(Club club)
         {
           if (_context.Club == null)
-          {
+            {
               return Problem("Entity set 'RugbyDataDbContext.Club'  is null.");
-          }
+            }
             _context.Club.Add(club);
             try
             {

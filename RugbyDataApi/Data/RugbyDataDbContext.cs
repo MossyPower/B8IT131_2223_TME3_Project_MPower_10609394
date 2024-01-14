@@ -9,15 +9,15 @@ namespace RugbyDataApi.Data
         base(options)
         {}
 
-        public DbSet<Season> Seasons { get; set; } = null!;
+        public DbSet<Season> Season { get; set; } = null!;
         
-        public DbSet<Competition> Competitions { get; set; } = null!;
-        public DbSet<CompetitionRound> CompetitionRounds { get; set; } = null!;
-        public DbSet<CompetitionGame> CompetitionGames { get; set; } = null!;
-        public DbSet<MatchDayTeam> MatchDayTeams { get; set; } = null!;
+        public DbSet<Competition> Competition { get; set; } = null!;
+        public DbSet<CompetitionRound> CompetitionRound { get; set; } = null!;
+        public DbSet<CompetitionGame> CompetitionGame { get; set; } = null!;
+        public DbSet<MatchDayTeam> MatchDayTeam { get; set; } = null!;
 
-        public DbSet<Player> Players { get; set; } = null!;
-        public DbSet<PlayerMatchStatistics> PlayersMatchStatistics { get; set; } = null!;
+        public DbSet<Player> Player { get; set; } = null!;
+        public DbSet<PlayerMatchStatistics> PlayerMatchStatistics { get; set; } = null!;
         public DbSet<RugbyDataApi.Models.Club> Club { get; set; } = default!;
     }
 }

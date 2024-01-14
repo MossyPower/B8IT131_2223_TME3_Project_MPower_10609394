@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MvcRugby.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class SeasonController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -24,6 +24,9 @@ builder.Services.AddControllersWithViews();
 // Add Sport Radar API service
 builder.Services.AddHttpClient<SportRadarApiService>();
 
+// Add Rugby Data API Service
+builder.Services.AddHttpClient<RugbyDataApiService>();
+
 // Add Http Client at startup
 builder.Services.AddHttpClient("RugbyDataApi", client =>
 {

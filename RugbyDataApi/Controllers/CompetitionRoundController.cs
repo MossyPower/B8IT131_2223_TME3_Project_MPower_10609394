@@ -25,22 +25,22 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CompetitionRound>>> GetCompetitionRounds()
         {
-          if (_context.CompetitionRounds == null)
+          if (_context.CompetitionRound == null)
           {
               return NotFound();
           }
-            return await _context.CompetitionRounds.ToListAsync();
+            return await _context.CompetitionRound.ToListAsync();
         }
 
         // GET: api/CompetitionRound/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CompetitionRound>> GetCompetitionRound(int id)
         {
-          if (_context.CompetitionRounds == null)
+          if (_context.CompetitionRound == null)
           {
               return NotFound();
           }
-            var competitionRound = await _context.CompetitionRounds.FindAsync(id);
+            var competitionRound = await _context.CompetitionRound.FindAsync(id);
 
             if (competitionRound == null)
             {
@@ -86,11 +86,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<CompetitionRound>> PostCompetitionRound(CompetitionRound competitionRound)
         {
-          if (_context.CompetitionRounds == null)
+          if (_context.CompetitionRound == null)
           {
               return Problem("Entity set 'RugbyDataDbContext.CompetitionRounds'  is null.");
           }
-            _context.CompetitionRounds.Add(competitionRound);
+            _context.CompetitionRound.Add(competitionRound);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompetitionRound(int id)
         {
-            if (_context.CompetitionRounds == null)
+            if (_context.CompetitionRound == null)
             {
                 return NotFound();
             }
-            var competitionRound = await _context.CompetitionRounds.FindAsync(id);
+            var competitionRound = await _context.CompetitionRound.FindAsync(id);
             if (competitionRound == null)
             {
                 return NotFound();
             }
 
-            _context.CompetitionRounds.Remove(competitionRound);
+            _context.CompetitionRound.Remove(competitionRound);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool CompetitionRoundExists(int id)
         {
-            return (_context.CompetitionRounds?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.CompetitionRound?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

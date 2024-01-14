@@ -25,22 +25,22 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlayerMatchStatistics>>> GetPlayersMatchStatistics()
         {
-          if (_context.PlayersMatchStatistics == null)
+          if (_context.PlayerMatchStatistics == null)
           {
               return NotFound();
           }
-            return await _context.PlayersMatchStatistics.ToListAsync();
+            return await _context.PlayerMatchStatistics.ToListAsync();
         }
 
         // GET: api/PlayerMatchStatistics/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PlayerMatchStatistics>> GetPlayerMatchStatistics(int id)
         {
-          if (_context.PlayersMatchStatistics == null)
+          if (_context.PlayerMatchStatistics == null)
           {
               return NotFound();
           }
-            var playerMatchStatistics = await _context.PlayersMatchStatistics.FindAsync(id);
+            var playerMatchStatistics = await _context.PlayerMatchStatistics.FindAsync(id);
 
             if (playerMatchStatistics == null)
             {
@@ -86,11 +86,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<PlayerMatchStatistics>> PostPlayerMatchStatistics(PlayerMatchStatistics playerMatchStatistics)
         {
-          if (_context.PlayersMatchStatistics == null)
+          if (_context.PlayerMatchStatistics == null)
           {
               return Problem("Entity set 'RugbyDataDbContext.PlayersMatchStatistics'  is null.");
           }
-            _context.PlayersMatchStatistics.Add(playerMatchStatistics);
+            _context.PlayerMatchStatistics.Add(playerMatchStatistics);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlayerMatchStatistics(int id)
         {
-            if (_context.PlayersMatchStatistics == null)
+            if (_context.PlayerMatchStatistics == null)
             {
                 return NotFound();
             }
-            var playerMatchStatistics = await _context.PlayersMatchStatistics.FindAsync(id);
+            var playerMatchStatistics = await _context.PlayerMatchStatistics.FindAsync(id);
             if (playerMatchStatistics == null)
             {
                 return NotFound();
             }
 
-            _context.PlayersMatchStatistics.Remove(playerMatchStatistics);
+            _context.PlayerMatchStatistics.Remove(playerMatchStatistics);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool PlayerMatchStatisticsExists(int id)
         {
-            return (_context.PlayersMatchStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.PlayerMatchStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
