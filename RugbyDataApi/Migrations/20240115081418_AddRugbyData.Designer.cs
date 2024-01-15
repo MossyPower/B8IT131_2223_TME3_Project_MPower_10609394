@@ -11,7 +11,7 @@ using RugbyDataApi.Data;
 namespace RugbyDataApi.Migrations
 {
     [DbContext(typeof(RugbyDataDbContext))]
-    [Migration("20240114155135_AddRugbyData")]
+    [Migration("20240115081418_AddRugbyData")]
     partial class AddRugbyData
     {
         /// <inheritdoc />
@@ -69,7 +69,7 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("SportRadar_Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("Start_Date")
+                    b.Property<DateOnly?>("Start_Date")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -78,7 +78,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("SeasonId");
 
-                    b.ToTable("Competitions");
+                    b.ToTable("Competition");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.CompetitionGame", b =>
@@ -111,7 +111,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("CompetitionRoundId");
 
-                    b.ToTable("CompetitionGames");
+                    b.ToTable("CompetitionGame");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.CompetitionRound", b =>
@@ -142,7 +142,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("CompetitionId");
 
-                    b.ToTable("CompetitionRounds");
+                    b.ToTable("CompetitionRound");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.MatchDayTeam", b =>
@@ -161,7 +161,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("CompetitionGameId");
 
-                    b.ToTable("MatchDayTeams");
+                    b.ToTable("MatchDayTeam");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
@@ -206,7 +206,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("MatchDayTeamId");
 
-                    b.ToTable("Players");
+                    b.ToTable("Player");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.PlayerMatchStatistics", b =>
@@ -296,7 +296,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayersMatchStatistics");
+                    b.ToTable("PlayerMatchStatistics");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Season", b =>
@@ -308,13 +308,13 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("Competition_Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("End_Date")
+                    b.Property<DateOnly?>("End_Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SportRadar_Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("Start_Date")
+                    b.Property<DateOnly?>("Start_Date")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Year")
@@ -322,7 +322,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Seasons");
+                    b.ToTable("Season");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Club", b =>

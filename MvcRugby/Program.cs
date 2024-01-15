@@ -30,7 +30,7 @@ builder.Services.AddHttpClient<RugbyDataApiService>();
 // Add Http Client at startup
 builder.Services.AddHttpClient("RugbyDataApi", client =>
 {
-    client.BaseAddress = new Uri("http://localhost:5217");
+    client.BaseAddress = new Uri("http://localhost:5217/");
     client.DefaultRequestHeaders.Accept.Add(
         new MediaTypeWithQualityHeaderValue(
             mediaType: "application/json",

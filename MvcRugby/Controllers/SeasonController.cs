@@ -9,6 +9,7 @@ using MvcRugby.Data;
 using MvcRugby.Models;
 using MvcRugby.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace MvcRugby.Controllers
 {
@@ -28,31 +29,58 @@ namespace MvcRugby.Controllers
             _clientFactory = clientFactory;
         }
 
+        // GET: Seasons - Using Interface & Service Layer
+        // public async Task<IActionResult> Index()
+        // {
+        //     return View(await _rugbyDataApiService.GetSeasons());
+        // }
+
         // GET: Seasons
         public async Task<IActionResult> Index()
         {
-            return View(await _rugbyDataApiService.GetSeasons());
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/season/";
+            
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var season = await response.Content.ReadFromJsonAsync<List<Season>>();
+                return View(season);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                // Handle other error cases
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         // GET: Seasons/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Season == null)
-            {
-                return NotFound(); //404
-            }
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/season/{id}";
 
-            //SELECT * FROM seasons
-            //WHERE Id = 5;
-            var season = await _context.Season
-                .FirstOrDefaultAsync(c => c.Id == id);
-            
-            if (season == null)
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var season = await response.Content.ReadFromJsonAsync<Season>();
+                return View(season);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-
-            return View(season);
+            else
+            {
+                // Handle other error cases
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         // GET: seasons/Create
@@ -61,42 +89,63 @@ namespace MvcRugby.Controllers
             return View();
         }
 
+        // POST: seasons/Create - Using Interface & Service Layer
+        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, season_Name, Country")] Season season)
+        // {
+        //     await _rugbyDataApiService.CreateSeason(season);
+            
+        //     return RedirectToAction(nameof(Index));
+        // }
+
         // POST: seasons/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, season_Name, Country")] Season season)
+        public async Task<IActionResult> Create(Season season)
         {
-            if (ModelState.IsValid)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = "/api/v1/season";
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, season);
+
+            if (response.IsSuccessStatusCode)
             {
-
-                //INSERT INTO seasonS ("Id, SportRadar_Id, Competition_Name, season_Name, Country")
-                //VALUES (season.Id, season.SportRadar_Id, season.Competition_Name, season.season_Name, season.Country);
-
-                _context.Add(season);
-
-                await _context.SaveChangesAsync();
-                //COMMIT;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(season);
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
-
+        
         // GET: seasons/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Season == null)
+            if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var season = await _context.Season.FindAsync(id);
-            if (season == null)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/season/{id}";
+
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var season = await response.Content.ReadFromJsonAsync<Season>();
+                return View(season);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-            return View(season);
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         // POST: seasons/Edit/5
@@ -104,52 +153,58 @@ namespace MvcRugby.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, SportRadar_Id, Competition_Name, season_Name, Country")] Season season)
+        public async Task<IActionResult> Edit(int id, Season season)
         {
             if (id != season.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            if (ModelState.IsValid)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/season/{id}";
+
+            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, season);
+
+            if (response.IsSuccessStatusCode)
             {
-                try
-                {
-                    _context.Update(season);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!seasonExists(season.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = season.Id });
             }
-            return View(season);
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         // GET: seasons/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Season == null)
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/season/{id}";
+
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var season= await response.Content.ReadFromJsonAsync<Season>();
+                return View(season);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-
-            var season = await _context.Season
-                .FirstOrDefaultAsync(c => c.Id == id);
-            if (season == null)
+            else
             {
-                return NotFound();
+                return StatusCode((int)response.StatusCode);
             }
-
-            return View(season);
         }
 
         // POST: seasons/Delete/5
@@ -157,18 +212,23 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Season == null)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/season/{id}";
+
+            HttpResponseMessage response = await client.DeleteAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
             {
-                return Problem("Entity set 'ApplicationDbContext.season' is null.");
+                return RedirectToAction("Index");
             }
-            var season = await _context.Season.FindAsync(id);
-            if (season != null)
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                _context.Season.Remove(season);
+                return NotFound();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         private bool seasonExists(int id)

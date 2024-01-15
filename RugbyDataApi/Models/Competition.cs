@@ -9,7 +9,7 @@ namespace RugbyDataApi.Models
         public int Id { get; set; }
         public string? SportRadar_Id {get; set;}
         public string? Competition_Name { get; set; }
-        public  DateTime? Start_Date { get; set; }
+        public  DateOnly? Start_Date { get; set; }
         public DateOnly? End_Date { get; set; }
         
         // Relationship with Parent

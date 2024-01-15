@@ -12,20 +12,20 @@ namespace RugbyDataApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Seasons",
+                name: "Season",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     Year = table.Column<string>(type: "TEXT", nullable: true),
-                    StartDate = table.Column<DateTime>(name: "Start_Date", type: "TEXT", nullable: true),
-                    EndDate = table.Column<DateTime>(name: "End_Date", type: "TEXT", nullable: true),
+                    StartDate = table.Column<DateOnly>(name: "Start_Date", type: "TEXT", nullable: true),
+                    EndDate = table.Column<DateOnly>(name: "End_Date", type: "TEXT", nullable: true),
                     CompetitionName = table.Column<string>(name: "Competition_Name", type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Seasons", x => x.Id);
+                    table.PrimaryKey("PK_Season", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,35 +46,35 @@ namespace RugbyDataApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Competitions",
+                name: "Competition",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
                     CompetitionName = table.Column<string>(name: "Competition_Name", type: "TEXT", nullable: true),
-                    StartDate = table.Column<DateTime>(name: "Start_Date", type: "TEXT", nullable: true),
+                    StartDate = table.Column<DateOnly>(name: "Start_Date", type: "TEXT", nullable: true),
                     EndDate = table.Column<DateOnly>(name: "End_Date", type: "TEXT", nullable: true),
                     SeasonId = table.Column<int>(type: "INTEGER", nullable: true),
                     ClubsId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Competitions", x => x.Id);
+                    table.PrimaryKey("PK_Competition", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Competitions_Club_ClubsId",
+                        name: "FK_Competition_Club_ClubsId",
                         column: x => x.ClubsId,
                         principalTable: "Club",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Competitions_Seasons_SeasonId",
+                        name: "FK_Competition_Season_SeasonId",
                         column: x => x.SeasonId,
-                        principalTable: "Seasons",
+                        principalTable: "Season",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CompetitionRounds",
+                name: "CompetitionRound",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -88,16 +88,16 @@ namespace RugbyDataApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CompetitionRounds", x => x.Id);
+                    table.PrimaryKey("PK_CompetitionRound", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CompetitionRounds_Competitions_CompetitionId",
+                        name: "FK_CompetitionRound_Competition_CompetitionId",
                         column: x => x.CompetitionId,
-                        principalTable: "Competitions",
+                        principalTable: "Competition",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CompetitionGames",
+                name: "CompetitionGame",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -111,21 +111,21 @@ namespace RugbyDataApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CompetitionGames", x => x.Id);
+                    table.PrimaryKey("PK_CompetitionGame", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CompetitionGames_CompetitionRounds_CompetitionRoundId",
+                        name: "FK_CompetitionGame_CompetitionRound_CompetitionRoundId",
                         column: x => x.CompetitionRoundId,
-                        principalTable: "CompetitionRounds",
+                        principalTable: "CompetitionRound",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CompetitionGames_Competitions_CompetitionId",
+                        name: "FK_CompetitionGame_Competition_CompetitionId",
                         column: x => x.CompetitionId,
-                        principalTable: "Competitions",
+                        principalTable: "Competition",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MatchDayTeams",
+                name: "MatchDayTeam",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -135,16 +135,16 @@ namespace RugbyDataApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MatchDayTeams", x => x.Id);
+                    table.PrimaryKey("PK_MatchDayTeam", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MatchDayTeams_CompetitionGames_CompetitionGameId",
+                        name: "FK_MatchDayTeam_CompetitionGame_CompetitionGameId",
                         column: x => x.CompetitionGameId,
-                        principalTable: "CompetitionGames",
+                        principalTable: "CompetitionGame",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Players",
+                name: "Player",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -162,21 +162,21 @@ namespace RugbyDataApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.PrimaryKey("PK_Player", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Players_Club_ClubId",
+                        name: "FK_Player_Club_ClubId",
                         column: x => x.ClubId,
                         principalTable: "Club",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Players_MatchDayTeams_MatchDayTeamId",
+                        name: "FK_Player_MatchDayTeam_MatchDayTeamId",
                         column: x => x.MatchDayTeamId,
-                        principalTable: "MatchDayTeams",
+                        principalTable: "MatchDayTeam",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayersMatchStatistics",
+                name: "PlayerMatchStatistics",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -209,16 +209,16 @@ namespace RugbyDataApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayersMatchStatistics", x => x.Id);
+                    table.PrimaryKey("PK_PlayerMatchStatistics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayersMatchStatistics_CompetitionGames_CompetitionGameId",
+                        name: "FK_PlayerMatchStatistics_CompetitionGame_CompetitionGameId",
                         column: x => x.CompetitionGameId,
-                        principalTable: "CompetitionGames",
+                        principalTable: "CompetitionGame",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PlayersMatchStatistics_Players_PlayerId",
+                        name: "FK_PlayerMatchStatistics_Player_PlayerId",
                         column: x => x.PlayerId,
-                        principalTable: "Players",
+                        principalTable: "Player",
                         principalColumn: "Id");
                 });
 
@@ -228,60 +228,60 @@ namespace RugbyDataApi.Migrations
                 column: "MatchDayTeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompetitionGames_CompetitionId",
-                table: "CompetitionGames",
-                column: "CompetitionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompetitionGames_CompetitionRoundId",
-                table: "CompetitionGames",
-                column: "CompetitionRoundId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompetitionRounds_CompetitionId",
-                table: "CompetitionRounds",
-                column: "CompetitionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Competitions_ClubsId",
-                table: "Competitions",
+                name: "IX_Competition_ClubsId",
+                table: "Competition",
                 column: "ClubsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Competitions_SeasonId",
-                table: "Competitions",
+                name: "IX_Competition_SeasonId",
+                table: "Competition",
                 column: "SeasonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MatchDayTeams_CompetitionGameId",
-                table: "MatchDayTeams",
+                name: "IX_CompetitionGame_CompetitionId",
+                table: "CompetitionGame",
+                column: "CompetitionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompetitionGame_CompetitionRoundId",
+                table: "CompetitionGame",
+                column: "CompetitionRoundId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompetitionRound_CompetitionId",
+                table: "CompetitionRound",
+                column: "CompetitionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MatchDayTeam_CompetitionGameId",
+                table: "MatchDayTeam",
                 column: "CompetitionGameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_ClubId",
-                table: "Players",
+                name: "IX_Player_ClubId",
+                table: "Player",
                 column: "ClubId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_MatchDayTeamId",
-                table: "Players",
+                name: "IX_Player_MatchDayTeamId",
+                table: "Player",
                 column: "MatchDayTeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayersMatchStatistics_CompetitionGameId",
-                table: "PlayersMatchStatistics",
+                name: "IX_PlayerMatchStatistics_CompetitionGameId",
+                table: "PlayerMatchStatistics",
                 column: "CompetitionGameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayersMatchStatistics_PlayerId",
-                table: "PlayersMatchStatistics",
+                name: "IX_PlayerMatchStatistics_PlayerId",
+                table: "PlayerMatchStatistics",
                 column: "PlayerId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Club_MatchDayTeams_MatchDayTeamId",
+                name: "FK_Club_MatchDayTeam_MatchDayTeamId",
                 table: "Club",
                 column: "MatchDayTeamId",
-                principalTable: "MatchDayTeams",
+                principalTable: "MatchDayTeam",
                 principalColumn: "Id");
         }
 
@@ -289,32 +289,32 @@ namespace RugbyDataApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Club_MatchDayTeams_MatchDayTeamId",
+                name: "FK_Club_MatchDayTeam_MatchDayTeamId",
                 table: "Club");
 
             migrationBuilder.DropTable(
-                name: "PlayersMatchStatistics");
+                name: "PlayerMatchStatistics");
 
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "Player");
 
             migrationBuilder.DropTable(
-                name: "MatchDayTeams");
+                name: "MatchDayTeam");
 
             migrationBuilder.DropTable(
-                name: "CompetitionGames");
+                name: "CompetitionGame");
 
             migrationBuilder.DropTable(
-                name: "CompetitionRounds");
+                name: "CompetitionRound");
 
             migrationBuilder.DropTable(
-                name: "Competitions");
+                name: "Competition");
 
             migrationBuilder.DropTable(
                 name: "Club");
 
             migrationBuilder.DropTable(
-                name: "Seasons");
+                name: "Season");
         }
     }
 }

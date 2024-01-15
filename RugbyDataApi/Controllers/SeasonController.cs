@@ -10,7 +10,7 @@ using RugbyDataApi.Models;
 
 namespace RugbyDataApi.Controllers
 {
-    [Route("api/v1/seasons/")]
+    [Route("api/v1/season/")]
     [ApiController]
     public class SeasonController : ControllerBase
     {
