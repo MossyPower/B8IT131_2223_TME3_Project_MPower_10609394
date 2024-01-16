@@ -19,6 +19,6 @@ namespace RugbyDataApi.Models
         public Club? Club { get; set; }
         
         //Reference navigation property - to Child
-        public List<PlayerFixtureStatistics>? PlayerFixtureStatistics { get; set; }
+        public List<FixtureStatistics>? FixtureStatistics { get; set; }
     }
 }

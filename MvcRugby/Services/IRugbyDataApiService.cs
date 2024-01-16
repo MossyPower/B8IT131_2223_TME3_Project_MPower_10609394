@@ -14,9 +14,8 @@ public interface IRugbyDataApiService
 
     // COMPETITION ACTION METHODS
     Task<IEnumerable<Competition>?> GetCompetitions();
-    Task<IEnumerable<CompetitionRound>?> GetCompetitionRounds();
-    Task<IEnumerable<CompetitionGame>?> GetCompetitionGames();
-    Task<IEnumerable<MatchDayTeam>?> GetMatchDayTeams();
+    Task<IEnumerable<Fixture>?> GetFixtures();
+    Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics();
     Task<IEnumerable<Player>?> GetPlayers();
-    Task<IEnumerable<PlayerMatchStatistics>?> GetPlayerMatchStatistics();
+
 }

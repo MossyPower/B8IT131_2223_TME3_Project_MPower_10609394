@@ -24,11 +24,7 @@ namespace MvcRugby.Services
             _httpClient.BaseAddress = new Uri(BASE_URL);
         }
 
-        // CLUB MODEL ACTIONS
-        public async Task<IEnumerable<Club>?> GetClubs()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Club>>("api/v1/clubs/");
-        }
+
 
         // SEASON MODEL ACTIONS
         
@@ -64,31 +60,26 @@ namespace MvcRugby.Services
         // {
         //     await _httpClient.DeleteAsync($"api/v1/seasons/{id}");
         // }
-
+        
+        
+        // CLUB MODEL ACTIONS
+        public async Task<IEnumerable<Club>?> GetClubs()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Club>>("api/v1/clubs/");
+        }
+        
         // COMPETITION MODEL ACTIONS
         public async Task<IEnumerable<Competition>?> GetCompetitions()
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<Competition>>("api/v1/competitions/");
         }
-
-        // COMPETITION-ROUNDS MODEL ACTIONS
-        public async Task<IEnumerable<CompetitionRound>?> GetCompetitionRounds()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<CompetitionRound>>("api/v1/competitionrounds/");
-        }
         
         // COMPETITION-GAMES MODEL ACTIONS
-        public async Task<IEnumerable<CompetitionGame>?> GetCompetitionGames()
+        public async Task<IEnumerable<Fixture>?> GetFixtures()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<CompetitionGame>>("api/v1/competitiongames/");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>("api/v1/fixtures/");
         } 
         
-        // MATCH-DAY-TEAMS MODEL ACTIONS
-        public async Task<IEnumerable<MatchDayTeam>?> GetMatchDayTeams()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<MatchDayTeam>>("api/v1/matchdayteams/");
-        } 
-
         // PLAYERS MODEL ACTIONS
         public async Task<IEnumerable<Player>?> GetPlayers()
         {
@@ -96,9 +87,9 @@ namespace MvcRugby.Services
         } 
         
         // PLAYER-STATISTICS MODEL ACTIONS
-        public async Task<IEnumerable<PlayerMatchStatistics>?> GetPlayerMatchStatistics()
+        public async Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerMatchStatistics>>("api/v1/playermatchstatistics/");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixturestatistics/");
         }     
     }     
 }

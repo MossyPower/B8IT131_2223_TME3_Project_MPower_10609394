@@ -11,7 +11,7 @@ namespace RugbyDataApi.Data
         public DbSet<Club> Club { get; set; } = default!;
         public DbSet<Competition> Competition { get; set; } = null!;
         public DbSet<Fixture> Fixture { get; set; } = null!;
+        public DbSet<FixtureStatistics> FixtureStatistics { get; set; } = null!;
         public DbSet<Player> Player { get; set; } = null!;
-        public DbSet<PlayerFixtureStatistics> PlayerFixtureStatistics { get; set; } = null!;
     }
 }

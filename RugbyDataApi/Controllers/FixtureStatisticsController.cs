@@ -10,37 +10,37 @@ using RugbyDataApi.Models;
 
 namespace RugbyDataApi.Controllers
 {
-    [Route("api/v1/playermatchstatistics/")]
+    [Route("api/v1/fixturestatistics/")]
     [ApiController]
-    public class PlayerFixtureStatisticsController : ControllerBase
+    public class FixtureStatisticsController : ControllerBase
     {
         private readonly RugbyDataDbContext _context;
 
-        public PlayerFixtureStatisticsController(RugbyDataDbContext context)
+        public FixtureStatisticsController(RugbyDataDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/PlayerFixtureStatistics
+        // GET: api/FixtureStatistics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PlayerFixtureStatistics>>> GetPlayersMatchStatistics()
+        public async Task<ActionResult<IEnumerable<FixtureStatistics>>> GetPlayersMatchStatistics()
         {
-          if (_context.PlayerFixtureStatistics == null)
+          if (_context.FixtureStatistics == null)
           {
               return NotFound();
           }
-            return await _context.PlayerFixtureStatistics.ToListAsync();
+            return await _context.FixtureStatistics.ToListAsync();
         }
 
-        // GET: api/PlayerFixtureStatistics/5
+        // GET: api/FixtureStatistics/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PlayerFixtureStatistics>> GetPlayerFixtureStatistics(int id)
+        public async Task<ActionResult<FixtureStatistics>> GetFixtureStatistics(int id)
         {
-          if (_context.PlayerFixtureStatistics == null)
+          if (_context.FixtureStatistics == null)
           {
               return NotFound();
           }
-            var playerMatchStatistics = await _context.PlayerFixtureStatistics.FindAsync(id);
+            var playerMatchStatistics = await _context.FixtureStatistics.FindAsync(id);
 
             if (playerMatchStatistics == null)
             {
@@ -50,10 +50,10 @@ namespace RugbyDataApi.Controllers
             return playerMatchStatistics;
         }
 
-        // PUT: api/PlayerFixtureStatistics/5
+        // PUT: api/FixtureStatistics/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayerFixtureStatistics(int id, PlayerFixtureStatistics playerMatchStatistics)
+        public async Task<IActionResult> PutFixtureStatistics(int id, FixtureStatistics playerMatchStatistics)
         {
             if (id != playerMatchStatistics.Id)
             {
@@ -68,7 +68,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerFixtureStatisticsExists(id))
+                if (!FixtureStatisticsExists(id))
                 {
                     return NotFound();
                 }
@@ -81,23 +81,23 @@ namespace RugbyDataApi.Controllers
             return NoContent();
         }
 
-        // POST: api/PlayerFixtureStatistics
+        // POST: api/FixtureStatistics
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PlayerFixtureStatistics>> PostPlayerFixtureStatistics(PlayerFixtureStatistics playerMatchStatistics)
+        public async Task<ActionResult<FixtureStatistics>> PostFixtureStatistics(FixtureStatistics playerMatchStatistics)
         {
-          if (_context.PlayerFixtureStatistics == null)
+          if (_context.FixtureStatistics == null)
           {
               return Problem("Entity set 'RugbyDataDbContext.PlayersMatchStatistics'  is null.");
           }
-            _context.PlayerFixtureStatistics.Add(playerMatchStatistics);
+            _context.FixtureStatistics.Add(playerMatchStatistics);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (PlayerFixtureStatisticsExists(playerMatchStatistics.Id))
+                if (FixtureStatisticsExists(playerMatchStatistics.Id))
                 {
                     return Conflict();
                 }
@@ -107,32 +107,32 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetPlayerFixtureStatistics", new { id = playerMatchStatistics.Id }, playerMatchStatistics);
+            return CreatedAtAction("GetFixtureStatistics", new { id = playerMatchStatistics.Id }, playerMatchStatistics);
         }
 
-        // DELETE: api/PlayerFixtureStatistics/5
+        // DELETE: api/FixtureStatistics/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayerFixtureStatistics(int id)
+        public async Task<IActionResult> DeleteFixtureStatistics(int id)
         {
-            if (_context.PlayerFixtureStatistics == null)
+            if (_context.FixtureStatistics == null)
             {
                 return NotFound();
             }
-            var playerMatchStatistics = await _context.PlayerFixtureStatistics.FindAsync(id);
+            var playerMatchStatistics = await _context.FixtureStatistics.FindAsync(id);
             if (playerMatchStatistics == null)
             {
                 return NotFound();
             }
 
-            _context.PlayerFixtureStatistics.Remove(playerMatchStatistics);
+            _context.FixtureStatistics.Remove(playerMatchStatistics);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PlayerFixtureStatisticsExists(int id)
+        private bool FixtureStatisticsExists(int id)
         {
-            return (_context.PlayerFixtureStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.FixtureStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

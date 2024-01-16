@@ -13,7 +13,8 @@ using System.Net;
 
 namespace MvcRugby.Controllers
 {
-    public class CompetitionRoundController : Controller
+    //[Authorize]
+    public class FixtureController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -21,31 +22,31 @@ namespace MvcRugby.Controllers
 
         private readonly IHttpClientFactory _clientFactory;
 
-        public CompetitionRoundController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory)
+        public FixtureController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory)
         {
             _context = context;
             _rugbyDataApiService = rugbyDataApiService;
             _clientFactory = clientFactory;
         }
 
-        // GET: CompetitionRounds
+        // GET: Fixtures - Using Interface & Service Layer
         // public async Task<IActionResult> Index()
         // {
-        //     return View(await _rugbyDataApiService.GetCompetitionRounds());
+        //     return View(await _rugbyDataApiService.GetFixtures());
         // }
 
-        // GET: CompetitionRounds
+        // GET: Fixtures
         public async Task<IActionResult> Index()
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/round/";
+            string requestUri = $"/api/v1/fixture/";
             
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var round = await response.Content.ReadFromJsonAsync<List<CompetitionRound>>();
-                return View(round);
+                var fixture = await response.Content.ReadFromJsonAsync<List<Fixture>>();
+                return View(fixture);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -58,18 +59,18 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: CompetitionRounds/Details/5
+        // GET: Fixtures/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/round/{id}";
+            string requestUri = $"/api/v1/fixture/{id}";
 
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var round = await response.Content.ReadFromJsonAsync<CompetitionRound>();
-                return View(round);
+                var fixture = await response.Content.ReadFromJsonAsync<Fixture>();
+                return View(fixture);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -82,32 +83,32 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: rounds/Create
+        // GET: fixtures/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: rounds/Create - Using Interface & Service Layer
-        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, round_Name, Country")] CompetitionRound round)
+        // POST: fixtures/Create - Using Interface & Service Layer
+        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, fixture_Name, Country")] Fixture fixture)
         // {
-        //     await _rugbyDataApiService.CreateCompetitionRound(round);
+        //     await _rugbyDataApiService.CreateFixture(fixture);
             
         //     return RedirectToAction(nameof(Index));
         // }
 
-        // POST: rounds/Create
+        // POST: fixtures/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CompetitionRound round)
+        public async Task<IActionResult> Create(Fixture fixture)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = "/api/v1/round";
+            string requestUri = "/api/v1/fixture";
 
-            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, round);
+            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, fixture);
 
             if (response.IsSuccessStatusCode)
             {
@@ -119,7 +120,7 @@ namespace MvcRugby.Controllers
             }
         }
         
-        // GET: rounds/Edit/5
+        // GET: fixtures/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -128,14 +129,14 @@ namespace MvcRugby.Controllers
             }
 
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/round/{id}";
+            string requestUri = $"/api/v1/fixture/{id}";
 
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var round = await response.Content.ReadFromJsonAsync<CompetitionRound>();
-                return View(round);
+                var fixture = await response.Content.ReadFromJsonAsync<Fixture>();
+                return View(fixture);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -147,26 +148,26 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // POST: rounds/Edit/5
+        // POST: fixtures/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CompetitionRound round)
+        public async Task<IActionResult> Edit(int id, Fixture fixture)
         {
-            if (id != round.Id)
+            if (id != fixture.Id)
             {
                 return BadRequest();
             }
 
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/round/{id}";
+            string requestUri = $"/api/v1/fixture/{id}";
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, round);
+            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, fixture);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Details", new { id = round.Id });
+                return RedirectToAction("Details", new { id = fixture.Id });
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -178,7 +179,7 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: rounds/Delete/5
+        // GET: fixtures/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -187,14 +188,14 @@ namespace MvcRugby.Controllers
             }
 
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/round/{id}";
+            string requestUri = $"/api/v1/fixture/{id}";
 
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var round= await response.Content.ReadFromJsonAsync<CompetitionRound>();
-                return View(round);
+                var fixture= await response.Content.ReadFromJsonAsync<Fixture>();
+                return View(fixture);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -206,13 +207,13 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // POST: rounds/Delete/5
+        // POST: fixtures/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/round/{id}";
+            string requestUri = $"/api/v1/fixture/{id}";
 
             HttpResponseMessage response = await client.DeleteAsync(requestUri);
 
@@ -230,9 +231,9 @@ namespace MvcRugby.Controllers
             }
         }
 
-        private bool roundExists(int id)
+        private bool fixtureExists(int id)
         {
-          return (_context.CompetitionRound?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Fixture?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

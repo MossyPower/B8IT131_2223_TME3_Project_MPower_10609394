@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RugbyDataApi.Models
+namespace MvcRugby.Models
 {
     public class Fixture //i.e. competition game / match (e.g.: Munster Vs. Leinster)
     {
@@ -16,9 +16,9 @@ namespace RugbyDataApi.Models
         
         //Reference navigation property - to parent
         public Competition? Competition { get; set; }
-
+        
         //Reference navigation property - to child
         public List<Club>? Clubs { get; set; }
-        public List<FixtureStatistics>? FixtureStatistics { get; set; }
+        public List<FixtureStatistics>? fixtureStatistics { get; set; }
     }
 }

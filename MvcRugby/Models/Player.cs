@@ -15,11 +15,10 @@ namespace MvcRugby.Models
         public string? Age { get; set; } 
         public string? Weight { get; set; } 
         
-        // Relationship with child
-        public List<PlayerMatchStatistics>? Statistics { get; set; } //Reference navigation property
+        //Reference navigation property - to Parent
+        public Club? Club { get; set; }
         
-        // Relationship with parent
-        //public string? Club_Id { get; set; } //Foreign Key
-        public Club? Club { get; set; } //Reference navigation property
+        //Reference navigation property - to Child
+        public List<FixtureStatistics>? FixtureStatistics { get; set; }
     }
 }

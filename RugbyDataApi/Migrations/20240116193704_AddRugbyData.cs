@@ -34,7 +34,7 @@ namespace RugbyDataApi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     SportRadarId = table.Column<string>(name: "SportRadar_Id", type: "TEXT", nullable: true),
-                    Venue = table.Column<string>(type: "TEXT", nullable: true),
+                    RoundNumber = table.Column<string>(name: "Round_Number", type: "TEXT", nullable: true),
                     StartDate = table.Column<string>(name: "Start_Date", type: "TEXT", nullable: true),
                     EndDate = table.Column<string>(name: "End_Date", type: "TEXT", nullable: true),
                     Status = table.Column<string>(type: "TEXT", nullable: true),
@@ -106,7 +106,7 @@ namespace RugbyDataApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlayerFixtureStatistics",
+                name: "FixtureStatistics",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -139,14 +139,14 @@ namespace RugbyDataApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlayerFixtureStatistics", x => x.Id);
+                    table.PrimaryKey("PK_FixtureStatistics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PlayerFixtureStatistics_Fixture_FixtureId",
+                        name: "FK_FixtureStatistics_Fixture_FixtureId",
                         column: x => x.FixtureId,
                         principalTable: "Fixture",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PlayerFixtureStatistics_Player_PlayerId",
+                        name: "FK_FixtureStatistics_Player_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Player",
                         principalColumn: "Id");
@@ -168,26 +168,26 @@ namespace RugbyDataApi.Migrations
                 column: "CompetitionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Player_ClubId",
-                table: "Player",
-                column: "ClubId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PlayerFixtureStatistics_FixtureId",
-                table: "PlayerFixtureStatistics",
+                name: "IX_FixtureStatistics_FixtureId",
+                table: "FixtureStatistics",
                 column: "FixtureId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlayerFixtureStatistics_PlayerId",
-                table: "PlayerFixtureStatistics",
+                name: "IX_FixtureStatistics_PlayerId",
+                table: "FixtureStatistics",
                 column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Player_ClubId",
+                table: "Player",
+                column: "ClubId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PlayerFixtureStatistics");
+                name: "FixtureStatistics");
 
             migrationBuilder.DropTable(
                 name: "Player");

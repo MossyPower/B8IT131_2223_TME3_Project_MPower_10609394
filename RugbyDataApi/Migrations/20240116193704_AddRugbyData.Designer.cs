@@ -11,7 +11,7 @@ using RugbyDataApi.Data;
 namespace RugbyDataApi.Migrations
 {
     [DbContext(typeof(RugbyDataDbContext))]
-    [Migration("20240116190741_AddRugbyData")]
+    [Migration("20240116193704_AddRugbyData")]
     partial class AddRugbyData
     {
         /// <inheritdoc />
@@ -94,6 +94,9 @@ namespace RugbyDataApi.Migrations
                     b.Property<int?>("Home_Score")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Round_Number")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SportRadar_Id")
                         .HasColumnType("TEXT");
 
@@ -103,9 +106,6 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Venue")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CompetitionId");
@@ -113,47 +113,7 @@ namespace RugbyDataApi.Migrations
                     b.ToTable("Fixture");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Age")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("ClubId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("First_Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Jersey_Number")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Last_Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nationality")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Position")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SportRadar_Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Weight")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClubId");
-
-                    b.ToTable("Player");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.PlayerFixtureStatistics", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.FixtureStatistics", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +200,47 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayerFixtureStatistics");
+                    b.ToTable("FixtureStatistics");
+                });
+
+            modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Age")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("First_Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Jersey_Number")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Last_Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Position")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SportRadar_Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.ToTable("Player");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Club", b =>
@@ -258,9 +258,26 @@ namespace RugbyDataApi.Migrations
 
             modelBuilder.Entity("RugbyDataApi.Models.Fixture", b =>
                 {
-                    b.HasOne("RugbyDataApi.Models.Competition", null)
+                    b.HasOne("RugbyDataApi.Models.Competition", "Competition")
                         .WithMany("Fixtures")
                         .HasForeignKey("CompetitionId");
+
+                    b.Navigation("Competition");
+                });
+
+            modelBuilder.Entity("RugbyDataApi.Models.FixtureStatistics", b =>
+                {
+                    b.HasOne("RugbyDataApi.Models.Fixture", "Fixture")
+                        .WithMany("FixtureStatistics")
+                        .HasForeignKey("FixtureId");
+
+                    b.HasOne("RugbyDataApi.Models.Player", "Player")
+                        .WithMany("FixtureStatistics")
+                        .HasForeignKey("PlayerId");
+
+                    b.Navigation("Fixture");
+
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
@@ -270,21 +287,6 @@ namespace RugbyDataApi.Migrations
                         .HasForeignKey("ClubId");
 
                     b.Navigation("Club");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.PlayerFixtureStatistics", b =>
-                {
-                    b.HasOne("RugbyDataApi.Models.Fixture", "Fixture")
-                        .WithMany()
-                        .HasForeignKey("FixtureId");
-
-                    b.HasOne("RugbyDataApi.Models.Player", "Player")
-                        .WithMany("PlayerFixtureStatistics")
-                        .HasForeignKey("PlayerId");
-
-                    b.Navigation("Fixture");
-
-                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Club", b =>
@@ -300,11 +302,13 @@ namespace RugbyDataApi.Migrations
             modelBuilder.Entity("RugbyDataApi.Models.Fixture", b =>
                 {
                     b.Navigation("Clubs");
+
+                    b.Navigation("FixtureStatistics");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
                 {
-                    b.Navigation("PlayerFixtureStatistics");
+                    b.Navigation("FixtureStatistics");
                 });
 #pragma warning restore 612, 618
         }

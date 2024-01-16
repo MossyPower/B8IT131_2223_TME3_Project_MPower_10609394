@@ -14,7 +14,7 @@ using System.Net;
 namespace MvcRugby.Controllers
 {
     //[Authorize]
-    public class SeasonController : Controller
+    public class FixtureStatisticsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -22,31 +22,31 @@ namespace MvcRugby.Controllers
 
         private readonly IHttpClientFactory _clientFactory;
 
-        public SeasonController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory)
+        public FixtureStatisticsController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory)
         {
             _context = context;
             _rugbyDataApiService = rugbyDataApiService;
             _clientFactory = clientFactory;
         }
 
-        // GET: Seasons - Using Interface & Service Layer
+        // GET: FixtureStatisticss - Using Interface & Service Layer
         // public async Task<IActionResult> Index()
         // {
-        //     return View(await _rugbyDataApiService.GetSeasons());
+        //     return View(await _rugbyDataApiService.GetFixtureStatisticss());
         // }
 
-        // GET: Seasons
+        // GET: FixtureStatisticss
         public async Task<IActionResult> Index()
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/season/";
+            string requestUri = $"/api/v1/fixtureStatistics/";
             
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var season = await response.Content.ReadFromJsonAsync<List<Season>>();
-                return View(season);
+                var fixtureStatistics = await response.Content.ReadFromJsonAsync<List<FixtureStatistics>>();
+                return View(fixtureStatistics);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -59,18 +59,18 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: Seasons/Details/5
+        // GET: FixtureStatisticss/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/season/{id}";
+            string requestUri = $"/api/v1/fixtureStatistics/{id}";
 
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var season = await response.Content.ReadFromJsonAsync<Season>();
-                return View(season);
+                var fixtureStatistics = await response.Content.ReadFromJsonAsync<FixtureStatistics>();
+                return View(fixtureStatistics);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -83,32 +83,32 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: seasons/Create
+        // GET: fixtureStatisticss/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: seasons/Create - Using Interface & Service Layer
-        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, season_Name, Country")] Season season)
+        // POST: fixtureStatisticss/Create - Using Interface & Service Layer
+        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, fixtureStatistics_Name, Country")] FixtureStatistics fixtureStatistics)
         // {
-        //     await _rugbyDataApiService.CreateSeason(season);
+        //     await _rugbyDataApiService.CreateFixtureStatistics(fixtureStatistics);
             
         //     return RedirectToAction(nameof(Index));
         // }
 
-        // POST: seasons/Create
+        // POST: fixtureStatisticss/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Season season)
+        public async Task<IActionResult> Create(FixtureStatistics fixtureStatistics)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = "/api/v1/season";
+            string requestUri = "/api/v1/fixtureStatistics";
 
-            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, season);
+            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, fixtureStatistics);
 
             if (response.IsSuccessStatusCode)
             {
@@ -120,7 +120,7 @@ namespace MvcRugby.Controllers
             }
         }
         
-        // GET: seasons/Edit/5
+        // GET: fixtureStatisticss/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -129,14 +129,14 @@ namespace MvcRugby.Controllers
             }
 
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/season/{id}";
+            string requestUri = $"/api/v1/fixtureStatistics/{id}";
 
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var season = await response.Content.ReadFromJsonAsync<Season>();
-                return View(season);
+                var fixtureStatistics = await response.Content.ReadFromJsonAsync<FixtureStatistics>();
+                return View(fixtureStatistics);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -148,26 +148,26 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // POST: seasons/Edit/5
+        // POST: fixtureStatisticss/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Season season)
+        public async Task<IActionResult> Edit(int id, FixtureStatistics fixtureStatistics)
         {
-            if (id != season.Id)
+            if (id != fixtureStatistics.Id)
             {
                 return BadRequest();
             }
 
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/season/{id}";
+            string requestUri = $"/api/v1/fixtureStatistics/{id}";
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, season);
+            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, fixtureStatistics);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Details", new { id = season.Id });
+                return RedirectToAction("Details", new { id = fixtureStatistics.Id });
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -179,7 +179,7 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: seasons/Delete/5
+        // GET: fixtureStatisticss/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -188,14 +188,14 @@ namespace MvcRugby.Controllers
             }
 
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/season/{id}";
+            string requestUri = $"/api/v1/fixtureStatistics/{id}";
 
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var season= await response.Content.ReadFromJsonAsync<Season>();
-                return View(season);
+                var fixtureStatistics= await response.Content.ReadFromJsonAsync<FixtureStatistics>();
+                return View(fixtureStatistics);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -207,13 +207,13 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // POST: seasons/Delete/5
+        // POST: fixtureStatisticss/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/season/{id}";
+            string requestUri = $"/api/v1/fixtureStatistics/{id}";
 
             HttpResponseMessage response = await client.DeleteAsync(requestUri);
 
@@ -231,9 +231,9 @@ namespace MvcRugby.Controllers
             }
         }
 
-        private bool seasonExists(int id)
+        private bool fixtureStatisticsExists(int id)
         {
-          return (_context.Season?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.FixtureStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
