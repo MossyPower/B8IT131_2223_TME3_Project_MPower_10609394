@@ -11,7 +11,7 @@ using RugbyDataApi.Data;
 namespace RugbyDataApi.Migrations
 {
     [DbContext(typeof(RugbyDataDbContext))]
-    [Migration("20240115081418_AddRugbyData")]
+    [Migration("20240116190741_AddRugbyData")]
     partial class AddRugbyData
     {
         /// <inheritdoc />
@@ -29,21 +29,23 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("Club_Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Competition_Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("MatchDayTeamId")
+                    b.Property<int?>("FixtureId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("SportRadar_Id")
+                    b.Property<string>("Qualifier")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("SportRadar_Competitor_Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("competitionId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MatchDayTeamId");
+                    b.HasIndex("FixtureId");
+
+                    b.HasIndex("competitionId");
 
                     b.ToTable("Club");
                 });
@@ -54,34 +56,27 @@ namespace RugbyDataApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ClubsId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Competition_Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly?>("End_Date")
+                    b.Property<string>("End_Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("SeasonId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SportRadar_Id")
+                    b.Property<string>("SportRadar_Competition_Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly?>("Start_Date")
+                    b.Property<string>("Start_Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Year")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClubsId");
-
-                    b.HasIndex("SeasonId");
-
                     b.ToTable("Competition");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.CompetitionGame", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.Fixture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,13 +88,19 @@ namespace RugbyDataApi.Migrations
                     b.Property<int?>("CompetitionId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CompetitionRoundId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Home_Score")
+                    b.Property<string>("End_Date")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("Home_Score")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("SportRadar_Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Start_Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Venue")
@@ -109,59 +110,7 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("CompetitionId");
 
-                    b.HasIndex("CompetitionRoundId");
-
-                    b.ToTable("CompetitionGame");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.CompetitionRound", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CompetitionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("End_Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("Round_Number")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SportRadar_Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateOnly>("Start_Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetitionId");
-
-                    b.ToTable("CompetitionRound");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.MatchDayTeam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CompetitionGameId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SportRadar_Id")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetitionGameId");
-
-                    b.ToTable("MatchDayTeam");
+                    b.ToTable("Fixture");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
@@ -185,9 +134,6 @@ namespace RugbyDataApi.Migrations
                     b.Property<string>("Last_Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("MatchDayTeamId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Nationality")
                         .HasColumnType("TEXT");
 
@@ -204,12 +150,10 @@ namespace RugbyDataApi.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.HasIndex("MatchDayTeamId");
-
                     b.ToTable("Player");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.PlayerMatchStatistics", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.PlayerFixtureStatistics", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -224,13 +168,13 @@ namespace RugbyDataApi.Migrations
                     b.Property<int?>("Clean_Breaks")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CompetitionGameId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("Conversions")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Drop_Goals")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("FixtureId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("Lineouts_Lost")
@@ -292,137 +236,75 @@ namespace RugbyDataApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetitionGameId");
+                    b.HasIndex("FixtureId");
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayerMatchStatistics");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.Season", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Competition_Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateOnly?>("End_Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SportRadar_Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateOnly?>("Start_Date")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Year")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Season");
+                    b.ToTable("PlayerFixtureStatistics");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Club", b =>
                 {
-                    b.HasOne("RugbyDataApi.Models.MatchDayTeam", null)
+                    b.HasOne("RugbyDataApi.Models.Fixture", null)
                         .WithMany("Clubs")
-                        .HasForeignKey("MatchDayTeamId");
+                        .HasForeignKey("FixtureId");
+
+                    b.HasOne("RugbyDataApi.Models.Competition", "competition")
+                        .WithMany()
+                        .HasForeignKey("competitionId");
+
+                    b.Navigation("competition");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.Competition", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.Fixture", b =>
                 {
-                    b.HasOne("RugbyDataApi.Models.Club", "Clubs")
-                        .WithMany()
-                        .HasForeignKey("ClubsId");
-
-                    b.HasOne("RugbyDataApi.Models.Season", "Season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId");
-
-                    b.Navigation("Clubs");
-
-                    b.Navigation("Season");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.CompetitionGame", b =>
-                {
-                    b.HasOne("RugbyDataApi.Models.Competition", "Competition")
-                        .WithMany()
+                    b.HasOne("RugbyDataApi.Models.Competition", null)
+                        .WithMany("Fixtures")
                         .HasForeignKey("CompetitionId");
-
-                    b.HasOne("RugbyDataApi.Models.CompetitionRound", "CompetitionRound")
-                        .WithMany("CompetitionGame")
-                        .HasForeignKey("CompetitionRoundId");
-
-                    b.Navigation("Competition");
-
-                    b.Navigation("CompetitionRound");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.CompetitionRound", b =>
-                {
-                    b.HasOne("RugbyDataApi.Models.Competition", "Competition")
-                        .WithMany()
-                        .HasForeignKey("CompetitionId");
-
-                    b.Navigation("Competition");
-                });
-
-            modelBuilder.Entity("RugbyDataApi.Models.MatchDayTeam", b =>
-                {
-                    b.HasOne("RugbyDataApi.Models.CompetitionGame", "CompetitionGame")
-                        .WithMany()
-                        .HasForeignKey("CompetitionGameId");
-
-                    b.Navigation("CompetitionGame");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
                 {
                     b.HasOne("RugbyDataApi.Models.Club", "Club")
-                        .WithMany()
-                        .HasForeignKey("ClubId");
-
-                    b.HasOne("RugbyDataApi.Models.MatchDayTeam", null)
                         .WithMany("Players")
-                        .HasForeignKey("MatchDayTeamId");
+                        .HasForeignKey("ClubId");
 
                     b.Navigation("Club");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.PlayerMatchStatistics", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.PlayerFixtureStatistics", b =>
                 {
-                    b.HasOne("RugbyDataApi.Models.CompetitionGame", "CompetitionGame")
+                    b.HasOne("RugbyDataApi.Models.Fixture", "Fixture")
                         .WithMany()
-                        .HasForeignKey("CompetitionGameId");
+                        .HasForeignKey("FixtureId");
 
                     b.HasOne("RugbyDataApi.Models.Player", "Player")
-                        .WithMany("Statistics")
+                        .WithMany("PlayerFixtureStatistics")
                         .HasForeignKey("PlayerId");
 
-                    b.Navigation("CompetitionGame");
+                    b.Navigation("Fixture");
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.CompetitionRound", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.Club", b =>
                 {
-                    b.Navigation("CompetitionGame");
+                    b.Navigation("Players");
                 });
 
-            modelBuilder.Entity("RugbyDataApi.Models.MatchDayTeam", b =>
+            modelBuilder.Entity("RugbyDataApi.Models.Competition", b =>
+                {
+                    b.Navigation("Fixtures");
+                });
+
+            modelBuilder.Entity("RugbyDataApi.Models.Fixture", b =>
                 {
                     b.Navigation("Clubs");
-
-                    b.Navigation("Players");
                 });
 
             modelBuilder.Entity("RugbyDataApi.Models.Player", b =>
                 {
-                    b.Navigation("Statistics");
+                    b.Navigation("PlayerFixtureStatistics");
                 });
 #pragma warning restore 612, 618
         }

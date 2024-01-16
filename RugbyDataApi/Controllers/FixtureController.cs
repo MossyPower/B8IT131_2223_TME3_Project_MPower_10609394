@@ -10,57 +10,57 @@ using RugbyDataApi.Models;
 
 namespace RugbyDataApi.Controllers
 {
-    [Route("api/v1/matchdayteam/")]
+    [Route("api/v1/competitiongame/")]
     [ApiController]
-    public class MatchDayTeamController : ControllerBase
+    public class FixtureController : ControllerBase
     {
         private readonly RugbyDataDbContext _context;
 
-        public MatchDayTeamController(RugbyDataDbContext context)
+        public FixtureController(RugbyDataDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/MatchDayTeam
+        // GET: api/Fixture
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MatchDayTeam>>> GetMatchDayTeams()
+        public async Task<ActionResult<IEnumerable<Fixture>>> GetFixtures()
         {
-          if (_context.MatchDayTeam == null)
+          if (_context.Fixture == null)
           {
               return NotFound();
           }
-            return await _context.MatchDayTeam.ToListAsync();
+            return await _context.Fixture.ToListAsync();
         }
 
-        // GET: api/MatchDayTeam/5
+        // GET: api/Fixture/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<MatchDayTeam>> GetMatchDayTeam(int id)
+        public async Task<ActionResult<Fixture>> GetFixture(int id)
         {
-          if (_context.MatchDayTeam == null)
+          if (_context.Fixture == null)
           {
               return NotFound();
           }
-            var matchDayTeam = await _context.MatchDayTeam.FindAsync(id);
+            var competitionGame = await _context.Fixture.FindAsync(id);
 
-            if (matchDayTeam == null)
+            if (competitionGame == null)
             {
                 return NotFound();
             }
 
-            return matchDayTeam;
+            return competitionGame;
         }
 
-        // PUT: api/MatchDayTeam/5
+        // PUT: api/Fixture/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMatchDayTeam(int id, MatchDayTeam matchDayTeam)
+        public async Task<IActionResult> PutFixture(int id, Fixture competitionGame)
         {
-            if (id != matchDayTeam.Id)
+            if (id != competitionGame.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(matchDayTeam).State = EntityState.Modified;
+            _context.Entry(competitionGame).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MatchDayTeamExists(id))
+                if (!FixtureExists(id))
                 {
                     return NotFound();
                 }
@@ -81,23 +81,23 @@ namespace RugbyDataApi.Controllers
             return NoContent();
         }
 
-        // POST: api/MatchDayTeam
+        // POST: api/Fixture
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MatchDayTeam>> PostMatchDayTeam(MatchDayTeam matchDayTeam)
+        public async Task<ActionResult<Fixture>> PostFixture(Fixture competitionGame)
         {
-          if (_context.MatchDayTeam == null)
+          if (_context.Fixture == null)
           {
-              return Problem("Entity set 'RugbyDataDbContext.MatchDayTeams'  is null.");
+              return Problem("Entity set 'RugbyDataDbContext.Fixtures'  is null.");
           }
-            _context.MatchDayTeam.Add(matchDayTeam);
+            _context.Fixture.Add(competitionGame);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (MatchDayTeamExists(matchDayTeam.Id))
+                if (FixtureExists(competitionGame.Id))
                 {
                     return Conflict();
                 }
@@ -107,32 +107,32 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetMatchDayTeam", new { id = matchDayTeam.Id }, matchDayTeam);
+            return CreatedAtAction("GetFixture", new { id = competitionGame.Id }, competitionGame);
         }
 
-        // DELETE: api/MatchDayTeam/5
+        // DELETE: api/Fixture/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMatchDayTeam(int id)
+        public async Task<IActionResult> DeleteFixture(int id)
         {
-            if (_context.MatchDayTeam == null)
+            if (_context.Fixture == null)
             {
                 return NotFound();
             }
-            var matchDayTeam = await _context.MatchDayTeam.FindAsync(id);
-            if (matchDayTeam == null)
+            var competitionGame = await _context.Fixture.FindAsync(id);
+            if (competitionGame == null)
             {
                 return NotFound();
             }
 
-            _context.MatchDayTeam.Remove(matchDayTeam);
+            _context.Fixture.Remove(competitionGame);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool MatchDayTeamExists(int id)
+        private bool FixtureExists(int id)
         {
-            return (_context.MatchDayTeam?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Fixture?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

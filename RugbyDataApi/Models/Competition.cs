@@ -6,18 +6,14 @@ namespace RugbyDataApi.Models
     {
               
         [Required]
-        public int Id { get; set; }
-        public string? SportRadar_Id {get; set;}
-        public string? Competition_Name { get; set; }
-        public  DateOnly? Start_Date { get; set; }
-        public DateOnly? End_Date { get; set; }
+        public int Id { get; set; } 
+        public string? SportRadar_Competition_Id {get; set;} //Sport Radar API Id, e.g: 
+        public string? Competition_Name { get; set; } //Competition Name, e.g.: European Champions Cup
+        public  string? Year { get; set; } //Competition Year, e.g.: 23/24
+        public  string? Start_Date { get; set; } //Competition Start Date, e.g.: 08.12.2023
+        public string? End_Date { get; set; } //Competition End Date, e.g: 25.05.2024
         
-        // Relationship with Parent
-        //public string? Season_ID { get; set; } //Foreign Key 
-        public Season? Season { get; set; } //Reference navigation property
-        
-        // Relationship with Child
-        //public string? Club_Id { get; set; } //Foreign Key
-        public Club? Clubs { get; set; } //Reference navigation property
+        //Reference navigation property - to child
+        public List<Fixture>? Fixtures { get; set; }
     }
 }

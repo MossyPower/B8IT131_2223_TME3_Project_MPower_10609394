@@ -6,9 +6,14 @@ namespace RugbyDataApi.Models
     {
         [Required]
         public int Id { get; set; }
-        public string? SportRadar_Id {get; set;}
-        public string? Competition_Name { get; set; } // e.g.: United Rugby Championship
+        public string? SportRadar_Competitor_Id {get; set;}
         public string? Club_Name { get; set; } // E.g.: Munster
-        public string? Country { get; set; } // E.g.: Ireland
+        public string? Qualifier { get; set; }
+        
+        //Reference navigation property - to parent
+        public Competition? competition { get; set; }
+        
+        //Reference navigation property - to child
+        public List<Player>? Players { get; set; } 
     }
 }

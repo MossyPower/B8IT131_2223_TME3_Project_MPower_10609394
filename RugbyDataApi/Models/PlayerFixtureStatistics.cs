@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RugbyDataApi.Models
 {
-    public class PlayerMatchStatistics
+    public class PlayerFixtureStatistics
     {
         [Required]
         public int Id { get; set; }
@@ -30,12 +30,8 @@ namespace RugbyDataApi.Models
         public int? Yellow_Cards { get; set; } 
         public int? Red_Cards { get; set; } 
         
-        // Relationship with parent
-        //public string? Game_Id { get; set; } //Foreign Key
-        public CompetitionGame? CompetitionGame { get; set; } //Reference navigation property
-        
-        // Relationship with parent
-        //public string? Player_Id { get; set; } //Foreign Key
-        public Player? Player { get; set; } //Reference navigation property
+        //Reference navigation property - to parent
+        public Player? Player { get; set; }
+        public Fixture? Fixture { get; set; }
     }
 }

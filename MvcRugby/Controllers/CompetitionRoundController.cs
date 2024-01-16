@@ -9,10 +9,10 @@ using MvcRugby.Data;
 using MvcRugby.Models;
 using MvcRugby.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace MvcRugby.Controllers
 {
-    [Authorize]
     public class CompetitionRoundController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -29,149 +29,208 @@ namespace MvcRugby.Controllers
         }
 
         // GET: CompetitionRounds
+        // public async Task<IActionResult> Index()
+        // {
+        //     return View(await _rugbyDataApiService.GetCompetitionRounds());
+        // }
+
+        // GET: CompetitionRounds
         public async Task<IActionResult> Index()
         {
-            return View(await _rugbyDataApiService.GetCompetitionRounds());
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/round/";
+            
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var round = await response.Content.ReadFromJsonAsync<List<CompetitionRound>>();
+                return View(round);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                // Handle other error cases
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         // GET: CompetitionRounds/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.CompetitionRound == null)
-            {
-                return NotFound(); //404
-            }
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/round/{id}";
 
-            //SELECT * FROM competitionRounds
-            //WHERE Id = 5;
-            var competitionRound = await _context.CompetitionRound
-                .FirstOrDefaultAsync(c => c.Id == id);
-            
-            if (competitionRound == null)
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var round = await response.Content.ReadFromJsonAsync<CompetitionRound>();
+                return View(round);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-
-            return View(competitionRound);
+            else
+            {
+                // Handle other error cases
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
-        // GET: CompetitionRounds/Create
+        // GET: rounds/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CompetitionRounds/Create
+        // POST: rounds/Create - Using Interface & Service Layer
+        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, round_Name, Country")] CompetitionRound round)
+        // {
+        //     await _rugbyDataApiService.CreateCompetitionRound(round);
+            
+        //     return RedirectToAction(nameof(Index));
+        // }
+
+        // POST: rounds/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, CompetitionRound_Name, Country")] CompetitionRound competitionRound)
+        public async Task<IActionResult> Create(CompetitionRound round)
         {
-            if (ModelState.IsValid)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = "/api/v1/round";
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, round);
+
+            if (response.IsSuccessStatusCode)
             {
-
-                //INSERT INTO CLUBS ("Id, SportRadar_Id, Competition_Name, CompetitionRound_Name, Country")
-                //VALUES (competitionRound.Id, competitionRound.SportRadar_Id, competitionRound.Competition_Name, competitionRound.CompetitionRound_Name, competitionRound.Country);
-
-                _context.Add(competitionRound);
-
-                await _context.SaveChangesAsync();
-                //COMMIT;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(competitionRound);
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
-
-        // GET: CompetitionRounds/Edit/5
+        
+        // GET: rounds/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.CompetitionRound == null)
+            if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var competitionRound = await _context.CompetitionRound.FindAsync(id);
-            if (competitionRound == null)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/round/{id}";
+
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var round = await response.Content.ReadFromJsonAsync<CompetitionRound>();
+                return View(round);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-            return View(competitionRound);
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
-        // POST: CompetitionRounds/Edit/5
+        // POST: rounds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, SportRadar_Id, Competition_Name, CompetitionRound_Name, Country")] CompetitionRound competitionRound)
+        public async Task<IActionResult> Edit(int id, CompetitionRound round)
         {
-            if (id != competitionRound.Id)
+            if (id != round.Id)
+            {
+                return BadRequest();
+            }
+
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/round/{id}";
+
+            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, round);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", new { id = round.Id });
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(competitionRound);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CompetitionRoundExists(competitionRound.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return StatusCode((int)response.StatusCode);
             }
-            return View(competitionRound);
         }
 
-        // GET: CompetitionRounds/Delete/5
+        // GET: rounds/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.CompetitionRound == null)
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/round/{id}";
+
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var round= await response.Content.ReadFromJsonAsync<CompetitionRound>();
+                return View(round);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return NotFound();
             }
-
-            var competitionRound = await _context.CompetitionRound
-                .FirstOrDefaultAsync(c => c.Id == id);
-            if (competitionRound == null)
+            else
             {
-                return NotFound();
+                return StatusCode((int)response.StatusCode);
             }
-
-            return View(competitionRound);
         }
 
-        // POST: CompetitionRounds/Delete/5
+        // POST: rounds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.CompetitionRound == null)
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/round/{id}";
+
+            HttpResponseMessage response = await client.DeleteAsync(requestUri);
+
+            if (response.IsSuccessStatusCode)
             {
-                return Problem("Entity set 'ApplicationDbContext.CompetitionRound' is null.");
+                return RedirectToAction("Index");
             }
-            var competitionRound = await _context.CompetitionRound.FindAsync(id);
-            if (competitionRound != null)
+            else if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                _context.CompetitionRound.Remove(competitionRound);
+                return NotFound();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
-        private bool CompetitionRoundExists(int id)
+        private bool roundExists(int id)
         {
           return (_context.CompetitionRound?.Any(e => e.Id == id)).GetValueOrDefault();
         }

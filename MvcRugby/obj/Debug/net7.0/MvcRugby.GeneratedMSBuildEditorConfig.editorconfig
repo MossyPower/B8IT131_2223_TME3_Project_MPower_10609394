@@ -22,6 +22,22 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/CompetitionRound/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25Sb3VuZFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/CompetitionRound/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25Sb3VuZFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/CompetitionRound/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25Sb3VuZFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/CompetitionRound/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25Sb3VuZFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/CompetitionRound/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25Sb3VuZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
