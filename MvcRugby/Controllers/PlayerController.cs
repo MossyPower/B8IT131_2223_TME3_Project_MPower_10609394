@@ -106,7 +106,7 @@ namespace MvcRugby.Controllers
         public async Task<IActionResult> Create(Player player)
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = "/api/v1/player";
+            string requestUri = "/api/v1/player/";
 
             HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, player);
 
@@ -229,11 +229,6 @@ namespace MvcRugby.Controllers
             {
                 return StatusCode((int)response.StatusCode);
             }
-        }
-
-        private bool clubExists(int id)
-        {
-          return (_context.Player?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

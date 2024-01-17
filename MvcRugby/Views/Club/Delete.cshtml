@@ -1,0 +1,37 @@
+@model MvcRugby.Models.Club
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete Club</h1>
+
+<h3>Are you sure you want to delete this Club?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SportRadar_Competitor_Id)
+            @Html.DisplayFor(model => model.SportRadar_Competitor_Id)
+        </dt>  
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Club_Name))
+        </dt>  
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Qualifier)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.competition)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Players)
+        </dt>
+    </dl>
+</div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
+    </form>
+</div>

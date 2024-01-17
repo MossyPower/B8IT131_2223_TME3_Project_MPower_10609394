@@ -1,4 +1,4 @@
-@model MvcRugby.Mappings.Seasons
+@model MvcRugby.Models.Competition
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,19 +12,19 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
+            @Html.DisplayNameFor(model => model.Competition_Name)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.start_date)
+            @Html.DisplayFor(model => model.Start_Date)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.end_date)
+            @Html.DisplayNameFor(model => model.End_Date)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.year)
+            @Html.DisplayFor(model => model.Year)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.competition_id)
+            @Html.DisplayNameFor(model => model.SportRadar_Competition_Id)
         </dt>
     </dl>
 </div>

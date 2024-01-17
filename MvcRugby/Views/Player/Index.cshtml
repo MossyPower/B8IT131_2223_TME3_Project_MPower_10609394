@@ -1,0 +1,57 @@
+@model IEnumerable<MvcRugby.Models.Player>
+
+@{
+  ViewData["Title"] = "Index";
+}
+
+<h1>Players</h1>
+<br>
+
+<div class="container">
+  <hr />
+    <div class="p-3 mb-2 bg-dark text-white">
+      <a asp-action="Create" class="btn btn-primary">Add New Player</a>
+    </div>
+  <hr />
+</div>
+<br>
+
+<!--@if (Model != null && Model.Any())-->
+{
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">Club</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Nationality</th>
+              <th scope="col">Position</th>
+              <th scope="col">Jersey Number</th>
+              <th scope="col">Age</th>
+              <th scope="col">Weight</th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach (var player in Model.player)
+          {
+            <tr>
+                <td>@player.Club.Club_Name</td>
+                <td>@player.First_Name</td>
+                <td>@player.Last_Name	</td>
+                <td>@player.Nationality</td>
+                <td>@player.Position</td>
+                <td>@player.Jersey_Number</td>
+                <td>@player.Age</td>
+                <td>@player.Weight</td>
+                <a class="btn btn-primary" asp-controller="Player" asp-action="Create" asp-route-id="@player.Id">Select Player</a>
+                <a class="btn btn-warning" asp-controller="Player" asp-action="Edit" asp-route-id="@player.Id">Edit</a>
+                <a class="btn btn-danger" asp-controller="Player" asp-action="Delete" asp-route-id="@player.Id">Delete</a>
+            </tr>
+          }
+      </tbody>
+  </table>
+}
+else
+{
+  <p>No players found</p>
+}

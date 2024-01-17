@@ -63,11 +63,11 @@ namespace MvcRugby.Services
         
         
         // CLUB MODEL ACTIONS
-        public async Task<IEnumerable<Club>?> GetClubs()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Club>>("api/v1/clubs/");
-        }
-        
+        // public async Task<IEnumerable<Club>?> GetClubs()
+        // {
+        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Club>>("api/v1/clubs/");
+        // }
+
         // COMPETITION MODEL ACTIONS
         public async Task<IEnumerable<Competition>?> GetCompetitions()
         {

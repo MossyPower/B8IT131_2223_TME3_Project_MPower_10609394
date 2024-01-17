@@ -1,17 +1,18 @@
-@model MvcRugby.Models.Season
+@model MvcRugby.Models.Competition
+
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit Season</h1>
 
-<h4>Competition Season</h4>
+<h4>Season</h4>
 <hr />
-
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Competition_Name" class="control-label"></label>
                 <input asp-for="Competition_Name" class="form-control" />
@@ -33,17 +34,16 @@
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SportRadar_Id" class="control-label"></label>
-                <input asp-for="SportRadar_Id" class="form-control" />
-                <span asp-validation-for="SportRadar_Id" class="text-danger"></span>
+                <label asp-for="SportRadar_Competition_Id" class="control-label"></label>
+                <input asp-for="SportRadar_Competition_Id" class="form-control" />
+                <span asp-validation-for="SportRadar_Competition_Id" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-warning" />
+                <a class ="btn btn-secondary reset-btn" asp-action="Details">Back to List</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<br>
