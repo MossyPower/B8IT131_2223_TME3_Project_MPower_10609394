@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MvcRugby.Models
 {
@@ -7,7 +8,7 @@ namespace MvcRugby.Models
         [Required]
         public int Id { get; set; }
         public string? SportRadar_Id {get; set;}
-        public string? Tries { get; set; }
+        public int? Tries { get; set; }
         public int? Try_Assists { get; set; } 
         public int? Conversions { get; set; } 
         public int? Penalty_Goals { get; set; } 
@@ -31,7 +32,10 @@ namespace MvcRugby.Models
         public int? Red_Cards { get; set; } 
         
         //Reference navigation property - to parent
-        public Player? Player { get; set; }
-        public Fixture? Fixture { get; set; }
+        [ForeignKey("PlayerId")]
+        public Player Player { get; set; }
+        [ForeignKey("FixtureId")]
+        public Fixture Fixture { get; set; }
+
     }
 }

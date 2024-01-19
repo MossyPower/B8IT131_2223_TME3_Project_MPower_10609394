@@ -1,0 +1,50 @@
+@model IEnumerable<MvcRugby.Models.Competition>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Competitions</h1>
+<hr>
+
+<h4>Add New Competition</h4>
+<a class="btn btn-primary" asp-action="Create">Create</a>
+<hr>
+
+<!-- Add SCompetition cards -->
+@if (Model != null && Model.Any())
+{
+  <div class="container">
+    <div class="row">
+      @foreach (var competition in Model)
+      {
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            @* <img class="card-img-top" src="@Html.DisplayFor(modelItem => season.Image)" alt="@Html.DisplayNameFor(model => product.Image)" width="100%", height = "400px"> *@
+            <div class="card-body">
+              <h5 class="card-title">@competition.Competition_Name</h5> 
+
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Id: @competition.Id</li>
+              <li class="list-group-item">SportRadar Competition Id: @competition.SportRadar_Competition_Id</li>
+              <li class="list-group-item">Start Date: @competition.Start_Date</li>
+              <li class="list-group-item">End Date: @competition.End_Date</li>
+              <li class="list-group-item">Competition Year: @competition.Year</li>
+            </ul>
+            <div class="card-body">
+                <a class="btn btn-primary" asp-action="Rounds" asp-route-id="@competition.Id" asp-controller="Comparison">View Rounds</a>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@competition.Id" asp-controller="Competition">View Details</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@competition.Id" asp-controller="Competition">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@competition.Id" asp-controller="Competition">Delete</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+else
+{
+  <p>No competitions recorded.</p>
+}

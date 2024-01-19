@@ -42,6 +42,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2x1YlxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Comparison/Comparison.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyaXNvblxDb21wYXJpc29uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Comparison/Competitions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyaXNvblxDb21wZXRpdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Comparison/CreateFixture.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyaXNvblxDcmVhdGVGaXh0dXJlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Comparison/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyaXNvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Comparison/Rounds.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFyaXNvblxSb3VuZHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Competition/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,6 +80,50 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Competition/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Competition/Test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGV0aXRpb25cVGVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/FixtureStatistics/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVN0YXRpc3RpY3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/FixtureStatistics/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVN0YXRpc3RpY3NcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/FixtureStatistics/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVN0YXRpc3RpY3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/FixtureStatistics/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVN0YXRpc3RpY3NcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/FixtureStatistics/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVN0YXRpc3RpY3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Fixture/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Fixture/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Fixture/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Fixture/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Fixture/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRml4dHVyZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/mossy/Documents/GitHub/B8IT131_2223_TME3_Project_MPower_10609394/MvcRugby/Views/Home/Index.cshtml]

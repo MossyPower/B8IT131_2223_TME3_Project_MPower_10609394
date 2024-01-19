@@ -23,12 +23,12 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/FixtureStatistics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FixtureStatistics>>> GetPlayersMatchStatistics()
+        public async Task<ActionResult<IEnumerable<FixtureStatistics>>> GetFixtureStatistics()
         {
           if (_context.FixtureStatistics == null)
-          {
+            {
               return NotFound();
-          }
+            }
             return await _context.FixtureStatistics.ToListAsync();
         }
 
@@ -55,7 +55,7 @@ namespace RugbyDataApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFixtureStatistics(int id, FixtureStatistics playerMatchStatistics)
         {
-            if (id != playerMatchStatistics.Id)
+            if (id != playerMatchStatistics.FixtureStatisticsId)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateException)
             {
-                if (FixtureStatisticsExists(playerMatchStatistics.Id))
+                if (FixtureStatisticsExists(playerMatchStatistics.FixtureStatisticsId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFixtureStatistics", new { id = playerMatchStatistics.Id }, playerMatchStatistics);
+            return CreatedAtAction("GetFixtureStatistics", new { id = playerMatchStatistics.FixtureStatisticsId }, playerMatchStatistics);
         }
 
         // DELETE: api/FixtureStatistics/5
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool FixtureStatisticsExists(int id)
         {
-            return (_context.FixtureStatistics?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.FixtureStatistics?.Any(e => e.FixtureStatisticsId == id)).GetValueOrDefault();
         }
     }
 }

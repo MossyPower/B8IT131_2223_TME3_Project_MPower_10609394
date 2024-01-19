@@ -69,27 +69,27 @@ namespace MvcRugby.Services
         // }
 
         // COMPETITION MODEL ACTIONS
-        public async Task<IEnumerable<Competition>?> GetCompetitions()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Competition>>("api/v1/competitions/");
-        }
+        // public async Task<IEnumerable<Competition>?> GetCompetitions()
+        // {
+        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Competition>>("api/v1/competitions/");
+        // }
         
         // COMPETITION-GAMES MODEL ACTIONS
-        public async Task<IEnumerable<Fixture>?> GetFixtures()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>("api/v1/fixtures/");
-        } 
+        // public async Task<IEnumerable<Fixture>?> GetFixtures()
+        // {
+        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>("api/v1/fixtures/");
+        // } 
         
         // PLAYERS MODEL ACTIONS
-        public async Task<IEnumerable<Player>?> GetPlayers()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Player>>("api/v1/players/");
-        } 
+        // public async Task<IEnumerable<Player>?> GetPlayers()
+        // {
+        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Player>>("api/v1/players/");
+        // } 
         
         // PLAYER-STATISTICS MODEL ACTIONS
-        public async Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics()
-        {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixturestatistics/");
-        }     
+        // public async Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics()
+        // {
+        //     return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixturestatistics/");
+        // }     
     }     
 }

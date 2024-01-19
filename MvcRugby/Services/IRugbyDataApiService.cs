@@ -13,9 +13,9 @@ public interface IRugbyDataApiService
     // Task<Season>? DeleteSeason(int id);
 
     // COMPETITION ACTION METHODS
-    Task<IEnumerable<Competition>?> GetCompetitions();
-    Task<IEnumerable<Fixture>?> GetFixtures();
-    Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics();
-    Task<IEnumerable<Player>?> GetPlayers();
+    // Task<IEnumerable<Competition>?> GetCompetitions();
+    // Task<IEnumerable<Fixture>?> GetFixtures();
+    // Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics();
+    // Task<IEnumerable<Player>?> GetPlayers();
 
 }

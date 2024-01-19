@@ -1,0 +1,70 @@
+@model IEnumerable<MvcRugby.Models.Fixture>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Competition Fixtures</h1>
+<br>
+
+<div class="container">
+  <hr />
+    <div class="p-3 mb-2 bg-dark text-white">
+      <h4>Admin Tools</h4>
+      <br>
+      <a asp-action="Create" class="btn btn-primary">Add New Competition Fixture</a>
+    </div>
+  <hr />
+</div>
+
+@if (Model != null && Model.Any())
+{
+  <table class="table">
+    <thread>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">SportRadar_Id</th>
+        <th scope="col">Round_Number</th>
+        <th scope="col">Start_Date</th>
+        <th scope="col">End_Date</th>
+        <th scope="col">Status</th>
+        @* <th scope="col">Home_Team</th>
+        <th scope="col">Away_Team</th> *@
+        <th scope="col">Home_Score</th>
+        <th scope="col">Away_Score</th>
+        <th scope="col">Competition</th>
+        <th scope="col">Clubs</th>
+        <th scope="col">Fixture Statistics</th>
+      </tr>
+    </thread>
+    <tbody>
+        @foreach(var fixture in Model)
+        {
+          <tr>
+            <td>@fixture.Id</td>
+            <td>@fixture.SportRadar_Id</td>
+            <td>@fixture.Round_Number</td>
+            <td>@fixture.Fixture_Date</td>
+            <td>@fixture.Start_Time</td>
+            <td>@fixture.Status</td>
+            <td>@fixture.Home_Team</td>
+            <td>@fixture.Away_Team</td>
+            <td>@fixture.Home_Score</td>
+            <td>@fixture.Away_Score</td>
+            <td>@fixture.Competition</td>
+            <td>@fixture.Clubs</td>
+            <td>@fixture.FixtureStatistics</td>
+            <td>
+              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@fixture.Id" asp-controller="CompetitionRound">Select</a>
+              <a class="btn btn-success" asp-action="Details" asp-route-id="@fixture.Id">View Details</a>
+              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@fixture.Id">Edit</a>
+              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@fixture.Id">Delete</a>
+            </td>
+          </tr>
+        }
+    </tbody>
+  </table>
+}
+else
+{
+  <p>No Fixtures found</p>
+}

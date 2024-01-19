@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MvcRugby.Models
 {
@@ -16,7 +17,8 @@ namespace MvcRugby.Models
         public string? Weight { get; set; } 
         
         //Reference navigation property - to Parent
-        public Club? Club { get; set; }
+        [ForeignKey("ClubId")]
+        public Club Club { get; set; }
         
         //Reference navigation property - to Child
         public List<FixtureStatistics>? FixtureStatistics { get; set; }

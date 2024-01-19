@@ -1,0 +1,29 @@
+@* @model IEnumerable<TestRoundViewModel> *@
+@model MvcRugby.Models.Competition
+@{
+    ViewData["Title"] = "Competition Rounds";
+}
+
+<h1>Test - Competition Rounds</h1>
+
+<p>@Model.Competition_Name</p>
+<p>@Model.Start_Date</p>
+
+<p>
+@* 
+@foreach (var fixture in Model.Fixtures)
+{
+    <p>@fixture.Clubs</p>
+} *@
+</p>
+
+@* @foreach (var round in Model.Fixtures)
+{
+    <h2>Round Number: @round.Round_Number</h2>
+    <ul>
+        @foreach (var fixture in round.Fixtures)
+        {
+            <li>@fixture.Round_Number</li>
+        }
+    </ul>
+} *@

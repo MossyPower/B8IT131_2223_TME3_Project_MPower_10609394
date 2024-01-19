@@ -55,7 +55,7 @@ namespace RugbyDataApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPlayer(int id, Player player)
         {
-            if (id != player.Id)
+            if (id != player.PlayerId)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateException)
             {
-                if (PlayerExists(player.Id))
+                if (PlayerExists(player.PlayerId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
+            return CreatedAtAction("GetPlayer", new { id = player.PlayerId }, player);
         }
 
         // DELETE: api/Player/5
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool PlayerExists(int id)
         {
-            return (_context.Player?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Player?.Any(e => e.PlayerId == id)).GetValueOrDefault();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace RugbyDataApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFixture(int id, Fixture competitionGame)
         {
-            if (id != competitionGame.Id)
+            if (id != competitionGame.FixtureId)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateException)
             {
-                if (FixtureExists(competitionGame.Id))
+                if (FixtureExists(competitionGame.FixtureId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFixture", new { id = competitionGame.Id }, competitionGame);
+            return CreatedAtAction("GetFixture", new { id = competitionGame.FixtureId }, competitionGame);
         }
 
         // DELETE: api/Fixture/5
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool FixtureExists(int id)
         {
-            return (_context.Fixture?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Fixture?.Any(e => e.FixtureId == id)).GetValueOrDefault();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace RugbyDataApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCompetition(int id, Competition competition)
         {
-            if (id != competition.Id)
+            if (id != competition.CompetitionId)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateException)
             {
-                if (CompetitionExists(competition.Id))
+                if (CompetitionExists(competition.CompetitionId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetCompetition", new { id = competition.Id }, competition);
+            return CreatedAtAction("GetCompetition", new { id = competition.CompetitionId }, competition);
         }
 
         // DELETE: api/Competition/5
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool CompetitionExists(int id)
         {
-            return (_context.Competition?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Competition?.Any(e => e.CompetitionId == id)).GetValueOrDefault();
         }
     }
 }

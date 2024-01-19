@@ -83,10 +83,33 @@ namespace MvcRugby.Controllers
             }
         }
 
+        // Return Create Fixture View
         // GET: fixtures/Create
-        public IActionResult Create()
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
+
+        public async Task<IActionResult> Create(int id)
         {
-            return View();
+            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri = $"/api/v1/competition/{id}";
+
+            HttpResponseMessage response = await client.GetAsync(requestUri);
+            if (response.IsSuccessStatusCode)
+            {
+                var fixture = await response.Content.ReadFromJsonAsync<Competition>();
+                return View(fixture);
+            }
+            else if (response.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound();
+            }
+            else
+            {
+                // Handle other error cases
+                return StatusCode((int)response.StatusCode);
+            }
         }
 
         // POST: fixtures/Create - Using Interface & Service Layer

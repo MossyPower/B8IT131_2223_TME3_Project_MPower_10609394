@@ -29,7 +29,7 @@ namespace MvcRugby.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET: FixtureStatisticss - Using Interface & Service Layer
+        // GET: FixtureStatistics - Using Interface & Service Layer
         // public async Task<IActionResult> Index()
         // {
         //     return View(await _rugbyDataApiService.GetFixtureStatisticss());

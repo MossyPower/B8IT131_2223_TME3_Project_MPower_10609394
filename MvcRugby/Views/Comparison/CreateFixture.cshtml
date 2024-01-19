@@ -1,0 +1,17 @@
+@model FixtureViewModel
+
+<h2>Create Fixture for @Model.CompetitionName</h2>
+
+<form asp-action="CreateFixture" method="post">
+    <!-- Display competition information if needed -->
+    <p>Competition ID: @Model.CompetitionId</p>
+    <p>Competition Name: @Model.CompetitionName</p>
+
+    <!-- Add form fields for Fixture properties -->
+    <label for="StartDate">Start Date:</label>
+    <input type="date" id="StartDate" name="StartDate" required>
+
+    <!-- Other fields for Fixture properties -->
+
+    <button type="submit">Create Fixture</button>
+</form>

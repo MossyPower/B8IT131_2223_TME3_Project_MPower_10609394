@@ -1,0 +1,57 @@
+@model MvcRugby.Models.Fixture
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete Competition Fixture</h1>
+
+<h3>Are you sure you want to delete this Fixture?</h3>
+<div>
+    <h4>Fixture</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SportRadar_Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Round_Number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fixture_Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Start_Time)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Home_Team)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Away_Team)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Home_Score)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Away_Score)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Competition)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Clubs)
+        </dt>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FixtureStatistics)
+        </dt>
+    </dl>
+</div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
+    </form>
+</div>

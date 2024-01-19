@@ -55,7 +55,7 @@ namespace RugbyDataApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClub(int id, Club club)
         {
-            if (id != club.Id)
+            if (id != club.ClubId)
             {
                 return BadRequest();
             }
@@ -97,7 +97,7 @@ namespace RugbyDataApi.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ClubExists(club.Id))
+                if (ClubExists(club.ClubId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetClub", new { id = club.Id }, club);
+            return CreatedAtAction("GetClub", new { id = club.ClubId }, club);
         }
 
         // DELETE: api/Club/5
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool ClubExists(int id)
         {
-            return (_context.Club?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Club?.Any(e => e.ClubId == id)).GetValueOrDefault();
         }
     }
 }
