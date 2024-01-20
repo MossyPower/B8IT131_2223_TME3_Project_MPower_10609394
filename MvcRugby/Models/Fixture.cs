@@ -5,8 +5,9 @@ namespace MvcRugby.Models
 {
     public class Fixture //i.e. competition game / match (e.g.: Munster Vs. Leinster)
     {
+        //Fixture Attributes 
         [Required]
-        public int Id { get; set; }
+        public int FixtureId { get; set; }
         public string? SportRadar_Id {get; set;}
         public int Round_Number { get; set; }
         public string Fixture_Date { get; set; }
@@ -17,12 +18,14 @@ namespace MvcRugby.Models
         public int? Home_Score { get; set; }
         public int? Away_Score { get; set; }
         
-        //Reference navigation property - to parent
+        //Setup relationship with Competition model/table
         [ForeignKey("CompetitionId")]
-        public Competition Competition { get; set; }
+        public int CompetitionId { get; set; } //Foreign Key
+        public Competition Competition { get; set; } //Reference navigation property
 
-        //Reference navigation property - to child
-        public List<Club>? Clubs { get; set; }
-        public List<FixtureStatistics>? FixtureStatistics { get; set; }
+        //Relationship with Club model
+        public List<Club>? Clubs { get; set; } //Reference navigation property
+        //Relationship with FixtureStatistic model
+        public List<FixtureStatistics>? FixtureStatistics { get; set; } //Reference navigation property
     }
 }

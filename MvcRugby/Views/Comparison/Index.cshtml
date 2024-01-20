@@ -26,17 +26,17 @@
 
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Id: @competition.Id</li>
+              <li class="list-group-item">Id: @competition.CompetitionId</li>
               <li class="list-group-item">SportRadar Competition Id: @competition.SportRadar_Competition_Id</li>
               <li class="list-group-item">Start Date: @competition.Start_Date</li>
               <li class="list-group-item">End Date: @competition.End_Date</li>
               <li class="list-group-item">Competition Year: @competition.Year</li>
             </ul>
             <div class="card-body">
-                <a class="btn btn-primary" asp-action="Rounds" asp-route-id="@competition.Id" asp-controller="Comparison">View Rounds</a>
-                <a class="btn btn-success" asp-action="Details" asp-route-id="@competition.Id" asp-controller="Competition">View Details</a>
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@competition.Id" asp-controller="Competition">Edit</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@competition.Id" asp-controller="Competition">Delete</a>
+                <a class="btn btn-primary" asp-action="Rounds" asp-route-id="@competition.CompetitionId" asp-controller="Comparison">View Rounds</a>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@competition.CompetitionId" asp-controller="Competition">View Details</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@competition.CompetitionId" asp-controller="Competition">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@competition.CompetitionId" asp-controller="Competition">Delete</a>
             </div>
           </div>
         </div>

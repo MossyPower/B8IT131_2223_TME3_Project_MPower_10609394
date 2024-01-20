@@ -5,11 +5,11 @@
 }
 
 <h1>Competitions - Seasons</h1>
+<hr>
 
-<br>
 <h4>Create New Competition - Season</h4>
 <a class="btn btn-primary" asp-action="Create">Create</a>
-<br>
+<hr>
 
 <!-- Add SCompetition cards -->
 @if (Model != null && Model.Any())
@@ -23,7 +23,6 @@
             @* <img class="card-img-top" src="@Html.DisplayFor(modelItem => season.Image)" alt="@Html.DisplayNameFor(model => product.Image)" width="100%", height = "400px"> *@
             <div class="card-body">
               <h5 class="card-title">@season.Competition_Name</h5> 
-
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">@season.Start_Date</li>
@@ -31,14 +30,14 @@
               <li class="list-group-item">@season.Year</li>
             </ul>
             <div class="card-body">
-                <a class="btn btn-primary" asp-action="Index"  asp-route-id="@season.Id" asp-controller="CompetitionRound">Select</a> <!-- Redirect to Rounds Index View -->
-                <a class="btn btn-success" asp-action="Details" asp-route-id="@season.Id">View Details</a>
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@season.Id">Edit</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@season.Id">Delete</a>
+                <a class="btn btn-primary" asp-action="Index"  asp-route-id="@season.CompetitionId" asp-controller="CompetitionRound">Select</a> <!-- Redirect to Rounds Index View -->
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@season.CompetitionId">View Details</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@season.CompetitionId">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@season.CompetitionId">Delete</a>
             </div>
           </div>
         </div>
-      }
+      }0
     </div>
   </div>
 }

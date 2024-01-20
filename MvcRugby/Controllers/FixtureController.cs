@@ -178,7 +178,7 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Fixture fixture)
         {
-            if (id != fixture.Id)
+            if (id != fixture.FixtureId)
             {
                 return BadRequest();
             }
@@ -190,7 +190,7 @@ namespace MvcRugby.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Details", new { id = fixture.Id });
+                return RedirectToAction("Details", new { id = fixture.FixtureId });
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -256,7 +256,7 @@ namespace MvcRugby.Controllers
 
         private bool fixtureExists(int id)
         {
-          return (_context.Fixture?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Fixture?.Any(e => e.FixtureId == id)).GetValueOrDefault();
         }
     }
 }

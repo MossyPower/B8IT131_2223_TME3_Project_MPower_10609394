@@ -1,29 +1,50 @@
-@* @model IEnumerable<TestRoundViewModel> *@
-@model MvcRugby.Models.Competition
+@model RoundsViewModel
 @{
     ViewData["Title"] = "Competition Rounds";
 }
 
-<h1>Test - Competition Rounds</h1>
+<h1>Competition Rounds</h1>
+<hr>
 
-<p>@Model.Competition_Name</p>
-<p>@Model.Start_Date</p>
+<p>Competition Id: @Model.CompetitionId</p>
+<p>Competition: @Model.CompetitionName</p>
+<hr>
 
-<p>
-@* 
-@foreach (var fixture in Model.Fixtures)
+@if (Model != null)
 {
-    <p>@fixture.Clubs</p>
-} *@
-</p>
-
-@* @foreach (var round in Model.Fixtures)
-{
-    <h2>Round Number: @round.Round_Number</h2>
-    <ul>
-        @foreach (var fixture in round.Fixtures)
+  <table class="table">
+    <thread>
+      <tr>
+        <th scope="col">Round Number</th>
+        <th scope="col">Status</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+      </tr>
+    </thread>
+    <tbody>
+        @if (Model.Rounds != null) //Check to see if any rounds exist before continuing
         {
-            <li>@fixture.Round_Number</li>
+            @foreach(var fixture in Model.Rounds)
+            {
+            <tr>
+                <td>@fixture.RoundNumber</td>
+                <td>@fixture.Status</td>
+                <td>@fixture.StartDate</td>
+                <td>@fixture.EndDate</td>
+                <td>
+                <a class="btn btn-primary" asp-controller="Comparison" asp-action="RoundFixtures" asp-route-id="@fixture.RoundNumber">Select</a>
+                </td>
+            </tr>
+            }
         }
-    </ul>
-} *@
+        else
+        {
+            <h5>No rounds recorded for this competition yet</h5>
+        }
+    </tbody>
+  </table>
+}
+else
+{
+  <p>No rounds found for this competition</p>
+}

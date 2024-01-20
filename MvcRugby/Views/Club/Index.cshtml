@@ -33,16 +33,16 @@
         @foreach(var club in Model)
         {
           <tr>
-            <td>@club.Id</td>
+            <td>@club.ClubId</td>
             <td>@club.SportRadar_Competitor_Id</td>
             <td>@club.Club_Name</td>
             <td>@club.Competition</td>
             <td>@club.Players</td>
             <td>
-              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@club.Id" asp-controller="CompetitionRound">Select</a>
-              <a class="btn btn-success" asp-action="Details" asp-route-id="@club.Id">View Details</a>
-              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@club.Id">Edit</a>
-              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@club.Id">Delete</a>
+              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@club.ClubId" asp-controller="CompetitionRound">Select</a>
+              <a class="btn btn-success" asp-action="Details" asp-route-id="@club.ClubId">View Details</a>
+              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@club.ClubId">Edit</a>
+              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@club.ClubId">Delete</a>
             </td>
           </tr>
         }

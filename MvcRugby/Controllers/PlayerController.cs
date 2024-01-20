@@ -155,7 +155,7 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Player player)
         {
-            if (id != player.Id)
+            if (id != player.PlayerId)
             {
                 return BadRequest();
             }
@@ -167,7 +167,7 @@ namespace MvcRugby.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Details", new { id = player.Id });
+                return RedirectToAction("Details", new { id = player.PlayerId });
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {

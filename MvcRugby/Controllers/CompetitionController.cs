@@ -155,7 +155,7 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Competition competition)
         {
-            if (id != competition.Id)
+            if (id != competition.CompetitionId)
             {
                 return BadRequest();
             }
@@ -167,7 +167,7 @@ namespace MvcRugby.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Details", new { id = competition.Id });
+                return RedirectToAction("Details", new { id = competition.CompetitionId });
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -233,7 +233,7 @@ namespace MvcRugby.Controllers
 
         private bool competitionExists(int id)
         {
-          return (_context.Competition?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Competition?.Any(e => e.CompetitionId == id)).GetValueOrDefault();
         }
     }
 }

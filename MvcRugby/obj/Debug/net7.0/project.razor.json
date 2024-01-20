@@ -16725,11 +16725,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Competition\\Test.cshtml",
-      "TargetPath": "Views\\Competition\\Test.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Fixture\\Create.cshtml",
       "TargetPath": "Views\\Fixture\\Create.cshtml",
       "FileKind": "mvc"

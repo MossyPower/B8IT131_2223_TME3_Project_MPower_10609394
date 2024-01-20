@@ -155,7 +155,7 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Club club)
         {
-            if (id != club.Id)
+            if (id != club.ClubId)
             {
                 return BadRequest();
             }
@@ -167,7 +167,7 @@ namespace MvcRugby.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Details", new { id = club.Id });
+                return RedirectToAction("Details", new { id = club.ClubId });
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -233,7 +233,7 @@ namespace MvcRugby.Controllers
 
         private bool clubExists(int id)
         {
-          return (_context.Club?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Club?.Any(e => e.ClubId == id)).GetValueOrDefault();
         }
     }
 }

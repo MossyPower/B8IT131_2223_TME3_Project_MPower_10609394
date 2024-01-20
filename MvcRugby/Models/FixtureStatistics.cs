@@ -5,8 +5,9 @@ namespace MvcRugby.Models
 {
     public class FixtureStatistics
     {
+        //FixtureStatistics Attributes
         [Required]
-        public int Id { get; set; }
+        public int FixtureStatisticsId { get; set; }
         public string? SportRadar_Id {get; set;}
         public int? Tries { get; set; }
         public int? Try_Assists { get; set; } 
@@ -31,11 +32,15 @@ namespace MvcRugby.Models
         public int? Yellow_Cards { get; set; } 
         public int? Red_Cards { get; set; } 
         
-        //Reference navigation property - to parent
+        //Setup relationship with Player model/table
         [ForeignKey("PlayerId")]
-        public Player Player { get; set; }
+        public int PlayerId { get; set; } //Foreign Key
+        public Player Player { get; set; } //Reference navigation property
+        
+        //Setup relationship with Fixture model/table
         [ForeignKey("FixtureId")]
-        public Fixture Fixture { get; set; }
+        public int FixtureId { get; set; } //Foreign Key
+        public Fixture Fixture { get; set; } //Reference navigation property
 
     }
 }
