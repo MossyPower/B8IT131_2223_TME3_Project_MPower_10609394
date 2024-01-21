@@ -1,6 +1,6 @@
 @model RoundsViewModel
 @{
-    ViewData["Title"] = "Competition Rounds";
+    ViewData["Title"] = "[Competition Name] Rounds";
 }
 
 <h1>Competition Rounds</h1>
@@ -33,7 +33,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                <a class="btn btn-primary" asp-controller="Comparison" asp-action="RoundFixtures" asp-route-id="@fixture.RoundNumber">Select</a>
+                  <a class="btn btn-primary" asp-controller="Comparison" asp-action="RoundFixtures" asp-route-compId="@Model.CompetitionId" asp-route-roundNumber="@fixture.RoundNumber">Select</a>
                 </td>
             </tr>
             }

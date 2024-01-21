@@ -55,47 +55,6 @@ namespace MvcRugby.Controllers
                 return StatusCode((int)response.StatusCode);
             }
         }
-        // GET: Fixtures by CompetitionId
-        // public async Task<IActionResult> Index(int competitionId)
-        // {           
-        //     // Get a list of all fixtures by Competition Id (passed in as param)
-        //     HttpClient client1 = _clientFactory.CreateClient(name: "RugbyDataApi");
-        //     string requestUri1 = $"/api/v1/fixture/Competition/{competitionId}";
-        //     HttpResponseMessage response1 = await client1.GetAsync(requestUri1);
-
-        //     // Get the correct Competition by Id
-        //     HttpClient client2 = _clientFactory.CreateClient(name: "RugbyDataApi");
-        //     string requestUri2 = $"/api/v1/Competition/{competitionId}";
-        //     HttpResponseMessage response2 = await client2.GetAsync(requestUri2);
-
-
-        //     if (response1.IsSuccessStatusCode) //&& response2.IsSuccessStatusCode
-        //     {
-        //         var fixtures = await response1.Content.ReadFromJsonAsync<List<Fixture>>();
-                
-        //         // Fetch the competition object from the database
-        //         var competition = await response1.Content.ReadFromJsonAsync<Competition>();
-                
-        //         if(fixtures != null && competition != null)
-        //         {
-        //             foreach (var fixture in fixtures)
-        //             {
-        //                 fixture.CompetitionId = competition.CompetitionId;
-        //                 fixture.Competition = competition;
-        //             }
-        //         }             
-        //         return View(fixtures);
-        //     }
-        //     else if (response1.StatusCode == HttpStatusCode.NotFound) //|| response2.StatusCode == HttpStatusCode.NotFound
-        //     {
-        //         return NotFound();
-        //     }
-        //     else
-        //     {
-        //         // Handle other error cases
-        //         return StatusCode((int)response1.StatusCode);
-        //     }
-        // }
 
         // GET: Fixtures/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -1,4 +1,142 @@
-@model RoundsViewModel
+@* @model RoundsViewModel
 @{
-    ViewData["Title"] = "Competition Round Fixtures";
+    ViewData["Title"] = "[Competition Name] Round Fixtures";
 }
+
+<!-- "{Competition Name}, Round: {Number}"  -->
+<h1>@Model.RoundDetails?.FirstOrDefault()?.CompetitionName - Round @Model.RoundDetails?.FirstOrDefault()?.RoundNumber</h1>
+<br>
+<!-- Back to previous page button - should have asp.action of season id-->
+<a class="btn btn-secondary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@Model.RoundDetails?.FirstOrDefault()?.SeasonId">
+    <i class="bi bi-eye-fill"></i> Back to Competition Rounds
+</a>
+<br>
+<br>
+
+<table class="table table-dark table-bordered">
+    <!-- Table headers -->
+    <thead>
+        <tr>
+            <!-- static left column header -->
+            <th scope="col">Position</th>
+            <!-- Name each individual Team in the round -->
+            @foreach (var team in Model.RoundDetails?.FirstOrDefault()?.Teams)
+            {
+                <th scope="col">@team.TeamName</th>
+            }
+        </tr>
+    </thead>
+    <!-- table content -->
+    <tbody>
+        <!-- iterate over each team position -->
+        @for (int i = 1; i <= 23; i++)
+        {
+            <!-- Add row of data -->
+            <tr>
+                <table class="table table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Player Name: </th>
+                            <td>Zeb PLayer 1 </td>
+                            <td>Sharks Player 1</td>
+                        </tr>
+                        <tr>
+                            <td scope="col">Number: @i</td>
+                            <!-- Note: Include a foreach loop under each statistic. For each team, add a column with the relevant data agaians each statistic -->
+                            <!-- foreach (var team in Model.RoundDetails?.FirstOrDefault()?.Teams) -->
+                            <!-- <td> Corresponding statistic </td> -->
+                        </tr>
+                        <tr>
+                            <td>Position: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Ball Possession: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Carries: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Clean Breaks: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Conversions: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Drop Goals: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Lineouts won: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Meters run: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Offloads: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Passes: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Penalties Conceded: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>PenaltyGoals: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Red Cards: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Scrums Lost: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Scrums Won: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Total Scrums: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Tackle Missed: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Tackles: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Tries: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Try Assist: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Turnovers Won: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                        <tr>
+                            <td>Yellow Cards: </td>
+                            <!-- Ditto above -->
+                        </tr>
+                    </tbody>
+                </table>
+            </tr>
+        }
+    </tbody>
+</table> *@

@@ -16565,11 +16565,6 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Comparison\\Comparison.cshtml",
-      "TargetPath": "Views\\Comparison\\Comparison.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Fixture\\Edit.cshtml",
       "TargetPath": "Views\\Fixture\\Edit.cshtml",
       "FileKind": "mvc"
@@ -16602,11 +16597,6 @@
     {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Competition\\Delete.cshtml",
       "TargetPath": "Views\\Competition\\Delete.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Comparison\\CreateFixture.cshtml",
-      "TargetPath": "Views\\Comparison\\CreateFixture.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -16692,11 +16682,6 @@
     {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Fixture\\Delete.cshtml",
       "TargetPath": "Views\\Fixture\\Delete.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Comparison\\Competitions.cshtml",
-      "TargetPath": "Views\\Comparison\\Competitions.cshtml",
       "FileKind": "mvc"
     },
     {

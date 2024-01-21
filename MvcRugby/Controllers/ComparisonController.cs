@@ -103,13 +103,53 @@ namespace MvcRugby.Controllers
                 return StatusCode((int)response.StatusCode);
             }
         }
-        public async Task<IActionResult> RoundFixtures()
+
+        // Get: All fixtures for a round
+
+        // using fixture.roundnumber, return all fixtures for that round number
+
+        public async Task<IActionResult> RoundFixtures(int id, int roundNumber)
         {
+            // Get competition by id
+            HttpClient client1 = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri1 = $"/api/v1/competition/{id}";
+            HttpResponseMessage response1 = await client1.GetAsync(requestUri1);         
             
+            // Get all fixtures matching Comp Id
+            HttpClient client2 = _clientFactory.CreateClient(name: "RugbyDataApi");
+            string requestUri2 = $"/api/v1/fixture/competition/{id}"; // return all fixtures by competition by id, passed in as parameter
+            HttpResponseMessage response2 = await client2.GetAsync(requestUri2);
+
+            if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
+            {
+                var competition = await response1.Content.ReadFromJsonAsync<Competition>();
+                var compFixtures = await response2.Content.ReadFromJsonAsync<List<Fixture>>(); //List of fixtures by Competiton Id
+                
+                var ViewModel = new ComparisonViewModel()
+                {
+                    Competition = competition.Competition_Name,
+                    Round_Number = roundNumber, //from param
+                    Players = new List<Player>()
+                    {
+                        
+                    }
+
+                };
+                
+                return null;
+            }
+            else if (response1.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound("RugbyDataApi/api/v1/competition/ Not Found");
+            }
+            else if (response2.StatusCode == HttpStatusCode.NotFound)
+            {
+                return NotFound("RugbyDataApi/api/v1/fixture/competition/{compId} Not Found");
+            }
+            else
+            {
+                return StatusCode((int)response1.StatusCode);
+            }
         }
-
-
-
-
     }
 }

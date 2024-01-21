@@ -159,20 +159,16 @@ namespace MvcRugby.Controllers
                                 }
                                 viewModel.RoundDetails.FirstOrDefault()?.Teams.Add(teamViewModel);
                             }
-
                             // Await all player statistics retrieval tasks
                             //await Task.WhenAll(tasks);
                         }
-
                         return View(viewModel);
                     }
                 }
             }
-
             return NotFound();
         }
         
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
