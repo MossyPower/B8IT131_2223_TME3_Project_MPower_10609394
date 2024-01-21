@@ -24,8 +24,6 @@ namespace MvcRugby.Services
             _httpClient.BaseAddress = new Uri(BASE_URL);
         }
 
-
-
         // SEASON MODEL ACTIONS
         
         // Get all Seasons
@@ -61,12 +59,59 @@ namespace MvcRugby.Services
         //     await _httpClient.DeleteAsync($"api/v1/seasons/{id}");
         // }
         
-        
         // CLUB MODEL ACTIONS
-        // public async Task<IEnumerable<Club>?> GetClubs()
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Club>>("api/v1/clubs/");
-        // }
+        [HttpGet]
+        public async Task<IEnumerable<Club>> GetAllClubs()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Club>>("api/v1/club/");
+        }
+        
+        [HttpGet]
+        public async Task<Club> GetClubById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Club>($"api/v1/club/{id}");
+        }
+
+        [HttpPost]
+        public async Task AddClub(Club club)        
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync<Club>("api/v1/club/", club);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error creating the club in the API.", ex);
+            }
+        }
+
+        public async Task EditClubById(int id, Club club)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync<Club>($"/api/v1/club/{id}", club);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error editing the club in the API.", ex);
+            }
+        }
+
+        public async Task DeleteClubById(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"/api/v1/club/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error deleting the club in the API.", ex);
+            }
+        }
+
 
         // COMPETITION MODEL ACTIONS
         // public async Task<IEnumerable<Competition>?> GetCompetitions()

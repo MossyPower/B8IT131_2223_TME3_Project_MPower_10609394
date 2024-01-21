@@ -3,7 +3,11 @@ using MvcRugby.Models;
 public interface IRugbyDataApiService
 {
     // CLUB ACTION METHODS
-    // Task<IEnumerable<Club>?> GetClubs();
+    Task<IEnumerable<Club>?> GetAllClubs();
+    Task<Club>? GetClubById(int id);
+    Task AddClub(Club club);
+    Task EditClubById(int id, Club club);
+    Task DeleteClubById(int id);
 
     // SEASON ACTION METHODS
     // Task<IEnumerable<Season>?> GetSeasons();

@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using MvcRugby.Data;
 using MvcRugby.Models;
 using MvcRugby.Services;
-using Microsoft.AspNetCore.Authorization;
-using System.Net;
 
 namespace MvcRugby.Controllers
 {
@@ -18,9 +11,7 @@ namespace MvcRugby.Controllers
     {
         private readonly ILogger<ClubController> _logger;
         private readonly ApplicationDbContext _context;
-
         private readonly RugbyDataApiService _rugbyDataApiService;
-
         private readonly IHttpClientFactory _clientFactory;
 
         public ClubController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory, ILogger<ClubController> logger)
@@ -31,60 +22,19 @@ namespace MvcRugby.Controllers
             _logger = logger;
         }
 
-        // GET: Clubs - Using Interface & Service Layer
-        // public async Task<IActionResult> Index()
-        // {
-        //     return View(await _rugbyDataApiService.GetClubs());
-        // }
-
         // GET: Clubs
         public async Task<IActionResult> Index()
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/club/";
-            
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var club = await response.Content.ReadFromJsonAsync<List<Club>>();
-                return View(club);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Handle other error cases
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetAllClubs());
         }
 
-        // GET: Clubs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Club/Details/{id}
+        public async Task<IActionResult> Details(int id)
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/club/{id}";
-
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var club = await response.Content.ReadFromJsonAsync<Club>();
-                return View(club);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Handle other error cases
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetClubById(id));  
         }
 
+        // Get: Club/Create View
         public async Task<IActionResult> Create()
         {
             try
@@ -106,69 +56,28 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // public async Task<IActionResult> Create()
-        // {
-        //     try
-        //     {
-        //         _logger.LogInformation("Create GET action called.");
-        //         PopulateCompetitionsDropDownList();
-        //         return View(new Club());
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError($"Error in Create GET action: {ex.Message}");
-        //         throw; // Rethrow the exception for now to see it in the console
-        //     }
-        // }
-        
-        //https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/update-related-data?view=aspnetcore-8.0
+        // Post (Create / Add) Club - Using Interface & Service Layer
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClubId, SportRadar_Competitor_Id, Club_Name, CompetitionId")] Club club)
         {
             try
             {
-                _logger.LogInformation("Create POST action called.");
-
                 if (ModelState.IsValid)
                 {
                     _logger.LogInformation("Model State is valid.");
+
+                    await _rugbyDataApiService.AddClub(club);
                     
-                    HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-                    string requestUri = "/api/v1/club";
-
-                    HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, club);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        _logger.LogError($"Error in Create POST action: {response.StatusCode}");
-                        return StatusCode((int)response.StatusCode);
-                    }
+                    return RedirectToAction("Index");
                 }
-                // Log validation errors
-                foreach (var key in ModelState.Keys)
-                {
-                    var errors = ModelState[key].Errors;
-                    foreach (var error in errors)
-                    {
-                        _logger.LogError($"Validation error for {key}: {error.ErrorMessage}");
-                    }
-                }
-                _logger.LogInformation("Model State is invalid.");
-
-                //PopulateCompetitionsDropDownList(club.CompetitionId);
-                // If ModelState is not valid, return to the view with validation errors
+                // Handle invalid model state
+                _logger.LogInformation("Model State is not valid.");
                 return View(club);
             }
             catch (HttpRequestException ex)
             {
                 _logger.LogError($"Error in Create POST action: {ex.Message}");
-
-                // Log additional information if needed
                 var innerException = ex.InnerException;
                 if (innerException != null)
                 {
@@ -177,93 +86,89 @@ namespace MvcRugby.Controllers
 
                 throw;
             }
-        }    
+        }
 
         // GET: clubs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return BadRequest();
             }
-
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/club/{id}";
-
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
+            return View(await _rugbyDataApiService.GetClubById(id)); 
+        }
+        
+        // POST: clubs/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([Bind("ClubId, SportRadar_Competitor_Id, Club_Name, CompetitionId")] int id, Club club)
+        {
+            try
             {
-                var club = await response.Content.ReadFromJsonAsync<Club>();
+                if(ModelState.IsValid)
+                {
+                    _logger.LogInformation("Model State is valid.");
+                    
+                    await _rugbyDataApiService.EditClubById(id, club);
+                    return RedirectToAction("Edit");
+                }
+                // Handle invalid model state
+                _logger.LogInformation("Model State is not valid.");
                 return View(club);
             }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
+            catch (HttpRequestException ex)
             {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
+                _logger.LogError($"Error in Create POST action: {ex.Message}");
+                var innerException = ex.InnerException;
+                if (innerException != null)
+                {
+                    _logger.LogError($"Inner Exception: {innerException.Message}");
+                }
+                throw;
             }
         }
 
         // POST: clubs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Club club)
-        {
-            if (id != club.ClubId)
-            {
-                return BadRequest();
-            }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Edit(int id, Club club)
+        // {
+        //     if (id != club.ClubId)
+        //     {
+        //         return BadRequest();
+        //     }
 
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/club/{id}";
+        //     HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+        //     string requestUri = $"/api/v1/club/{id}";
 
-            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, club);
+        //     HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, club);
 
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Details", new { id = club.ClubId });
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
-        }
+        //     if (response.IsSuccessStatusCode)
+        //     {
+        //         return RedirectToAction("Details", new { id = club.ClubId });
+        //     }
+        //     else if (response.StatusCode == HttpStatusCode.NotFound)
+        //     {
+        //         return NotFound();
+        //     }
+        //     else
+        //     {
+        //         return StatusCode((int)response.StatusCode);
+        //     }
+        // }
 
         // GET: clubs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return BadRequest();
             }
-
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/club/{id}";
-
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var club= await response.Content.ReadFromJsonAsync<Club>();
-                return View(club);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetClubById(id));
         }
 
         // POST: clubs/Delete/5
@@ -271,25 +176,10 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/club/{id}";
-
-            HttpResponseMessage response = await client.DeleteAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+            await _rugbyDataApiService.DeleteClubById(id);
+            return RedirectToAction("Index");
         }
-        
+
         // https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/update-related-data?view=aspnetcore-8.0
         private async Task PopulateCompetitionsDropDownList(object selectedCompetition = null)
         {
