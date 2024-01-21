@@ -2,6 +2,13 @@ using MvcRugby.Models;
 
 public interface IRugbyDataApiService
 {
+    // COMPETITION ACTION METHODS
+    Task<IEnumerable<Competition>?> GetAllCompetitions();
+    Task<Competition>? GetCompetitionById(int id);
+    Task AddCompetition(Competition competition);
+    Task EditCompetitionById(int id, Competition competition);
+    Task DeleteCompetitionById(int id);
+    
     // CLUB ACTION METHODS
     Task<IEnumerable<Club>?> GetAllClubs();
     Task<Club>? GetClubById(int id);
@@ -9,17 +16,24 @@ public interface IRugbyDataApiService
     Task EditClubById(int id, Club club);
     Task DeleteClubById(int id);
 
-    // SEASON ACTION METHODS
-    // Task<IEnumerable<Season>?> GetSeasons();
-    // Task<Season>? GetSeason(int id);
-    // Task<Season>? CreateSeason(Season season);
-    // Task<Season>? EditSeason(int id);
-    // Task<Season>? DeleteSeason(int id);
+    // PLAYER ACTION METHODS
+    Task<IEnumerable<Player>?> GetAllPlayers();
+    Task<Player>? GetPlayerById(int id);
+    Task AddPlayer(Player player);
+    Task EditPlayerById(int id, Player player);
+    Task DeletePlayerById(int id);
 
-    // COMPETITION ACTION METHODS
-    // Task<IEnumerable<Competition>?> GetCompetitions();
-    // Task<IEnumerable<Fixture>?> GetFixtures();
-    // Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics();
-    // Task<IEnumerable<Player>?> GetPlayers();
-
+    // FIXTURE ACTION METHODS
+    Task<IEnumerable<Fixture>?> GetAllFixtures();
+    Task<Fixture>? GetFixtureById(int id);
+    Task AddFixture(Fixture player);
+    Task EditFixtureById(int id, Fixture player);
+    Task DeleteFixtureById(int id);
+    
+    // FIXTURE STATISTICS ACTION METHODS
+    Task<IEnumerable<FixtureStatistics>?> GetAllFixturesStatistics();
+    Task<FixtureStatistics>? GetFixtureStatisticsById(int id);
+    Task AddFixtureStatistics(FixtureStatistics player);
+    Task EditFixtureStatisticsById(int id, FixtureStatistics player);
+    Task DeleteFixtureStatisticsById(int id);
 }

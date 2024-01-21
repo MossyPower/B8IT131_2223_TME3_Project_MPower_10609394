@@ -33,9 +33,6 @@
         <th scope="col">Home_Score</th>
         <th scope="col">Away_Score</th>
         <th scope="col">Competition Id</th>
-        <th scope="col">Competition</th>
-        <th scope="col">Clubs</th>
-        <th scope="col">Fixture Statistics</th>
       </tr>
     </thread>
     <tbody>
@@ -53,9 +50,6 @@
             <td>@fixture.Home_Score</td>
             <td>@fixture.Away_Score</td>
             <td>@fixture.CompetitionId</td>
-            <td>@fixture.Competition</td>
-            <td>@fixture.Clubs</td>
-            <td>@fixture.FixtureStatistics</td>
             <td>
               <a class="btn btn-primary" asp-action="Index"  asp-route-id="@fixture.FixtureId" asp-controller="CompetitionRound">Select</a>
               <a class="btn btn-success" asp-action="Details" asp-route-id="@fixture.FixtureId">View Details</a>

@@ -24,40 +24,62 @@ namespace MvcRugby.Services
             _httpClient.BaseAddress = new Uri(BASE_URL);
         }
 
-        // SEASON MODEL ACTIONS
+        // *****************************************************************************************
         
-        // Get all Seasons
-        // public async Task<IEnumerable<Season>?> GetSeasons()
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Season>>("api/v1/seasons/");
-        // }
+        // COMPETITION MODEL ACTIONS
+        [HttpGet]
+        public async Task<IEnumerable<Competition>> GetAllCompetitions()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Competition>>("api/v1/competition/");
+        }
+        
+        [HttpGet]
+        public async Task<Competition> GetCompetitionById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Competition>($"api/v1/competition/{id}");
+        }
 
-        // Get Season by ID
-        // public async Task<Season>? GetSeason(int id)
-        // {
-        //     return await _httpClient.GetFromJsonAsync<Season>($"api/v1/seasons/{id}");
-        // }
+        [HttpPost]
+        public async Task AddCompetition(Competition competition)        
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync<Competition>("api/v1/competition/", competition);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error creating the competition in the API.", ex);
+            }
+        }
 
-        // Create Season
-        // public async Task<Season> CreateSeason(Season season)
-        // {
-        //     await _httpClient.PostAsJsonAsync<Season>("api/v1/seasons/", season);
-        // }
+        public async Task EditCompetitionById(int id, Competition competition)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync<Competition>($"/api/v1/competition/{id}", competition);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error editing the competition in the API.", ex);
+            }
+        }
 
-       // Edit Season
-        // public async Task<Season> EditSeason(int id, Season season)
-        // {
+        public async Task DeleteCompetitionById(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"/api/v1/club/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error deleting the club in the API.", ex);
+            }
+        }
 
-        //     HttpResponseMessage response = await _httpClient.PutAsJsonAsync<Season>($"api/v1/seasons/{id}", season);
-            
-        //     return await _httpClient.GetFromJsonAsync<Season>($"api/v1/seasons/{id}");
-        // }
-
-        // Delete Season
-        // public async Task<Season> DeleteSeason(int id)
-        // {
-        //     await _httpClient.DeleteAsync($"api/v1/seasons/{id}");
-        // }
+        // *****************************************************************************************        
         
         // CLUB MODEL ACTIONS
         [HttpGet]
@@ -112,29 +134,170 @@ namespace MvcRugby.Services
             }
         }
 
+        // *****************************************************************************************
+        
+        // PLAYER MODEL ACTIONS
+        [HttpGet]
+        public async Task<IEnumerable<Player>> GetAllPlayers()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Player>>("api/v1/player/");
+        }
+        
+        [HttpGet]
+        public async Task<Player> GetPlayerById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Player>($"api/v1/player/{id}");
+        }
 
-        // COMPETITION MODEL ACTIONS
-        // public async Task<IEnumerable<Competition>?> GetCompetitions()
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Competition>>("api/v1/competitions/");
-        // }
+        [HttpPost]
+        public async Task AddPlayer(Player player)        
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync<Player>("api/v1/player/", player);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error creating the player in the API.", ex);
+            }
+        }
+
+        public async Task EditPlayerById(int id, Player player)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync<Player>($"/api/v1/player/{id}", player);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error editing the player in the API.", ex);
+            }
+        }
+
+        public async Task DeletePlayerById(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"/api/v1/player/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error deleting the player in the API.", ex);
+            }
+        }
         
-        // COMPETITION-GAMES MODEL ACTIONS
-        // public async Task<IEnumerable<Fixture>?> GetFixtures()
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>("api/v1/fixtures/");
-        // } 
+        // *****************************************************************************************
         
-        // PLAYERS MODEL ACTIONS
-        // public async Task<IEnumerable<Player>?> GetPlayers()
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<Player>>("api/v1/players/");
-        // } 
+        // FIXTURE MODEL ACTIONS
+        [HttpGet]
+        public async Task<IEnumerable<Fixture>> GetAllFixtures()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>("api/v1/fixture/");
+        }
         
-        // PLAYER-STATISTICS MODEL ACTIONS
-        // public async Task<IEnumerable<FixtureStatistics>?> GetFixtureStatistics()
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixturestatistics/");
-        // }     
+        [HttpGet]
+        public async Task<Fixture> GetFixtureById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<Fixture>($"api/v1/fixture/{id}");
+        }
+
+        [HttpPost]
+        public async Task AddFixture(Fixture fixture)        
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync<Fixture>("api/v1/fixture/", fixture);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error creating the fixture in the API.", ex);
+            }
+        }
+
+        public async Task EditFixtureById(int id, Fixture fixture)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync<Fixture>($"/api/v1/fixture/{id}", fixture);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error editing the fixture in the API.", ex);
+            }
+        }
+
+        public async Task DeleteFixtureById(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"/api/v1/fixture/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error deleting the fixture in the API.", ex);
+            }
+        }
+        
+        // *****************************************************************************************
+        
+        // FIXTURE STATISTICS MODEL ACTIONS
+        [HttpGet]
+        public async Task<IEnumerable<FixtureStatistics>> GetAllFixturesStatistics()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixture/");
+        }
+        
+        [HttpGet]
+        public async Task<FixtureStatistics> GetFixtureStatisticsById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<FixtureStatistics>($"api/v1/fixtureStatistics/{id}");
+        }
+
+        [HttpPost]
+        public async Task AddFixtureStatistics(FixtureStatistics fixtureStatistics)        
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync<FixtureStatistics>("api/v1/fixtureStatistics/", fixtureStatistics);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error creating the fixture in the API.", ex);
+            }
+        }
+
+        public async Task EditFixtureStatisticsById(int id, FixtureStatistics fixtureStatistics)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync<FixtureStatistics>($"/api/v1/fixtureStatistics/{id}", fixtureStatistics);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error editing the fixture statistics in the API.", ex);
+            }
+        }
+
+        public async Task DeleteFixtureStatisticsById(int id)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"/api/v1/fixtureStatistics/{id}");
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ApplicationException("Error deleting the fixture statistics in the API.", ex);
+            }
+        }  
+
     }     
 }

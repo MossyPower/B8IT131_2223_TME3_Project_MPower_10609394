@@ -13,13 +13,10 @@ using System.Net;
 
 namespace MvcRugby.Controllers
 {
-    //[Authorize]
     public class FixtureStatisticsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         private readonly RugbyDataApiService _rugbyDataApiService;
-
         private readonly IHttpClientFactory _clientFactory;
 
         public FixtureStatisticsController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory)
@@ -29,58 +26,16 @@ namespace MvcRugby.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET: FixtureStatistics - Using Interface & Service Layer
-        // public async Task<IActionResult> Index()
-        // {
-        //     return View(await _rugbyDataApiService.GetFixtureStatisticss());
-        // }
-
-        // GET: FixtureStatisticss
+        // GET: FixtureStatistics
         public async Task<IActionResult> Index()
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixtureStatistics/";
-            
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var fixtureStatistics = await response.Content.ReadFromJsonAsync<List<FixtureStatistics>>();
-                return View(fixtureStatistics);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Handle other error cases
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetAllFixturesStatistics());
         }
 
-        // GET: FixtureStatisticss/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: FixtureStatistics/Details/5
+       public async Task<IActionResult> Details(int id)
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixtureStatistics/{id}";
-
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var fixtureStatistics = await response.Content.ReadFromJsonAsync<FixtureStatistics>();
-                return View(fixtureStatistics);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Handle other error cases
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetFixtureStatisticsById(id));  
         }
 
         // GET: fixtureStatisticss/Create
@@ -89,63 +44,25 @@ namespace MvcRugby.Controllers
             return View();
         }
 
-        // POST: fixtureStatisticss/Create - Using Interface & Service Layer
-        // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, fixtureStatistics_Name, Country")] FixtureStatistics fixtureStatistics)
-        // {
-        //     await _rugbyDataApiService.CreateFixtureStatistics(fixtureStatistics);
-            
-        //     return RedirectToAction(nameof(Index));
-        // }
-
         // POST: fixtureStatisticss/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(FixtureStatistics fixtureStatistics)
+        public async Task<IActionResult> Create([Bind("FixtureStatisticsId, SportRadar_Id, Tries, Try_Assists, Conversions, Penalty_Goals, Drop_Goals, Meters_Run, Carries, Passes, Offloads, Clean_Breaks, Lineouts_Won, Lineouts_Lost, Tackles, Tackles_Missed, Scrums_Won, Scrums_Lost, Total_Scrums, Turnovers_Won, Penalties_Conceded, Yellow_Cards, Red_Cards, PlayerId, FixtureId")] FixtureStatistics fixtureStatistics)
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = "/api/v1/fixtureStatistics";
-
-            HttpResponseMessage response = await client.PostAsJsonAsync(requestUri, fixtureStatistics);
-
-            if (response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index");
+                await _rugbyDataApiService.AddFixtureStatistics(fixtureStatistics);
+                return RedirectToAction("Index");  
             }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(fixtureStatistics);
         }
         
         // GET: fixtureStatisticss/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixtureStatistics/{id}";
-
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var fixtureStatistics = await response.Content.ReadFromJsonAsync<FixtureStatistics>();
-                return View(fixtureStatistics);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetFixtureStatisticsById(id));
         }
 
         // POST: fixtureStatisticss/Edit/5
@@ -153,58 +70,20 @@ namespace MvcRugby.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, FixtureStatistics fixtureStatistics)
+        public async Task<IActionResult> Edit([Bind("FixtureStatisticsId, SportRadar_Id, Tries, Try_Assists, Conversions, Penalty_Goals, Drop_Goals, Meters_Run, Carries, Passes, Offloads, Clean_Breaks, Lineouts_Won, Lineouts_Lost, Tackles, Tackles_Missed, Scrums_Won, Scrums_Lost, Total_Scrums, Turnovers_Won, Penalties_Conceded, Yellow_Cards, Red_Cards, PlayerId, FixtureId")] int id, FixtureStatistics fixtureStatistics)
         {
             if (id != fixtureStatistics.FixtureStatisticsId)
             {
                 return BadRequest();
             }
-
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixtureStatistics/{id}";
-
-            HttpResponseMessage response = await client.PutAsJsonAsync(requestUri, fixtureStatistics);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Details", new { id = fixtureStatistics.FixtureStatisticsId });
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+            await _rugbyDataApiService.EditFixtureStatisticsById(id, fixtureStatistics);
+            return RedirectToAction("Details", new { id = fixtureStatistics.FixtureStatisticsId });
         }
 
         // GET: fixtureStatisticss/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return BadRequest();
-            }
-
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixtureStatistics/{id}";
-
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var fixtureStatistics= await response.Content.ReadFromJsonAsync<FixtureStatistics>();
-                return View(fixtureStatistics);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetFixtureStatisticsById(id));
         }
 
         // POST: fixtureStatisticss/Delete/5
@@ -212,28 +91,8 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixtureStatistics/{id}";
-
-            HttpResponseMessage response = await client.DeleteAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
-        }
-
-        private bool fixtureStatisticsExists(int id)
-        {
-          return (_context.FixturesStatistics?.Any(e => e.FixtureStatisticsId == id)).GetValueOrDefault();
+            await _rugbyDataApiService.DeleteFixtureStatisticsById(id);
+            return RedirectToAction("Index");
         }
     }
 }

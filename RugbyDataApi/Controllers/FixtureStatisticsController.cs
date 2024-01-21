@@ -10,7 +10,7 @@ using RugbyDataApi.Models;
 
 namespace RugbyDataApi.Controllers
 {
-    [Route("api/v1/fixturestatistics/")]
+    [Route("api/v1/fixtureStatistics/")]
     [ApiController]
     public class FixtureStatisticsController : ControllerBase
     {

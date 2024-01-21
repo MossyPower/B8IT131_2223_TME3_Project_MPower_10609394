@@ -105,6 +105,10 @@ namespace MvcRugby.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("ClubId, SportRadar_Competitor_Id, Club_Name, CompetitionId")] int id, Club club)
         {
+            if (id != club.ClubId)
+            {
+                return BadRequest();
+            }
             try
             {
                 if(ModelState.IsValid)
@@ -112,7 +116,7 @@ namespace MvcRugby.Controllers
                     _logger.LogInformation("Model State is valid.");
                     
                     await _rugbyDataApiService.EditClubById(id, club);
-                    return RedirectToAction("Edit");
+                    return RedirectToAction("Edit", new { id = club.ClubId });
                 }
                 // Handle invalid model state
                 _logger.LogInformation("Model State is not valid.");
