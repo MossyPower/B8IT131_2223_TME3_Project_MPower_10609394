@@ -7,6 +7,7 @@ namespace MvcRugby.Models
     {
         //Player Attributes
         [Required]
+        [Key]
         public int PlayerId { get; set; }
         public string? SportRadar_Id {get; set;}
         public string? First_Name { get; set; }
@@ -18,9 +19,10 @@ namespace MvcRugby.Models
         public string? Weight { get; set; } 
         
         //Setup relationship with Club model/table
+        [Required]
         [ForeignKey("ClubId")]
         public int ClubId { get; set; } //Foreign Key
-        public Club Club { get; set; } //Reference navigation property
+        public virtual Club? Club { get; set; } //Reference navigation property
         
         //Relationship with FixtureStatistics
         public List<FixtureStatistics>? FixtureStatistics { get; set; } //Reference navigation property

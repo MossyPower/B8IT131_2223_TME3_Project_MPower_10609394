@@ -25,22 +25,22 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
         {
-          if (_context.Player == null)
+          if (_context.Players == null)
           {
               return NotFound();
           }
-            return await _context.Player.ToListAsync();
+            return await _context.Players.ToListAsync();
         }
 
         // GET: api/Player/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Player>> GetPlayer(int id)
         {
-          if (_context.Player == null)
+          if (_context.Players == null)
           {
               return NotFound();
           }
-            var player = await _context.Player.FindAsync(id);
+            var player = await _context.Players.FindAsync(id);
 
             if (player == null)
             {
@@ -86,11 +86,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
-          if (_context.Player == null)
+          if (_context.Players == null)
           {
               return Problem("Entity set 'RugbyDataDbContext.Players'  is null.");
           }
-            _context.Player.Add(player);
+            _context.Players.Add(player);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlayer(int id)
         {
-            if (_context.Player == null)
+            if (_context.Players == null)
             {
                 return NotFound();
             }
-            var player = await _context.Player.FindAsync(id);
+            var player = await _context.Players.FindAsync(id);
             if (player == null)
             {
                 return NotFound();
             }
 
-            _context.Player.Remove(player);
+            _context.Players.Remove(player);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool PlayerExists(int id)
         {
-            return (_context.Player?.Any(e => e.PlayerId == id)).GetValueOrDefault();
+            return (_context.Players?.Any(e => e.PlayerId == id)).GetValueOrDefault();
         }
     }
 }

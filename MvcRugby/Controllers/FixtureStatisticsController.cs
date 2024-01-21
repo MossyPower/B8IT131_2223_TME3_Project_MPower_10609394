@@ -233,7 +233,7 @@ namespace MvcRugby.Controllers
 
         private bool fixtureStatisticsExists(int id)
         {
-          return (_context.FixtureStatistics?.Any(e => e.FixtureStatisticsId == id)).GetValueOrDefault();
+          return (_context.FixturesStatistics?.Any(e => e.FixtureStatisticsId == id)).GetValueOrDefault();
         }
     }
 }

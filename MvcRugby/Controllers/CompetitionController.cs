@@ -230,10 +230,5 @@ namespace MvcRugby.Controllers
                 return StatusCode((int)response.StatusCode);
             }
         }
-
-        private bool competitionExists(int id)
-        {
-          return (_context.Competition?.Any(e => e.CompetitionId == id)).GetValueOrDefault();
-        }
     }
 }

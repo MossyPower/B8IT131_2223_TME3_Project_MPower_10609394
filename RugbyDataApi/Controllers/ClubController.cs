@@ -25,22 +25,22 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Club>>> GetClub()
         {
-            if (_context.Club == null)
+            if (_context.Clubs == null)
             {
                 return NotFound();
             }
-            return await _context.Club.ToListAsync();
+            return await _context.Clubs.ToListAsync();
         }
 
         // GET: api/Club/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Club>> GetClub(int id)
         {
-          if (_context.Club == null)
+          if (_context.Clubs == null)
             {
                 return NotFound();
             }
-            var club = await _context.Club.FindAsync(id);
+            var club = await _context.Clubs.FindAsync(id);
 
             if (club == null)
             {
@@ -86,11 +86,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Club>> PostClub(Club club)
         {
-          if (_context.Club == null)
+          if (_context.Clubs == null)
             {
               return Problem("Entity set 'RugbyDataDbContext.Club'  is null.");
             }
-            _context.Club.Add(club);
+            _context.Clubs.Add(club);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +114,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClub(int id)
         {
-            if (_context.Club == null)
+            if (_context.Clubs == null)
             {
                 return NotFound();
             }
-            var club = await _context.Club.FindAsync(id);
+            var club = await _context.Clubs.FindAsync(id);
             if (club == null)
             {
                 return NotFound();
             }
 
-            _context.Club.Remove(club);
+            _context.Clubs.Remove(club);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +132,7 @@ namespace RugbyDataApi.Controllers
 
         private bool ClubExists(int id)
         {
-            return (_context.Club?.Any(e => e.ClubId == id)).GetValueOrDefault();
+            return (_context.Clubs?.Any(e => e.ClubId == id)).GetValueOrDefault();
         }
     }
 }

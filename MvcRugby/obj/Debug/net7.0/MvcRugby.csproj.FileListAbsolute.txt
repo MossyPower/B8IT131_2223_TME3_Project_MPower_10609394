@@ -78,3 +78,4 @@ C:\Users\mossy\Documents\GitHub\B8IT131_2223_TME3_Project_MPower_10609394\MvcRug
 C:\Users\mossy\Documents\GitHub\B8IT131_2223_TME3_Project_MPower_10609394\MvcRugby\obj\Debug\net7.0\MvcRugby.pdb
 C:\Users\mossy\Documents\GitHub\B8IT131_2223_TME3_Project_MPower_10609394\MvcRugby\obj\Debug\net7.0\MvcRugby.genruntimeconfig.cache
 C:\Users\mossy\Documents\GitHub\B8IT131_2223_TME3_Project_MPower_10609394\MvcRugby\obj\Debug\net7.0\ref\MvcRugby.dll
+C:\Users\mossy\Documents\GitHub\B8IT131_2223_TME3_Project_MPower_10609394\MvcRugby\bin\Debug\net7.0\Newtonsoft.Json.dll

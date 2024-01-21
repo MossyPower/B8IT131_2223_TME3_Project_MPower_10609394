@@ -1,9 +1,10 @@
 @model IEnumerable<MvcRugby.Models.Fixture>
 
 @{
-    ViewData["Title"] = "Index";
+  ViewData["Title"] = "Index";
 }
-<h1>Competition Fixtures</h1>
+<h1>[Competition Name] Fixtures</h1>
+
 <br>
 
 <div class="container">
@@ -11,7 +12,7 @@
     <div class="p-3 mb-2 bg-dark text-white">
       <h4>Admin Tools</h4>
       <br>
-      <a asp-action="Create" class="btn btn-primary">Add New Competition Fixture</a>
+      <a class="btn btn-primary" asp-action="Create" asp-route-id="" >Add New [Competition Name] Fixture</a>
     </div>
   <hr />
 </div>
@@ -27,10 +28,11 @@
         <th scope="col">Start_Date</th>
         <th scope="col">End_Date</th>
         <th scope="col">Status</th>
-        @* <th scope="col">Home_Team</th>
-        <th scope="col">Away_Team</th> *@
+        <th scope="col">Home_Team</th>
+        <th scope="col">Away_Team</th>
         <th scope="col">Home_Score</th>
         <th scope="col">Away_Score</th>
+        <th scope="col">Competition Id</th>
         <th scope="col">Competition</th>
         <th scope="col">Clubs</th>
         <th scope="col">Fixture Statistics</th>
@@ -50,6 +52,7 @@
             <td>@fixture.Away_Team</td>
             <td>@fixture.Home_Score</td>
             <td>@fixture.Away_Score</td>
+            <td>@fixture.CompetitionId</td>
             <td>@fixture.Competition</td>
             <td>@fixture.Clubs</td>
             <td>@fixture.FixtureStatistics</td>
@@ -66,5 +69,5 @@
 }
 else
 {
-  <p>No Fixtures found</p>
+  <p>No Fixtures found for this competition</p>
 }

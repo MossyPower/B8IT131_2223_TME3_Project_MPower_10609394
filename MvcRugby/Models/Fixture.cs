@@ -7,24 +7,34 @@ namespace MvcRugby.Models
     {
         //Fixture Attributes 
         [Required]
+        [Key]
         public int FixtureId { get; set; }
         public string? SportRadar_Id {get; set;}
         public int Round_Number { get; set; }
         public string Fixture_Date { get; set; }
         public string? Start_Time { get; set; }
         public string? Status { get; set; }
+
         public string? Home_Team { get; set; }
+        // public int  Home_Team_Id { get; set; }
+        // public Club? Home_Team { get; set; }
+
         public string? Away_Team { get; set; }
+        // public int Away_Team_Id { get; set; }
+        // public Club? Away_Team { get; set; }
+
         public int? Home_Score { get; set; }
         public int? Away_Score { get; set; }
         
         //Setup relationship with Competition model/table
+        [Required]
         [ForeignKey("CompetitionId")]
         public int CompetitionId { get; set; } //Foreign Key
-        public Competition Competition { get; set; } //Reference navigation property
+        public virtual Competition? Competition { get; set; } //Reference navigation property
 
         //Relationship with Club model
         public List<Club>? Clubs { get; set; } //Reference navigation property
+        
         //Relationship with FixtureStatistic model
         public List<FixtureStatistics>? FixtureStatistics { get; set; } //Reference navigation property
     }

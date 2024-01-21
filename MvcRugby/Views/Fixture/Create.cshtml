@@ -1,11 +1,12 @@
 @model MvcRugby.Models.Fixture
+
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
-<h4>Competition Fixture</h4>
+<h4>New [Competition Name] Fixture</h4>
 <hr />
 
 <div class="row">
@@ -19,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Round_Number" class="control-label"></label>
-                <input asp-for="Round_Number" class="form-control" />
+                <input asp-for="Round_Number" class="form-control" input="number"/>
                 <span asp-validation-for="Round_Number" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,36 +50,30 @@
             </div>
             <div class="form-group">
                 <label asp-for="Home_Score" class="control-label"></label>
-                <input asp-for="Home_Score" class="form-control" />
+                <input asp-for="Home_Score" class="form-control" input="number"/>
                 <span asp-validation-for="Home_Score" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Away_Score" class="control-label"></label>
-                <input asp-for="Away_Score" class="form-control" />
+                <input asp-for="Away_Score" class="form-control" input="number"/>
                 <span asp-validation-for="Away_Score" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Competition " class="control-label"></label>
-                <input asp-for="Competition " class="form-control" />
-                <span asp-validation-for="Competition " class="text-danger"></span>
+                <label asp-for="CompetitionId" class="control-label"></label>
+                <input asp-for="CompetitionId" class="form-control" input="number"/>
+                @* <select asp-for="CompetitionId" asp-items="ViewBag.CompetitionList" class="form-control"></select> *@
+                <span asp-validation-for="CompetitionId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Clubs" class="control-label"></label>
-                <input asp-for="Clubs" class="form-control" />
-                <span asp-validation-for="Clubs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FixtureStatistics" class="control-label"></label>
-                <input asp-for="FixtureStatistics" class="form-control" />
-                <span asp-validation-for="FixtureStatistics" class="text-danger"></span>
-            </div>
+            <br>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+<hr>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
 </div>
+<br>

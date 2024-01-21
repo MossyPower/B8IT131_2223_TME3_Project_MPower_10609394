@@ -29,13 +29,10 @@ namespace MvcRugby.Controllers
             _clientFactory = clientFactory;
         }
 
-        // GET: Fixtures - Using Interface & Service Layer
         // public async Task<IActionResult> Index()
         // {
-        //     return View(await _rugbyDataApiService.GetFixtures());
+        //     return View();
         // }
-
-        // GET: Fixtures
         public async Task<IActionResult> Index()
         {
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
@@ -45,8 +42,8 @@ namespace MvcRugby.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var fixture = await response.Content.ReadFromJsonAsync<List<Fixture>>();
-                return View(fixture);
+                var allFixtures = await response.Content.ReadFromJsonAsync<List<Fixture>>();
+                return View(allFixtures);
             }
             else if (response.StatusCode == HttpStatusCode.NotFound)
             {
@@ -58,6 +55,47 @@ namespace MvcRugby.Controllers
                 return StatusCode((int)response.StatusCode);
             }
         }
+        // GET: Fixtures by CompetitionId
+        // public async Task<IActionResult> Index(int competitionId)
+        // {           
+        //     // Get a list of all fixtures by Competition Id (passed in as param)
+        //     HttpClient client1 = _clientFactory.CreateClient(name: "RugbyDataApi");
+        //     string requestUri1 = $"/api/v1/fixture/Competition/{competitionId}";
+        //     HttpResponseMessage response1 = await client1.GetAsync(requestUri1);
+
+        //     // Get the correct Competition by Id
+        //     HttpClient client2 = _clientFactory.CreateClient(name: "RugbyDataApi");
+        //     string requestUri2 = $"/api/v1/Competition/{competitionId}";
+        //     HttpResponseMessage response2 = await client2.GetAsync(requestUri2);
+
+
+        //     if (response1.IsSuccessStatusCode) //&& response2.IsSuccessStatusCode
+        //     {
+        //         var fixtures = await response1.Content.ReadFromJsonAsync<List<Fixture>>();
+                
+        //         // Fetch the competition object from the database
+        //         var competition = await response1.Content.ReadFromJsonAsync<Competition>();
+                
+        //         if(fixtures != null && competition != null)
+        //         {
+        //             foreach (var fixture in fixtures)
+        //             {
+        //                 fixture.CompetitionId = competition.CompetitionId;
+        //                 fixture.Competition = competition;
+        //             }
+        //         }             
+        //         return View(fixtures);
+        //     }
+        //     else if (response1.StatusCode == HttpStatusCode.NotFound) //|| response2.StatusCode == HttpStatusCode.NotFound
+        //     {
+        //         return NotFound();
+        //     }
+        //     else
+        //     {
+        //         // Handle other error cases
+        //         return StatusCode((int)response1.StatusCode);
+        //     }
+        // }
 
         // GET: Fixtures/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -85,32 +123,55 @@ namespace MvcRugby.Controllers
 
         // Return Create Fixture View
         // GET: fixtures/Create
-        // public IActionResult Create()
-        // {
-        //     return View();
-        // }
+        public async Task<IActionResult> Create()
+        {           
+            //Get all competitions & Associated Id for the dropdownlist
+            // HttpClient client1 = _clientFactory.CreateClient(name: "RugbyDataApi");
+            // string requestUri1 = $"/api/v1/competition/";
+            // HttpResponseMessage response1 = await client1.GetAsync(requestUri1);
+            
+            // var competitions = await response1.Content.ReadFromJsonAsync<List<Competition>>();
+            
+            // ViewBag.CompetitionList = new SelectList(competitions, "CompetitionId", "CompetitionName");
 
-        public async Task<IActionResult> Create(int id)
-        {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/competition/{id}";
+            // Get Competition by Id
+            // HttpClient client2 = _clientFactory.CreateClient(name: "RugbyDataApi");
+            // string requestUri2 = $"/api/v1/competition/{id}";
+            // HttpResponseMessage response2 = await client2.GetAsync(requestUri2);
+            
+            // var competition = await response1.Content.ReadFromJsonAsync<Competition>();
+            
+            // var ViewModel = new CompetitionFixturesViewModel.Competition()
+            // {
+            //     CompetitionId = competition.CompetitionId,
+            //     Competition_Name = competition.Competition_Name,
+            // };
 
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-            if (response.IsSuccessStatusCode)
-            {
-                var fixture = await response.Content.ReadFromJsonAsync<Competition>();
-                return View(fixture);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Handle other error cases
-                return StatusCode((int)response.StatusCode);
-            }
+            // return View(ViewModel);
+            return View();
         }
+
+        // public async Task<IActionResult> Create(int id)
+        // {
+        //     HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
+        //     string requestUri = $"/api/v1/competition/{id}";
+
+        //     HttpResponseMessage response = await client.GetAsync(requestUri);
+        //     if (response.IsSuccessStatusCode)
+        //     {
+        //         var fixture = await response.Content.ReadFromJsonAsync<Competition>();
+        //         return View(fixture);
+        //     }
+        //     else if (response.StatusCode == HttpStatusCode.NotFound)
+        //     {
+        //         return NotFound();
+        //     }
+        //     else
+        //     {
+        //         // Handle other error cases
+        //         return StatusCode((int)response.StatusCode);
+        //     }
+        // }
 
         // POST: fixtures/Create - Using Interface & Service Layer
         // public async Task<IActionResult> Create([Bind("Id, SportRadar_Id, Competition_Name, fixture_Name, Country")] Fixture fixture)
@@ -256,7 +317,7 @@ namespace MvcRugby.Controllers
 
         private bool fixtureExists(int id)
         {
-          return (_context.Fixture?.Any(e => e.FixtureId == id)).GetValueOrDefault();
+          return (_context.Fixtures?.Any(e => e.FixtureId == id)).GetValueOrDefault();
         }
     }
 }

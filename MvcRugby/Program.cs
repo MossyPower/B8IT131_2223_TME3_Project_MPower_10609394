@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MvcRugby.Data;
 using MvcRugby.Services;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,11 @@ builder.Services.AddHttpClient("RugbyDataApi", client =>
             quality: 1.0
         )
     );
+});
+
+builder.Services.AddLogging(logging =>
+{
+    logging.AddConsole();
 });
 
 var app = builder.Build();

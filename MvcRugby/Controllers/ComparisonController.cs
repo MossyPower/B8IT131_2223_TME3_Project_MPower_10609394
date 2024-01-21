@@ -13,15 +13,18 @@ using System.Net;
 
 namespace MvcRugby.Controllers
 {
+    //[Authorize]
     public class ComparisonController : Controller
     {
+        private readonly ILogger<ComparisonController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly IHttpClientFactory _clientFactory;
 
-        public ComparisonController(ApplicationDbContext context, IHttpClientFactory clientFactory)
+        public ComparisonController(ApplicationDbContext context, IHttpClientFactory clientFactory, ILogger<ComparisonController> logger)
         {
             _context = context;
             _clientFactory = clientFactory;
+            _logger = logger;
         }
         
         //Get: All Competitions
@@ -48,28 +51,32 @@ namespace MvcRugby.Controllers
             }
         }
         
-        //Get: All rounds in a given Competition
-        public async Task<IActionResult> Rounds(int CompetitionId)
+        //Get: All fixtures in a given Competition, group by round
+        public async Task<IActionResult> Rounds(int id)
         {
+            // Get all fixtures matching Comp Id
             HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/competition/{CompetitionId}"; // return competition by id passed in as parameter
+            string requestUri = $"/api/v1/fixture/competition/{id}"; // return all fixtures by competition by id, passed in as parameter
             
             HttpResponseMessage response = await client.GetAsync(requestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var competition = await response.Content.ReadFromJsonAsync<Competition>();
+                var content = await response.Content.ReadAsStringAsync();
+                var compFixtures = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Fixture>>(content);
 
-                if (competition != null && competition.Fixtures != null)
+                _logger.LogInformation($"Competitions data received: {Newtonsoft.Json.JsonConvert.SerializeObject(content)}");
+                
+                if (compFixtures != null)
                 {
                     var ViewModel = new RoundsViewModel()
                     {
                         // RoundsViewModel Attribute = Competition Model Attribute path
                         // Group By method: https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.groupby?view=net-8.0 : 
                         // 'GroupBy' returns sequence of IGrouping<TKey, TElement> where TKey is the key and TElement is the type of elements within each group. 
-                        CompetitionName = competition.Competition_Name, 
-                        CompetitionId = competition.CompetitionId,
-                        Rounds = competition.Fixtures
+                        CompetitionName = null, 
+                        CompetitionId = id,
+                        Rounds = compFixtures
                         .GroupBy(item => item.Round_Number)
                         .Select(group => new RoundInfoViewModel //each item in the list is an instance of the RoundsViewModel (within the CompRoundsViewModel) 
                         {
@@ -96,53 +103,13 @@ namespace MvcRugby.Controllers
                 return StatusCode((int)response.StatusCode);
             }
         }
-        
-        // Get: CreateFixture view
-        // public async Task<IActionResult> CreateFixture(int CompetitionId)
-        // {
-        //     HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-        //     string requestUri = $"/api/v1/competition/{CompetitionId}"; // return competition by id passed in as parameter
+        public async Task<IActionResult> RoundFixtures()
+        {
             
-        //     HttpResponseMessage response = await client.GetAsync(requestUri);
-            
-        //     var competition = await response.Content.ReadFromJsonAsync<Competition>();
+        }
 
-        //     if (competition == null)
-        //     {
-        //         return NotFound();
-        //     }
 
-        //     var viewModel = new FixtureViewModel
-        //     {
-        //         CompetitionId = competition.Id,
-        //         CompetitionName = competition.Competition_Name,
-        //         // Set other properties as needed
-        //     };
 
-        //     return View(viewModel);
-        // }
-        // [HttpPost]
-        // public async Task<IActionResult> CreateFixture(FixtureViewModel viewModel)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         // Create a new Fixture using data from the ViewModel
-        //         var newFixture = new Fixture
-        //         {
-        //             CompetitionId = viewModel.CompetitionId,
-        //             // Set other properties from the form
 
-        //             // Assuming you have a DbSet<Fixture> in your context
-        //         };
-
-        //         _context.Fixtures.Add(newFixture);
-        //         await _context.SaveChangesAsync();
-
-        //         return RedirectToAction("Details", "Competition", new { id = viewModel.CompetitionId });
-        //     }
-
-        //     // If model validation fails, return to the form with validation errors
-        //     return View(viewModel);
-        // }
     }
 }

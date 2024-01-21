@@ -8,10 +8,10 @@ namespace RugbyDataApi.Data
         public RugbyDataDbContext(DbContextOptions<RugbyDataDbContext> options) :
         base(options)
         {}
-        public DbSet<Club> Club { get; set; } = default!;
-        public DbSet<Competition> Competition { get; set; } = null!;
-        public DbSet<Fixture> Fixture { get; set; } = null!;
-        public DbSet<FixtureStatistics> FixtureStatistics { get; set; } = null!;
-        public DbSet<Player> Player { get; set; } = null!;
+        public DbSet<Club> Clubs { get; set; } = default!;
+        public DbSet<Competition> Competitions { get; set; } = null!;
+        public DbSet<Fixture> Fixtures { get; set; } = null!;
+        public DbSet<FixtureStatistics> FixturesStatistics { get; set; } = null!;
+        public DbSet<Player> Players { get; set; } = null!;
     }
 }

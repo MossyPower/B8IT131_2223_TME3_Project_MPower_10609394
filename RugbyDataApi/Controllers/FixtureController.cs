@@ -25,22 +25,42 @@ namespace RugbyDataApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Fixture>>> GetFixtures()
         {
-          if (_context.Fixture == null)
-          {
+            if (_context.Fixtures == null)
+            {
               return NotFound();
-          }
-            return await _context.Fixture.ToListAsync();
+            }
+            return await _context.Fixtures.ToListAsync();
+        }
+
+        // GET: api/Fixtures by Competition Id
+        [HttpGet("Competition/{id}")]
+        public async Task<ActionResult<IEnumerable<Fixture>>> GetFixturesByCompetitionId(int id)
+        {
+            if (_context.Fixtures == null)
+            {
+                return NotFound();
+            }
+            var fixtures = await _context.Fixtures
+                .Where(f => f.CompetitionId == id)
+                .ToListAsync();
+
+            if (fixtures == null)
+            {
+                return NotFound();
+            }
+
+            return fixtures;
         }
 
         // GET: api/Fixture/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Fixture>> GetFixture(int id)
         {
-          if (_context.Fixture == null)
-          {
+            if (_context.Fixtures == null)
+            {
               return NotFound();
-          }
-            var competitionGame = await _context.Fixture.FindAsync(id);
+            }
+            var competitionGame = await _context.Fixtures.FindAsync(id);
 
             if (competitionGame == null)
             {
@@ -86,11 +106,11 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Fixture>> PostFixture(Fixture competitionGame)
         {
-          if (_context.Fixture == null)
-          {
+            if (_context.Fixtures == null)
+            {
               return Problem("Entity set 'RugbyDataDbContext.Fixtures'  is null.");
-          }
-            _context.Fixture.Add(competitionGame);
+            }
+            _context.Fixtures.Add(competitionGame);
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,17 +134,17 @@ namespace RugbyDataApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFixture(int id)
         {
-            if (_context.Fixture == null)
+            if (_context.Fixtures == null)
             {
                 return NotFound();
             }
-            var competitionGame = await _context.Fixture.FindAsync(id);
+            var competitionGame = await _context.Fixtures.FindAsync(id);
             if (competitionGame == null)
             {
                 return NotFound();
             }
 
-            _context.Fixture.Remove(competitionGame);
+            _context.Fixtures.Remove(competitionGame);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -132,7 +152,7 @@ namespace RugbyDataApi.Controllers
 
         private bool FixtureExists(int id)
         {
-            return (_context.Fixture?.Any(e => e.FixtureId == id)).GetValueOrDefault();
+            return (_context.Fixtures?.Any(e => e.FixtureId == id)).GetValueOrDefault();
         }
     }
 }

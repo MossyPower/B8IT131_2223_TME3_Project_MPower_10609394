@@ -33,7 +33,7 @@
               <li class="list-group-item">Competition Year: @competition.Year</li>
             </ul>
             <div class="card-body">
-                <a class="btn btn-primary" asp-action="Rounds" asp-route-id="@competition.CompetitionId" asp-controller="Comparison">View Rounds</a>
+                <a class="btn btn-primary" asp-controller="Comparison" asp-action="Rounds" asp-route-id="@competition.CompetitionId" >View Rounds</a>
                 <a class="btn btn-success" asp-action="Details" asp-route-id="@competition.CompetitionId" asp-controller="Competition">View Details</a>
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@competition.CompetitionId" asp-controller="Competition">Edit</a>
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@competition.CompetitionId" asp-controller="Competition">Delete</a>
