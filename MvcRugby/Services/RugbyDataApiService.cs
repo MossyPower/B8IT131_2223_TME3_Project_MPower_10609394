@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using MvcRugby.Models;
 using MvcRugby.Services;
+using MvcRugby.Mappings;
 
 namespace MvcRugby.Services
 {
@@ -27,11 +28,19 @@ namespace MvcRugby.Services
         // *****************************************************************************************
         
         // COMPETITION MODEL ACTIONS
+        
         [HttpGet]
         public async Task<IEnumerable<Competition>> GetAllCompetitions()
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<Competition>>("api/v1/competition/");
         }
+        
+        [HttpGet]
+        public async Task<RdAPI_Competitions> AllCompsWithRelatedData()
+        {
+            return await _httpClient.GetFromJsonAsync<RdAPI_Competitions>("api/v1/competition/withRelatedData");
+        }
+               
         
         [HttpGet]
         public async Task<Competition> GetCompetitionById(int id)
@@ -52,7 +61,8 @@ namespace MvcRugby.Services
                 throw new ApplicationException("Error creating the competition in the API.", ex);
             }
         }
-
+        
+        //[HttpPut]
         public async Task EditCompetitionById(int id, Competition competition)
         {
             try
@@ -66,6 +76,7 @@ namespace MvcRugby.Services
             }
         }
 
+        //[HttpDelete]
         public async Task DeleteCompetitionById(int id)
         {
             try
@@ -199,6 +210,12 @@ namespace MvcRugby.Services
         }
         
         [HttpGet]
+        public async Task<IEnumerable<Fixture>?> GetAllFixturesByCompetitionId(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>($"api/v1/fixture/competition/{id}");
+        }
+
+        [HttpGet]
         public async Task<Fixture> GetFixtureById(int id)
         {
             return await _httpClient.GetFromJsonAsync<Fixture>($"api/v1/fixture/{id}");
@@ -250,9 +267,15 @@ namespace MvcRugby.Services
         [HttpGet]
         public async Task<IEnumerable<FixtureStatistics>> GetAllFixturesStatistics()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixture/");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>("api/v1/fixtureStatistics/");
         }
         
+        // [HttpGet]
+        // public async Task<IEnumerable<FixtureStatistics>?> GetFixturesStatisticsByFixtureId(List<int> fixtureIds)
+        // {
+        //     return await _httpClient.GetFromJsonAsync<IEnumerable<FixtureStatistics>>($"api/v1/fixtureStatistics/fixtures/{fixtureIds}");
+        // }
+
         [HttpGet]
         public async Task<FixtureStatistics> GetFixtureStatisticsById(int id)
         {

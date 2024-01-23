@@ -34,7 +34,7 @@ namespace MvcRugby.Models
 
         //Relationship with Club model
         public List<Club>? Clubs { get; set; } //Reference navigation property
-        
+
         //Relationship with FixtureStatistic model
         public List<FixtureStatistics>? FixtureStatistics { get; set; } //Reference navigation property
     }

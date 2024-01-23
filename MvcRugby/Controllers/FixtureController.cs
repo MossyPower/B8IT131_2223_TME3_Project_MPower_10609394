@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcRugby.Data;
 using MvcRugby.Models;
+using MvcRugby.Mappings;
+using MvcRugby.ViewModels;
 using MvcRugby.Services;
 using System.Net;
 
@@ -32,9 +35,14 @@ namespace MvcRugby.Controllers
         }
 
         // GET: fixtures/Create
-        public IActionResult Create()
+        public async Task<IActionResult>  Create()
         {
-            return View();
+            await CompetitionDropdownList();
+            
+            // Create a new Fixture instance
+            Fixture fixture = new Fixture();
+            
+            return View(fixture);
         }
 
         // POST: fixtures/Create
@@ -87,6 +95,14 @@ namespace MvcRugby.Controllers
         {
             await _rugbyDataApiService.DeleteFixtureById(id);
             return RedirectToAction("Index");
+        }
+
+        // Create Dropdown for linked relational model; Competition
+        private async Task CompetitionDropdownList()
+        {
+            var competitions = await _rugbyDataApiService.GetAllCompetitions();
+
+            ViewBag.competitions = new SelectList(competitions, "CompetitionId", "Competition_Name");
         }
     }
 }

@@ -1,6 +1,9 @@
+using MvcRugby.Models;
+
 // View model for the SportsRadar CompRounds View
 // Model 1: Display all rounds for a given competition. Data from: List<lineups> / sport_event / sport_event_context / round / number
-namespace MvcRugby.Models
+
+namespace MvcRugby.ViewModels
 {
     public class CompRoundsViewModel
     {

@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MvcRugby.Models;
 
-namespace MvcRugby.Models
+namespace MvcRugby.ViewModels
 {
     public class CompetitionFixturesViewModel
     {

@@ -23,11 +23,11 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/FixtureStatistics
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FixtureStatistics>>> GetFixtureStatistics()
+        public async Task<ActionResult<IEnumerable<FixtureStatistics>>> GetFixturesStatistics()
         {
-          if (_context.FixturesStatistics == null)
+            if (_context.FixturesStatistics == null)
             {
-              return NotFound();
+                return NotFound("No fixtures Statistics store in the database");
             }
             return await _context.FixturesStatistics.ToListAsync();
         }
@@ -36,10 +36,10 @@ namespace RugbyDataApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FixtureStatistics>> GetFixtureStatistics(int id)
         {
-          if (_context.FixturesStatistics == null)
-          {
-              return NotFound();
-          }
+            if (_context.FixturesStatistics == null)
+            {
+                return NotFound("No Fixture Statistics Id provided");
+            }
             var playerMatchStatistics = await _context.FixturesStatistics.FindAsync(id);
 
             if (playerMatchStatistics == null)

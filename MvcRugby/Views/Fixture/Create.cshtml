@@ -58,11 +58,9 @@
                 <input asp-for="Away_Score" class="form-control" input="number"/>
                 <span asp-validation-for="Away_Score" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CompetitionId" class="control-label"></label>
-                <input asp-for="CompetitionId" class="form-control" input="number"/>
-                @* <select asp-for="CompetitionId" asp-items="ViewBag.CompetitionList" class="form-control"></select> *@
-                <span asp-validation-for="CompetitionId" class="text-danger"></span>
+            <div>
+                <label class="from-label">Competition</label>
+                @Html.DropDownListFor(model => model.CompetitionId, (SelectList)ViewBag.competitions, "Select Competition", new { @class = "form-control" })
             </div>
             <br>
             <div class="form-group">

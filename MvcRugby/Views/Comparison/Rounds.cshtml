@@ -1,13 +1,9 @@
-@model RoundsViewModel
+@model MvcRugby.ViewModels.RoundsViewModel
 @{
     ViewData["Title"] = "[Competition Name] Rounds";
 }
 
-<h1>Competition Rounds</h1>
-<hr>
-
-<p>Competition Id: @Model.CompetitionId</p>
-<p>Competition: @Model.CompetitionName</p>
+<h1>@Model.CompetitionName - Rounds</h1>
 <hr>
 
 @if (Model != null)
@@ -33,7 +29,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <a class="btn btn-primary" asp-controller="Comparison" asp-action="RoundFixtures" asp-route-compId="@Model.CompetitionId" asp-route-roundNumber="@fixture.RoundNumber">Select</a>
+                  <a class="btn btn-primary" asp-controller="Comparison" asp-action="RoundFixtures" asp-route-id="@Model.CompetitionId" asp-route-roundNumber="@fixture.RoundNumber">Select</a>
                 </td>
             </tr>
             }

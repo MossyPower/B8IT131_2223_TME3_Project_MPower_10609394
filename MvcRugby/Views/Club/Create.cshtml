@@ -22,43 +22,16 @@
                 <span asp-validation-for="Club_Name" class="text-danger"></span>
             </div>
             
-            <!-- https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/update-related-data?view=aspnetcore-8.0 -->
-            
-            @* @if (ViewBag.CompetitionId != null)
-            {
-                <p>CompetitionId in ViewBag: @Json.Serialize(ViewBag.CompetitionId)</p>
-            }
-            else
-            {
-                <p>CompetitionId in ViewBag is null</p>
-            }
-            <p>Model: @Json.Serialize(Model)</p>
-            *@
-            
-            @* <div class="form-group">
-                <label asp-for="CompetitionId" class="control-label"></label>
-                <select asp-for="CompetitionId" class="form-control" asp-items="@ViewBag.CompetitionId">
-                    <option value="">-- Select Competition --</option>
-                </select>
-                <span asp-validation-for="CompetitionId" class="text-danger"></span>
-            </div> *@
+            <!-- Referance Microsoft Documentation: "Tutorial: Update related data - ASP.NET MVC with EF Core". 
+                Available at: https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/update-related-data?view=aspnetcore-8.0 -->
+    
+            <!--Referance YouTube video: "Create DROPDOWNS in ASP.NET Core using DropDownList and GetEnumSelectList!".
+                Available at: https://www.youtube.com/watch?v=pigM1PojI0Q&ab_channel=tutorialsEU-C%23 -->
+            <div>
+                <label class="from-label">Competition</label>
+                @Html.DropDownListFor(model => model.CompetitionId, (SelectList)ViewBag.competitions, "Select Competition", new { @class = "form-control" })
+            </div>
 
-            <div class="form-group">
-                <label asp-for="CompetitionId" class="control-label"></label>
-                <input asp-for="CompetitionId" class="form-control" type="number" />
-                <span asp-validation-for="CompetitionId" class="text-danger"></span>
-            </div>
-            <div class="validation-summary-valid" data-valmsg-summary="true">
-                <ul>
-                    @foreach (var key in ViewData.ModelState.Keys)
-                    {
-                        foreach (var error in ViewData.ModelState[key].Errors)
-                        {
-                            <li>@error.ErrorMessage</li>
-                        }
-                    }
-                </ul>
-            </div>
             <br>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

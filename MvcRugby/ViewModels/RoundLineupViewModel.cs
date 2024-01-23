@@ -1,5 +1,7 @@
+using MvcRugby.Models;
+
 // View model for the SportsRadar RoundLineup View
-namespace MvcRugby.Models
+namespace MvcRugby.ViewModels
 {   
     // Combined ViewModel for (i) SeasonLineup & (ii) Players
     public class RoundLineupViewModel

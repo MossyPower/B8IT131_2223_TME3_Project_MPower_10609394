@@ -1,6 +1,7 @@
 // View model for the SportsRadar Index view
+using MvcRugby.Models;
 
-namespace MvcRugby.Models
+namespace MvcRugby.ViewModels
 {
     public class CompetitionsViewModel
     {

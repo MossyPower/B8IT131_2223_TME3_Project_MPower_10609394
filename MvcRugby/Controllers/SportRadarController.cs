@@ -1,9 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MvcRugby.Models;
+using MvcRugby.Mappings;
+using MvcRugby.ViewModels;
 using MvcRugby.Services;
 using Microsoft.AspNetCore.Authorization;
-using MvcRugby.Mappings;
 using System.Text.RegularExpressions;
 
 namespace MvcRugby.Controllers
@@ -13,8 +14,8 @@ namespace MvcRugby.Controllers
     {       
         //Create an instance of the SportRadarApiService class
         private readonly SportRadarApiService _sportRadarApiService;
-        
-        public SportRadarController(SportRadarApiService sportRadarApiService)
+        private readonly RugbyDataApiService _rugbyDataApiService;
+        public SportRadarController(SportRadarApiService sportRadarApiService, RugbyDataApiService rugbyDataApiService)
         {
             _sportRadarApiService = sportRadarApiService;
         }
@@ -26,10 +27,29 @@ namespace MvcRugby.Controllers
             return View();
         }
         
+        // Sync Sport Radar Api data with local Rugby Data Api
+        // public async Task<IActionResult> SyncSrApiSeasonLineupEndPoint(string? SeasonId)
+        // {
+        //     // Fetch the data from Sport Radar Api Endpoint
+        //     var seasonLineup = await _sportRadarApiService.GetSrSeasonLineups(SeasonId);
+
+        //     // Save data retrieved from Sport Radar API to Rugby Data Api (pass to seperate method below as parameter to complete task)
+        //     await SaveSrApiSeasonLineupData(seasonLineup);
+
+        //     // Return appropriate result
+        //     return Ok(); // Replace with the appropriate result based on your requirements
+        // }
+
+        // private async Task SaveSrApiSeasonLineupData(SeasonLineups seasonLineups)
+        // {
+        //     await _rugbyDataApiService.AddSrSeasonLineupData(seasonLineups);
+        // }
+
+
         public async Task<IActionResult> Competitions()
         {
             // Get SportsRadar data from Api via services
-            var competitions = await _sportRadarApiService.GetCompetitions();
+            var competitions = await _sportRadarApiService.GetSeasons();
             
             // Check to see if data returned from API
             if (competitions != null)
@@ -57,7 +77,7 @@ namespace MvcRugby.Controllers
         public async Task<IActionResult> CompRounds(string? id)
         {
             // Get SportsRadar data from Api via services, using id passed from Index() view by the user selection
-            var CompetitionRounds = await _sportRadarApiService.GetCompetitionRounds(id);
+            var CompetitionRounds = await _sportRadarApiService.GetSrSeasonLineups(id);
             
             // Check to see if data returned from API
             if (CompetitionRounds != null)
@@ -98,7 +118,7 @@ namespace MvcRugby.Controllers
         public async Task<IActionResult> RoundLineup(string? id)
         {
             // Get SportsRadar data from API via services, using id passed from Index() view by the user selection
-            var roundLineup = await _sportRadarApiService.GetRoundLineup(id);
+            var roundLineup = await _sportRadarApiService.GetSrSeasonLineups(id);
 
             // Check to see if data returned from API
             if (roundLineup != null && roundLineup.lineups != null)

@@ -51,7 +51,7 @@ namespace RugbyDataApi.Controllers
 
             return fixtures;
         }
-
+        
         // GET: api/Fixture/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Fixture>> GetFixture(int id)

@@ -1,4 +1,4 @@
-namespace MvcRugby.Models
+namespace MvcRugby.ViewModels
 {
     public class RoundsViewModel
     {

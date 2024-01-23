@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcRugby.Data;
 using MvcRugby.Models;
+using MvcRugby.Mappings;
+using MvcRugby.ViewModels;
+using MvcRugby.Services;
 using System.Net;
 
 namespace MvcRugby.Controllers
@@ -10,11 +14,13 @@ namespace MvcRugby.Controllers
     {
         private readonly ILogger<ComparisonController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly RugbyDataApiService _rugbyDataApiService;
         private readonly IHttpClientFactory _clientFactory;
 
-        public ComparisonController(ApplicationDbContext context, IHttpClientFactory clientFactory, ILogger<ComparisonController> logger)
+        public ComparisonController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory, ILogger<ComparisonController> logger)
         {
             _context = context;
+            _rugbyDataApiService = rugbyDataApiService;
             _clientFactory = clientFactory;
             _logger = logger;
         }
@@ -22,126 +28,61 @@ namespace MvcRugby.Controllers
         //Get: All Competitions
         public async Task<IActionResult> Index()
         {
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/competition/";
-            
-            HttpResponseMessage response = await client.GetAsync(requestUri);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var competition = await response.Content.ReadFromJsonAsync<List<Competition>>();
-                return View(competition);
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                // Handle other error cases
-                return StatusCode((int)response.StatusCode);
-            }
+            return View(await _rugbyDataApiService.GetAllCompetitions());
         }
         
         //Get: All fixtures in a given Competition, group by round
         public async Task<IActionResult> Rounds(int id)
         {
-            // Get all fixtures matching Comp Id
-            HttpClient client = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri = $"/api/v1/fixture/competition/{id}"; // return all fixtures by competition by id, passed in as parameter
-            
-            HttpResponseMessage response = await client.GetAsync(requestUri);
+            var competition = await _rugbyDataApiService.GetCompetitionById(id);
+            var compFixtures = await _rugbyDataApiService.GetAllFixturesByCompetitionId(id);
 
-            if (response.IsSuccessStatusCode)
+            var ViewModel = new RoundsViewModel()
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var compFixtures = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Fixture>>(content);
-
-                _logger.LogInformation($"Competitions data received: {Newtonsoft.Json.JsonConvert.SerializeObject(content)}");
                 
-                if (compFixtures != null)
+                CompetitionName = competition.Competition_Name, 
+                CompetitionId = id,
+                // RoundsViewModel Attribute = Competition Model Attribute path
+                // Group By method: https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.groupby?view=net-8.0 : 
+                // 'GroupBy' returns sequence of IGrouping<TKey, TElement> where TKey is the key and TElement is the type of elements within each group. 
+                Rounds = compFixtures
+                .GroupBy(item => item.Round_Number)
+                .Select(group => new RoundInfoViewModel //each item in the list is an instance of the RoundsViewModel (within the CompRoundsViewModel) 
                 {
-                    var ViewModel = new RoundsViewModel()
-                    {
-                        // RoundsViewModel Attribute = Competition Model Attribute path
-                        // Group By method: https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.groupby?view=net-8.0 : 
-                        // 'GroupBy' returns sequence of IGrouping<TKey, TElement> where TKey is the key and TElement is the type of elements within each group. 
-                        CompetitionName = null, 
-                        CompetitionId = id,
-                        Rounds = compFixtures
-                        .GroupBy(item => item.Round_Number)
-                        .Select(group => new RoundInfoViewModel //each item in the list is an instance of the RoundsViewModel (within the CompRoundsViewModel) 
-                        {
-                            RoundNumber = group.Key, // Group key is the round number
-                            Status = group.First().Status
-                            //StartDate = group.First()Start_Time,
-                            //EndDate = group.First().sport_event?.start_time_confirmed ?? false
-                        })
-                        .ToList()
-                    };
-                    return View(ViewModel);
-                }
-                else
-                {
-                    return NotFound(); // Handle the case where Fixtures or competition is null
-                }
-            }
-            else if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return StatusCode((int)response.StatusCode);
-            }
+                    RoundNumber = group.Key, // Group key is the round number
+                    Status = group.First().Status
+                    //StartDate = group.First()Start_Time,
+                    //EndDate = group.First().sport_event?.start_time_confirmed ?? false
+                })
+                .ToList()
+            };
+            return View(ViewModel);
         }
 
-        // Get: All fixtures for a round
-
-        // using fixture.roundnumber, return all fixtures for that round number
-
+        // Get: All fixtures for a given round (which includes teams), All players, All player statistics, 
         public async Task<IActionResult> RoundFixtures(int id, int roundNumber)
         {
-            // Get competition by id
-            HttpClient client1 = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri1 = $"/api/v1/competition/{id}";
-            HttpResponseMessage response1 = await client1.GetAsync(requestUri1);         
+            // Get all competitions
+            var competition = await _rugbyDataApiService.GetCompetitionById(id);      
             
-            // Get all fixtures matching Comp Id
-            HttpClient client2 = _clientFactory.CreateClient(name: "RugbyDataApi");
-            string requestUri2 = $"/api/v1/fixture/competition/{id}"; // return all fixtures by competition by id, passed in as parameter
-            HttpResponseMessage response2 = await client2.GetAsync(requestUri2);
-
-            if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
+            // Get all fixtures by per round
+            var fixtures = await _rugbyDataApiService.GetAllFixturesByCompetitionId(id);
+            var roundFixtures = fixtures.Where(f => f.Round_Number == roundNumber);// get all competition fixtures, filtered by round number
+            
+            // Filter the returned fixtures by CompetitionId 
+            //      For the URC, total fixtures = 18 rounds x 9 fixtures per round = 162 + 7 knock-out fixtures = total 169 fixtures to filter by round
+            //      Similar-ish for other comps
+            //      Need to look at completing this by querying Db in RugbyDataApi instead of completing this in-memory, passing two params
+            var ViewModel = new ComparisonViewModel()
             {
-                var competition = await response1.Content.ReadFromJsonAsync<Competition>();
-                var compFixtures = await response2.Content.ReadFromJsonAsync<List<Fixture>>(); //List of fixtures by Competiton Id
-                
-                var ViewModel = new ComparisonViewModel()
-                {
-                    Competition = competition.Competition_Name,
-                    Round_Number = roundNumber, //from param
-                    Players = new List<Player>()
-                    {
-                        
-                    }
-
-                };
-                
-                return null;
-            }
-            else if (response1.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound("RugbyDataApi/api/v1/competition/ Not Found");
-            }
-            else if (response2.StatusCode == HttpStatusCode.NotFound)
-            {
-                return NotFound("RugbyDataApi/api/v1/fixture/competition/{compId} Not Found");
-            }
-            else
-            {
-                return StatusCode((int)response1.StatusCode);
-            }
+                CompetitionId = id,
+                Competition_Name = competition.Competition_Name, // get competition name               
+                Round_Number = roundNumber,
+                Fixtures = roundFixtures.ToList(),
+                FixtureStatistics = null,
+                Players = null,
+            };
+            return View(ViewModel);
         }
     }
 }

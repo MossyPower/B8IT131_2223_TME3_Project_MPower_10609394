@@ -1,3 +1,4 @@
+using MvcRugby.Models;
 using MvcRugby.Mappings;
 
 namespace MvcRugby.Services
@@ -14,25 +15,19 @@ namespace MvcRugby.Services
         }
         
         // Get Competitions
-        public async Task<SeasonInfo?> GetCompetitions()
+        public async Task<SeasonInfo?> GetSeasons() // "Seasons" is one of the the Sport Radar Api end point names
         {   
             return await _httpClient.GetFromJsonAsync<SeasonInfo>($"seasons"+API_KEY);
         }     
 
         //Get Competition Rounds
-        public async Task<SeasonLineups?> GetCompetitionRounds(string? SeasonId)
-        {   
-            return await _httpClient.GetFromJsonAsync<SeasonLineups>($"seasons/{SeasonId}/lineups{API_KEY}");
-        }
-        
-        //Get Competition Round Teams
-        public async Task<SeasonLineups?> GetRoundLineup(string? SeasonId)
+        public async Task<SeasonLineups?> GetSrSeasonLineups(string? SeasonId) // "Season Lineups" is one of the the Sport Radar Api end point names
         {   
             return await _httpClient.GetFromJsonAsync<SeasonLineups>($"seasons/{SeasonId}/lineups{API_KEY}");
         }
 
         //Get Player Statistics
-        public async Task<Players?> GetPlayerStatistics(string? PlayerId)
+        public async Task<Players?> GetPlayerProfile(string? PlayerId) // "Player Profile" is one of the the Sport Radar Api end point names
         {   
             return await _httpClient.GetFromJsonAsync<Players>($"players/{PlayerId}/profile{API_KEY}");
         }
