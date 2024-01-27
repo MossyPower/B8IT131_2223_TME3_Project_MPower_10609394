@@ -27,14 +27,14 @@ namespace RugbyDataApi.Controllers
         {
             if (_context.Fixtures == null)
             {
-              return NotFound();
+                return NotFound();
             }
             return await _context.Fixtures.ToListAsync();
         }
 
         // GET: api/Fixtures by Competition Id
-        [HttpGet("Competition/{id}")]
-        public async Task<ActionResult<IEnumerable<Fixture>>> GetFixturesByCompetitionId(int id)
+        [HttpGet("competition/{id}")]
+        public async Task<ActionResult<IEnumerable<Fixture>>> GetCompetitionFixtures(int id)
         {
             if (_context.Fixtures == null)
             {
@@ -58,7 +58,7 @@ namespace RugbyDataApi.Controllers
         {
             if (_context.Fixtures == null)
             {
-              return NotFound();
+                return NotFound();
             }
             var competitionGame = await _context.Fixtures.FindAsync(id);
 
@@ -108,7 +108,7 @@ namespace RugbyDataApi.Controllers
         {
             if (_context.Fixtures == null)
             {
-              return Problem("Entity set 'RugbyDataDbContext.Fixtures'  is null.");
+                return Problem("Entity set 'RugbyDataDbContext.Fixtures'  is null.");
             }
             _context.Fixtures.Add(competitionGame);
             try

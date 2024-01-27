@@ -26,6 +26,12 @@ namespace MvcRugby.Controllers
         {
             return View(await _rugbyDataApiService.GetAllCompetitions());
         }
+        
+        // GET: Competition Fixtures
+        public async Task<IActionResult> Fixtures(int id)
+        {
+            return View(await _rugbyDataApiService.GetCompetitionFixtures(id));
+        }
 
         // GET: Competitions/Details/5
         public async Task<IActionResult> Details(int id)
@@ -44,7 +50,7 @@ namespace MvcRugby.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompetitionId, SportRadar_Competition_Id, Competition_Name, Year, Start_Date, End_Date")] Competition competition)
+        public async Task<IActionResult> Create([Bind("CompetitionId, SrCompetitionId, CompetitionName, StartDate, EndDate, Year")] Competition competition)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +71,7 @@ namespace MvcRugby.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("CompetitionId, SportRadar_Competition_Id, Competition_Name, Year, Start_Date, End_Date")] int id, Competition competition)
+        public async Task<IActionResult> Edit([Bind("CompetitionId, SrCompetitionId, CompetitionName, StartDate, EndDate, Year")] int id, Competition competition)
         {
             if (id != competition.CompetitionId)
             {

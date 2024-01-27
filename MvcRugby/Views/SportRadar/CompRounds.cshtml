@@ -31,7 +31,7 @@
             @foreach (var item in Model.Rounds)
             {
                 <tr>
-                    @if(item.RoundNumber == null)
+                    @if(item.RoundNumber == 0)
                     {
                         <td scope="row"> Nr. Unavailable</td>  <!-- Round Number -->
                     }

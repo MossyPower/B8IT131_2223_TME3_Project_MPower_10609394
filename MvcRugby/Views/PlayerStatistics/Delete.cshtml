@@ -1,4 +1,4 @@
-@model MvcRugby.Models.FixtureStatistics
+@model MvcRugby.Models.PlayerStatistics
 @{
     ViewData["Title"] = "Delete";
 }
@@ -10,26 +10,23 @@
     <h4>Fixture</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SportRadar_Id)
-        </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Tries)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Try_Assists)
+            @Html.DisplayNameFor(model => model.TryAssists)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Conversions)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Penalty_Goals)
+            @Html.DisplayNameFor(model => model.PenaltyGoals)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Drop_Goals)
+            @Html.DisplayNameFor(model => model.DropGoals)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Meters_Run)
+            @Html.DisplayNameFor(model => model.MetersRun)
         </dt>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Carries)
@@ -41,46 +38,46 @@
             @Html.DisplayNameFor(model => model.Offloads)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Clean_Breaks)
+            @Html.DisplayNameFor(model => model.CleanBreaks)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lineouts_Won)
+            @Html.DisplayNameFor(model => model.LineoutsWon)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lineouts_Lost)
+            @Html.DisplayNameFor(model => model.LineoutsLost)
         </dt>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Tackles)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Tackles_Missed)
+            @Html.DisplayNameFor(model => model.TacklesMissed)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Scrums_Won)
+            @Html.DisplayNameFor(model => model.ScrumsWon)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Scrums_Lost)
+            @Html.DisplayNameFor(model => model.ScrumsLost)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Total_Scrums)
+            @Html.DisplayNameFor(model => model.TotalScrums)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Turnovers_Won)
+            @Html.DisplayNameFor(model => model.TurnoversWon)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Penalties_Conceded)
+            @Html.DisplayNameFor(model => model.PenaltiesConceded)
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Yellow_Cards )
+            @Html.DisplayNameFor(model => model.YellowCards )
         </dt>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Red_Cards )
+            @Html.DisplayNameFor(model => model.RedCards )
         </dt>
     </dl>
 </div>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="FixtureStatisticsId" />
+        <input type="hidden" asp-for="PlayerStatisticsId" />
         <input type="submit" value="Delete" class="btn btn-danger" />
         <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
     </form>

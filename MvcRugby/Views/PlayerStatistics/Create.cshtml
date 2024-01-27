@@ -1,0 +1,139 @@
+@model MvcRugby.Models.PlayerStatistics
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Competition Fixture Statistics</h4>
+<hr/>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Tries" class="control-label"></label>
+                <input asp-for="Tries" class="form-control" input="number"/>
+                <span asp-validation-for="Tries" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TryAssists" class="control-label"></label>
+                <input asp-for="TryAssists" class="form-control" input="number"/>
+                <span asp-validation-for="TryAssists" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Conversions" class="control-label"></label>
+                <input asp-for="Conversions" class="form-control" input="number"/>
+                <span asp-validation-for="Conversions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PenaltyGoals" class="control-label"></label>
+                <input asp-for="PenaltyGoals" class="form-control" input="number"/>
+                <span asp-validation-for="PenaltyGoals" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DropGoals" class="control-label"></label>
+                <input asp-for="DropGoals" class="form-control" input="number"/>
+                <span asp-validation-for="DropGoals" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetersRun" class="control-label"></label>
+                <input asp-for="MetersRun" class="form-control" input="number"/>
+                <span asp-validation-for="MetersRun" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Carries" class="control-label"></label>
+                <input asp-for="Carries" class="form-control" input="number"/>
+                <span asp-validation-for="Carries" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Passes" class="control-label"></label>
+                <input asp-for="Passes" class="form-control" input="number"/>
+                <span asp-validation-for="Passes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Offloads" class="control-label"></label>
+                <input asp-for="Offloads" class="form-control" input="number"/>
+                <span asp-validation-for="Offloads" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CleanBreaks" class="control-label"></label>
+                <input asp-for="CleanBreaks" class="form-control" input="number"/>
+                <span asp-validation-for="CleanBreaks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LineoutsWon" class="control-label"></label>
+                <input asp-for="LineoutsWon" class="form-control" input="number"/>
+                <span asp-validation-for="LineoutsWon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LineoutsLost" class="control-label"></label>
+                <input asp-for="LineoutsLost" class="form-control" input="number"/>
+                <span asp-validation-for="LineoutsLost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tackles" class="control-label"></label>
+                <input asp-for="Tackles" class="form-control" input="number"/>
+                <span asp-validation-for="Tackles" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TacklesMissed" class="control-label"></label>
+                <input asp-for="TacklesMissed" class="form-control" input="number"/>
+                <span asp-validation-for="TacklesMissed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScrumsWon" class="control-label"></label>
+                <input asp-for="ScrumsWon" class="form-control" input="number"/>
+                <span asp-validation-for="ScrumsWon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScrumsLost" class="control-label"></label>
+                <input asp-for="ScrumsLost" class="form-control" input="number"/>
+                <span asp-validation-for="ScrumsLost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalScrums" class="control-label"></label>
+                <input asp-for="TotalScrums" class="form-control" input="number"/>
+                <span asp-validation-for="TotalScrums" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TurnoversWon" class="control-label"></label>
+                <input asp-for="TurnoversWon" class="form-control" input="number"/>
+                <span asp-validation-for="TurnoversWon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PenaltiesConceded" class="control-label"></label>
+                <input asp-for="PenaltiesConceded" class="form-control" input="number"/>
+                <span asp-validation-for="PenaltiesConceded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="YellowCards" class="control-label"></label>
+                <input asp-for="YellowCards" class="form-control" input="number"/>
+                <span asp-validation-for="YellowCards" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RedCards" class="control-label"></label>
+                <input asp-for="RedCards" class="form-control" input="number"/>
+                <span asp-validation-for="RedCards" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlayerId" class="control-label"></label>
+                <input asp-for="PlayerId" class="form-control" input="number"/>
+                <span asp-validation-for="PlayerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FixtureId" class="control-label"></label>
+                <input asp-for="FixtureId" class="form-control" input="number"/>
+                <span asp-validation-for="FixtureId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

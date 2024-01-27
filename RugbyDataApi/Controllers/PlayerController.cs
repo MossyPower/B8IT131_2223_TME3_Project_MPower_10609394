@@ -86,10 +86,10 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
-          if (_context.Players == null)
-          {
-              return Problem("Entity set 'RugbyDataDbContext.Players'  is null.");
-          }
+            if (_context.Players == null)
+            {
+                return Problem("Entity set 'RugbyDataDbContext.Players' is null.");
+            }
             _context.Players.Add(player);
             try
             {

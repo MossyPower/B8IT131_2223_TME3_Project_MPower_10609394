@@ -16,17 +16,17 @@ namespace RugbyDataApi.Models
         [Required]
         [ForeignKey("FixtureId")]
         public int FixtureId { get; set; } // ForeignKey
-        public Fixture? Fixture { get; set; } // Reference navigation property
+        public Fixture? Fixture { get; set; } // Reference reverse navigation property
         
         [Required]
         [ForeignKey("TeamId")]
         // Setup relationship with Team
         public int TeamId { get; set; } // ForeignKey
-        public Team? Team { get; set; } // Reference navigation property
+        public Team? Team { get; set; } // Reference reverse navigation property
 
         // CHILD ENTITY RELATIONSHIPS
 
-        // Setup relationship with Player
-        public List<Player>? Players { get; set; } // Reference navigation property
+        // Setup relationship with Player Lineup Entity
+        public List<PlayerLineup>? PlayerLineups { get; set; } // Reference navigation property
     }
 }

@@ -22,16 +22,13 @@
   <table class="table">
     <thread>
       <tr>
-        <th scope="col">Id</th>
-        <th scope="col">SportRadar_Id</th>
-        <th scope="col">Round_Number</th>
-        <th scope="col">Start_Date</th>
-        <th scope="col">End_Date</th>
+        <th scope="col">Fixture Id</th>
+        <th scope="col">Sportradar Sport Event Id</th>
+        <th scope="col">Round Number</th>
+        <th scope="col">Start Time</th>
         <th scope="col">Status</th>
-        <th scope="col">Home_Team</th>
-        <th scope="col">Away_Team</th>
-        <th scope="col">Home_Score</th>
-        <th scope="col">Away_Score</th>
+        <th scope="col">Home Score</th>
+        <th scope="col">Away Score</th>
         <th scope="col">Competition Id</th>
       </tr>
     </thread>
@@ -40,15 +37,12 @@
         {
           <tr>
             <td>@fixture.FixtureId</td>
-            <td>@fixture.SportRadar_Id</td>
-            <td>@fixture.Round_Number</td>
-            <td>@fixture.Fixture_Date</td>
-            <td>@fixture.Start_Time</td>
+            <td>@fixture.SrSportEventId</td>
+            <td>@fixture.RoundNumber</td>
+            <td>@fixture.StartTime</td>
             <td>@fixture.Status</td>
-            <td>@fixture.Home_Team</td>
-            <td>@fixture.Away_Team</td>
-            <td>@fixture.Home_Score</td>
-            <td>@fixture.Away_Score</td>
+            <td>@fixture.HomeScore</td>
+            <td>@fixture.AwayScore</td>
             <td>@fixture.CompetitionId</td>
             <td>
               <a class="btn btn-primary" asp-action="Index"  asp-route-id="@fixture.FixtureId" asp-controller="CompetitionRound">Select</a>

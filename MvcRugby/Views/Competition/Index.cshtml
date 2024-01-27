@@ -26,15 +26,16 @@
           <div class="card h-100">
             @* <img class="card-img-top" src="@Html.DisplayFor(modelItem => season.Image)" alt="@Html.DisplayNameFor(model => product.Image)" width="100%", height = "400px"> *@
             <div class="card-body">
-              <h5 class="card-title">@competition.Competition_Name</h5> 
+              <h5 class="card-title">@competition.CompetitionName</h5> 
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">@competition.Start_Date</li>
-              <li class="list-group-item">@competition.End_Date</li>
+              <li class="list-group-item">@competition.SrCompetitionId</li>
+              <li class="list-group-item">@competition.StartDate</li>
+              <li class="list-group-item">@competition.EndDate</li>
               <li class="list-group-item">@competition.Year</li>
             </ul>
             <div class="card-body">
-                <a class="btn btn-primary" asp-controller="Fixture" asp-action="Index" asp-route-id="@competition.CompetitionId">Select</a>
+                <a class="btn btn-primary" asp-controller="Competition" asp-action="Fixtures" asp-route-id="@competition.CompetitionId">View Fixtures</a>
                 <a class="btn btn-success" asp-controller="Competition" asp-action="Details" asp-route-id="@competition.CompetitionId">View Details</a>
                 <a class="btn btn-warning" asp-controller="Competition" asp-action="Edit" asp-route-id="@competition.CompetitionId">Edit</a>
                 <a class="btn btn-danger" asp-controller="Competition" asp-action="Delete" asp-route-id="@competition.CompetitionId">Delete</a>

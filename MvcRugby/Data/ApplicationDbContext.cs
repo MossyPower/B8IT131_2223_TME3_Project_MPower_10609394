@@ -12,12 +12,11 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     
-    public DbSet<Club> Clubs { get; set; } = default!;
-    public DbSet<Competition> Competitions { get; set; } = null!;
+    public DbSet<Competition> Competitions { get; set; } = default!;
     public DbSet<Fixture> Fixtures { get; set; } = null!;
-    public DbSet<FixtureStatistics> FixturesStatistics { get; set; } = null!;
     public DbSet<Player> Players { get; set; } = null!;
-
-    //public DbSet<SeasonInfo> SeasonsInfo { get; set; } = null!;
-    //public DbSet<Seasons> Seasons { get; set; } = null!; 
+    public DbSet<PlayerLineup> PlayerLineups { get; set; } = null!;
+    public DbSet<PlayerStatistics> PlayersStatistics { get; set; } = null!;
+    public DbSet<Team> Teams { get; set; } = null!;
+    public DbSet<TeamLineup> TeamLineups { get; set; } = null!;
 }

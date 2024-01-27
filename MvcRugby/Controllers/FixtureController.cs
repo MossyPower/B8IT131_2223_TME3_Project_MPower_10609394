@@ -51,7 +51,7 @@ namespace MvcRugby.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FixtureId, SportRadar_Id, Round_Number, Fixture_Date, Start_Time, Status, Home_Team, Away_Team, Home_Score, Away_Score, CompetitionId")] Fixture fixture)
+        public async Task<IActionResult> Create([Bind("FixtureId, SrSportEventId, RoundNumber, StartTime, Status, HomeScore, AwayScore")] Fixture fixture)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace MvcRugby.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("FixtureId, SportRadar_Id, Round_Number, Fixture_Date, Start_Time, Status, Home_Team, Away_Team, Home_Score, Away_Score, CompetitionId")]  int id, Fixture fixture)
+        public async Task<IActionResult> Edit([Bind("FixtureId, SrSportEventId, RoundNumber, StartTime, Status, HomeScore, AwayScore")]  int id, Fixture fixture)
         {
             if (id != fixture.FixtureId)
             {

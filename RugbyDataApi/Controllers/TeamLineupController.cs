@@ -10,7 +10,7 @@ using RugbyDataApi.Models;
 
 namespace RugbyDataApi.Controllers
 {
-    [Route("api/v1/teamLineups/")]
+    [Route("api/v1/teamlineups/")]
     [ApiController]
     public class TeamLineupController : ControllerBase
     {
@@ -40,27 +40,27 @@ namespace RugbyDataApi.Controllers
             {
                 return NotFound("No Player Statistics Id provided");
             }
-            var playerMatchStatistics = await _context.TeamLineups.FindAsync(id);
+            var teamLineups = await _context.TeamLineups.FindAsync(id);
 
-            if (playerMatchStatistics == null)
+            if (teamLineups == null)
             {
                 return NotFound();
             }
 
-            return playerMatchStatistics;
+            return teamLineups;
         }
 
         // PUT: api/TeamLineup/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeamLineup(int id, TeamLineup playerMatchStatistics)
+        public async Task<IActionResult> PutTeamLineup(int id, TeamLineup teamLineups)
         {
-            if (id != playerMatchStatistics.TeamLineupId)
+            if (id != teamLineups.TeamLineupId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(playerMatchStatistics).State = EntityState.Modified;
+            _context.Entry(teamLineups).State = EntityState.Modified;
 
             try
             {
@@ -84,20 +84,20 @@ namespace RugbyDataApi.Controllers
         // POST: api/TeamLineup
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TeamLineup>> PostTeamLineup(TeamLineup playerMatchStatistics)
+        public async Task<ActionResult<TeamLineup>> PostTeamLineup(TeamLineup teamLineups)
         {
           if (_context.TeamLineups == null)
           {
-              return Problem("Entity set 'RugbyDataDbContext.PlayersMatchStatistics'  is null.");
+              return Problem("Entity set 'RugbyDataDbContext.TeamLineups' is null.");
           }
-            _context.TeamLineups.Add(playerMatchStatistics);
+            _context.TeamLineups.Add(teamLineups);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TeamLineupExists(playerMatchStatistics.TeamLineupId))
+                if (TeamLineupExists(teamLineups.TeamLineupId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTeamLineup", new { id = playerMatchStatistics.TeamLineupId }, playerMatchStatistics);
+            return CreatedAtAction("GetTeamLineup", new { id = teamLineups.TeamLineupId }, teamLineups);
         }
 
         // DELETE: api/TeamLineup/5
@@ -118,13 +118,13 @@ namespace RugbyDataApi.Controllers
             {
                 return NotFound();
             }
-            var playerMatchStatistics = await _context.TeamLineups.FindAsync(id);
-            if (playerMatchStatistics == null)
+            var teamLineups = await _context.TeamLineups.FindAsync(id);
+            if (teamLineups == null)
             {
                 return NotFound();
             }
 
-            _context.TeamLineups.Remove(playerMatchStatistics);
+            _context.TeamLineups.Remove(teamLineups);
             await _context.SaveChangesAsync();
 
             return NoContent();

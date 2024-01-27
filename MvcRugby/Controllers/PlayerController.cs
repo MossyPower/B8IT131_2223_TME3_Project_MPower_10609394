@@ -53,7 +53,7 @@ namespace MvcRugby.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PlayerId, SportRadar_Id, First_Name, Last_Name, Nationality, Position, Jersey_Number, Age, Weight, ClubId")] Player player)
+        public async Task<IActionResult> Create([Bind("PlayerId, SrPlayerId, FirstName, LastName, DateOfBirth, Nationality, TeamId")] Player player)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +74,7 @@ namespace MvcRugby.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("PlayerId, SportRadar_Id, First_Name, Last_Name, Nationality, Position, Jersey_Number, Age, Weight, ClubId")] int id, Player player)
+        public async Task<IActionResult> Edit([Bind("PlayerId, SrPlayerId, FirstName, LastName, DateOfBirth, Nationality, TeamId")] int id, Player player)
         {
             if (id != player.PlayerId)
             {

@@ -22,14 +22,14 @@
           <div class="card h-100">
             @* <img class="card-img-top" src="@Html.DisplayFor(modelItem => season.Image)" alt="@Html.DisplayNameFor(model => product.Image)" width="100%", height = "400px"> *@
             <div class="card-body">
-              <h5 class="card-title">@competition.Competition_Name</h5> 
+              <h5 class="card-title">@competition.CompetitionName</h5> 
 
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">Id: @competition.CompetitionId</li>
-              <li class="list-group-item">SportRadar Competition Id: @competition.SportRadar_Competition_Id</li>
-              <li class="list-group-item">Start Date: @competition.Start_Date</li>
-              <li class="list-group-item">End Date: @competition.End_Date</li>
+              <li class="list-group-item">SportRadar Competition Id: @competition.SrCompetitionId</li>
+              <li class="list-group-item">Start Date: @competition.StartDate</li>
+              <li class="list-group-item">End Date: @competition.EndDate</li>
               <li class="list-group-item">Competition Year: @competition.Year</li>
             </ul>
             <div class="card-body">

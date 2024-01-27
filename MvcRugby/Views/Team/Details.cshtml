@@ -1,4 +1,4 @@
-@model MvcRugby.Models.Club
+@model MvcRugby.Models.Team
 
 @{
     ViewData["Title"] = "Details";
@@ -11,31 +11,31 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClubId)
+            @Html.DisplayNameFor(model => model.TeamId)
         </dt>       
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClubId)
+            @Html.DisplayFor(model => model.TeamId)
         </dd>
 
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SportRadar_Competitor_Id)
+            @Html.DisplayNameFor(model => model.SrCompetitorId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SportRadar_Competitor_Id)
+            @Html.DisplayFor(model => model.SrCompetitorId)
         </dd>
 
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Club_Name)
+            @Html.DisplayNameFor(model => model.TeamName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Club_Name)
+            @Html.DisplayFor(model => model.TeamName)
         </dd>
 
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Competition)
+            @Html.DisplayNameFor(model => model.Country)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Competition)
+            @Html.DisplayFor(model => model.Country)
         </dd>
 
         <dt class = "col-sm-2">
@@ -47,6 +47,6 @@
     </dl>
 </div>
 <div>
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.ClubId">Edit</a>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.TeamId">Edit</a>
     <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
 </div>

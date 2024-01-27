@@ -10,7 +10,7 @@ using RugbyDataApi.Models;
 
 namespace RugbyDataApi.Controllers
 {
-    [Route("api/v1/playerLineups/")]
+    [Route("api/v1/playerlineups/")]
     [ApiController]
     public class PlayerLineupController : ControllerBase
     {
@@ -27,7 +27,7 @@ namespace RugbyDataApi.Controllers
         {
             if (_context.PlayerLineups == null)
             {
-                return NotFound("No players Statistics store in the database");
+                return NotFound("No player lineups stored in the database");
             }
             return await _context.PlayerLineups.ToListAsync();
         }
@@ -38,29 +38,29 @@ namespace RugbyDataApi.Controllers
         {
             if (_context.PlayerLineups == null)
             {
-                return NotFound("No Player Statistics Id provided");
+                return NotFound("No player lineup Id provided");
             }
-            var playerMatchStatistics = await _context.PlayerLineups.FindAsync(id);
+            var playerLineup = await _context.PlayerLineups.FindAsync(id);
 
-            if (playerMatchStatistics == null)
+            if (playerLineup == null)
             {
                 return NotFound();
             }
 
-            return playerMatchStatistics;
+            return playerLineup;
         }
 
         // PUT: api/PlayerLineup/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayerLineup(int id, PlayerLineup playerMatchStatistics)
+        public async Task<IActionResult> PutPlayerLineup(int id, PlayerLineup playerLineup)
         {
-            if (id != playerMatchStatistics.PlayerLineupId)
+            if (id != playerLineup.PlayerLineupId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(playerMatchStatistics).State = EntityState.Modified;
+            _context.Entry(playerLineup).State = EntityState.Modified;
 
             try
             {
@@ -84,20 +84,20 @@ namespace RugbyDataApi.Controllers
         // POST: api/PlayerLineup
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PlayerLineup>> PostPlayerLineup(PlayerLineup playerMatchStatistics)
+        public async Task<ActionResult<PlayerLineup>> PostPlayerLineup(PlayerLineup playerLineup)
         {
-          if (_context.PlayerLineups == null)
-          {
-              return Problem("Entity set 'RugbyDataDbContext.PlayersMatchStatistics'  is null.");
-          }
-            _context.PlayerLineups.Add(playerMatchStatistics);
+            if (_context.PlayerLineups == null)
+            {
+                return Problem("Entity set 'RugbyDataDbContext.PlayerLineups' is null.");
+            }
+            _context.PlayerLineups.Add(playerLineup);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (PlayerLineupExists(playerMatchStatistics.PlayerLineupId))
+                if (PlayerLineupExists(playerLineup.PlayerLineupId))
                 {
                     return Conflict();
                 }
@@ -107,7 +107,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetPlayerLineup", new { id = playerMatchStatistics.PlayerLineupId }, playerMatchStatistics);
+            return CreatedAtAction("GetPlayerLineup", new { id = playerLineup.PlayerLineupId }, playerLineup);
         }
 
         // DELETE: api/PlayerLineup/5
@@ -118,13 +118,13 @@ namespace RugbyDataApi.Controllers
             {
                 return NotFound();
             }
-            var playerMatchStatistics = await _context.PlayerLineups.FindAsync(id);
-            if (playerMatchStatistics == null)
+            var playerLineup = await _context.PlayerLineups.FindAsync(id);
+            if (playerLineup == null)
             {
                 return NotFound();
             }
 
-            _context.PlayerLineups.Remove(playerMatchStatistics);
+            _context.PlayerLineups.Remove(playerLineup);
             await _context.SaveChangesAsync();
 
             return NoContent();

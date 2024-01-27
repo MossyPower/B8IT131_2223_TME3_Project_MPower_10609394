@@ -1,4 +1,4 @@
-@model MvcRugby.Models.Club
+@model MvcRugby.Models.Team
 @{
     ViewData["Title"] = "Create";
 }
@@ -12,14 +12,14 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SportRadar_Competitor_Id" class="control-label"></label>
-                <input asp-for="SportRadar_Competitor_Id" class="form-control" />
-                <span asp-validation-for="SportRadar_Competitor_Id" class="text-danger"></span>
+                <label asp-for="SrCompetitorId" class="control-label"></label>
+                <input asp-for="SrCompetitorId" class="form-control" />
+                <span asp-validation-for="SrCompetitorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Club_Name" class="control-label"></label>
-                <input asp-for="Club_Name" class="form-control" />
-                <span asp-validation-for="Club_Name" class="text-danger"></span>
+                <label asp-for="TeamName" class="control-label"></label>
+                <input asp-for="TeamName" class="form-control" />
+                <span asp-validation-for="TeamName" class="text-danger"></span>
             </div>
             
             <!-- Referance Microsoft Documentation: "Tutorial: Update related data - ASP.NET MVC with EF Core". 
@@ -27,10 +27,10 @@
     
             <!--Referance YouTube video: "Create DROPDOWNS in ASP.NET Core using DropDownList and GetEnumSelectList!".
                 Available at: https://www.youtube.com/watch?v=pigM1PojI0Q&ab_channel=tutorialsEU-C%23 -->
-            <div>
+            @* <div>
                 <label class="from-label">Competition</label>
                 @Html.DropDownListFor(model => model.CompetitionId, (SelectList)ViewBag.competitions, "Select Competition", new { @class = "form-control" })
-            </div>
+            </div> *@
 
             <br>
             <div class="form-group">

@@ -40,70 +40,69 @@ namespace RugbyDataApi.Controllers
             // Microsoft website. Create Data Transfer Objects (DTOs). Available at:
             // https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5 
         
-        // [HttpGet("withRelatedData")]
-        // public async Task<ActionResult<IEnumerable<CompetitionDto>>> GetCompetitionsWithRelatedData()
-        // {
-        //     // Transfer Competitions & related data in a DTO, to 
-        //     var competitionsWithRelatedData = _context.Competitions
-        //         .Include(c => c.Fixtures)  // Include related fixtures
-        //         .Include(c => c.Teams)    // Include related clubs
-        //         .Select(c => new CompetitionDto
-        //         {
-        //             CompetitionId = c.CompetitionId,
-        //             Competition_Name = c.Competition_Name,
-        //             Fixtures = c.Fixtures.Select(fixture => new FixtureDto // add the Fixture model data to the FixtureDto 
-        //                 {
-        //                     FixtureId = fixture.FixtureId,
-        //                     SportRadar_Id = fixture.SportRadar_Id,
-        //                     Round_Number = fixture.Round_Number,
-        //                     Fixture_Date = fixture.Fixture_Date,
-        //                     FixturesStatistics = fixture.FixtureStatistics.Select(fs => new FixtureStatisticsDto{
-        //                         FixtureStatisticsId = fs.FixtureStatisticsId,
-        //                         SportRadar_Id = fs.SportRadar_Id,
-        //                         Tries = fs.Tries,
-        //                         Try_Assists = fs.Try_Assists,
-        //                         Conversions = fs.Conversions,
-        //                         Penalty_Goals = fs.Penalty_Goals,
-        //                         Drop_Goals = fs.Drop_Goals,
-        //                         Meters_Run = fs.Meters_Run,
-        //                         Carries = fs.Carries,
-        //                         Passes = fs.Passes,
-        //                         Offloads = fs.Offloads,
-        //                         Clean_Breaks = fs.Clean_Breaks,
-        //                         Lineouts_Won = fs.Lineouts_Won,
-        //                         Lineouts_Lost = fs.Lineouts_Lost,
-        //                         Tackles = fs.Tackles,
-        //                         Tackles_Missed = fs.Tackles_Missed,
-        //                         Scrums_Won = fs.Scrums_Won,
-        //                         Scrums_Lost = fs.Scrums_Lost,
-        //                         Total_Scrums = fs.Total_Scrums,
-        //                         Turnovers_Won = fs.Turnovers_Won,
-        //                         Penalties_Conceded = fs.Penalties_Conceded,
-        //                         Yellow_Cards = fs.Yellow_Cards,
-        //                         Red_Cards = fs.Red_Cards,
-        //                     }).ToList(),
-        //                 })
-        //                 .ToList(),
-        //             Clubs = c.Clubs.Select(club => new ClubDto // add the Club model data to the ClubDto 
-        //                 { 
-        //                     ClubId = club.ClubId,
-        //                     SportRadar_Competitor_Id = club.SportRadar_Competitor_Id,
-        //                     Club_Name = club.Club_Name,
-        //                     Players = club.Players.Select(player => new PlayerDto
-        //                     {
-        //                         PlayerId = player.PlayerId,
-        //                         SportRadar_Id = player.SportRadar_Id,
-        //                         First_Name = player.First_Name,
-        //                         Last_Name = player.Last_Name,
-        //                     })
-        //                     .ToList(),
-        //                 })
-        //                 .ToList(),
-        //         })
-        //         .ToList();
+        [HttpGet("withRelatedData/{id}")]
+        public async Task<ActionResult<IEnumerable<CompetitionDto>>> GetCompetitionWithRelatedData(int id)
+        {   
+            var competitionsWithRelatedData = _context.Competitions
+                .Where(c => c.CompetitionId == id) // Fetch Competition from Db, by Id
+                .Include(c => c.Fixtures)  // Include related fixtures data,
+                .Select(c => new CompetitionDto // add competition Db data to new CompetitionDto, on an attribute by attribute basis,
+                {
+                    CompetitionId = c.CompetitionId,
+                    CompetitionName = c.CompetitionName,
+                    Fixtures = c.Fixtures.Select(fixture => 
+                        new FixtureDto{ // add the Fixture model data to the FixtureDto 
+                        FixtureId = fixture.FixtureId,
+                        SrSportEventId = fixture.SrSportEventId,
+                        RoundNumber = fixture.RoundNumber,
+                        StartTime = fixture.StartTime,
+                        Status = fixture.Status,
+                        HomeScore = fixture.HomeScore,
+                        AwayScore = fixture.AwayScore,
+                        
+                        TeamLineups = fixture.TeamLineups.Select(teamLineup =>
+                            new TeamLineupDto{
+                            TeamLineupId = teamLineup.TeamLineupId,
+                            Designation = teamLineup.Designation,
+                            
+                            PlayerLineups = teamLineup.PlayerLineups.Select(playerLineups => 
+                                new PlayerLineupDto{
+                                PlayerLineupId = playerLineups.PlayerLineupId,
+                                SrPlayerId = playerLineups.SrPlayerId,
+                                JerseyNumber = playerLineups.JerseyNumber,
+                                }).ToList(),    
+                            }).ToList(),
+                        
+                        PlayersStatistics = fixture.PlayersStatistics.Select(playerStats =>
+                            new PlayerStatisticsDto{
+                            PlayerStatisticsId = playerStats.PlayerStatisticsId,
+                            Tries = playerStats.Tries,
+                            TryAssists = playerStats.TryAssists,
+                            Conversions = playerStats.Conversions,
+                            PenaltyGoals = playerStats.PenaltyGoals,
+                            DropGoals = playerStats.DropGoals,
+                            MetersRun = playerStats.MetersRun,
+                            Carries = playerStats.Carries,
+                            Passes = playerStats.Passes,
+                            Offloads = playerStats.Offloads,
+                            CleanBreaks = playerStats.CleanBreaks,
+                            LineoutsWon = playerStats.LineoutsWon,
+                            LineoutsLost = playerStats.LineoutsLost,
+                            Tackles = playerStats.Tackles,
+                            TacklesMissed = playerStats.TacklesMissed,
+                            ScrumsWon = playerStats.ScrumsWon,
+                            ScrumsLost = playerStats.ScrumsLost,
+                            TotalScrums = playerStats.TotalScrums,
+                            TurnoversWon = playerStats.TurnoversWon,
+                            PenaltiesConceded = playerStats.PenaltiesConceded,
+                            YellowCards = playerStats.YellowCards,
+                            RedCards = playerStats.RedCards,
+                        }).ToList(),
+                    }).ToList(),
+                }).ToList();
 
-        //     return competitionsWithRelatedData;
-        // }
+            return competitionsWithRelatedData;
+        }
         
         // GET: api/Competition/5
         [HttpGet("{id}")]

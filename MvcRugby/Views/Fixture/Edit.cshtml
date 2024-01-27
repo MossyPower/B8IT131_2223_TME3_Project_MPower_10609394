@@ -14,24 +14,19 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FixtureId" />
             <div class="form-group">
-                <label asp-for="SportRadar_Id" class="control-label"></label>
-                <input asp-for="SportRadar_Id" class="form-control" />
-                <span asp-validation-for="SportRadar_Id" class="text-danger"></span>
+                <label asp-for="SrSportEventId" class="control-label"></label>
+                <input asp-for="SrSportEventId" class="form-control" />
+                <span asp-validation-for="SrSportEventId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Round_Number" class="control-label"></label>
-                <input asp-for="Round_Number" class="form-control" input="number"/>
-                <span asp-validation-for="Round_Number" class="text-danger"></span>
+                <label asp-for="RoundNumber" class="control-label"></label>
+                <input asp-for="RoundNumber" class="form-control" input="number"/>
+                <span asp-validation-for="RoundNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fixture_Date" class="control-label"></label>
-                <input asp-for="Fixture_Date" class="form-control" />
-                <span asp-validation-for="Fixture_Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Start_Time" class="control-label"></label>
-                <input asp-for="Start_Time" class="form-control" />
-                <span asp-validation-for="Start_Time" class="text-danger"></span>
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
@@ -39,24 +34,14 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Home_Team" class="control-label"></label>
-                <input asp-for="Home_Team" class="form-control" />
-                <span asp-validation-for="Home_Team" class="text-danger"></span>
+                <label asp-for="HomeScore" class="control-label"></label>
+                <input asp-for="HomeScore" class="form-control" input="number"/>
+                <span asp-validation-for="HomeScore" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Away_Team" class="control-label"></label>
-                <input asp-for="Away_Team" class="form-control" />
-                <span asp-validation-for="Away_Team" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Home_Score" class="control-label"></label>
-                <input asp-for="Home_Score" class="form-control" input="number"/>
-                <span asp-validation-for="Home_Score" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Away_Score" class="control-label"></label>
-                <input asp-for="Away_Score" class="form-control" input="number"/>
-                <span asp-validation-for="Away_Score" class="text-danger"></span>
+                <label asp-for="AwayScore" class="control-label"></label>
+                <input asp-for="AwayScore" class="form-control" input="number"/>
+                <span asp-validation-for="AwayScore" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CompetitionId" class="control-label"></label>

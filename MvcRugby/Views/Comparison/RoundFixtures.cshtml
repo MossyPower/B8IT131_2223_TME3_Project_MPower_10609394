@@ -4,7 +4,7 @@
 }
 
 <!-- "{Competition Name}, Round: {Number}"  -->
-<h1>@Model.Competition_Name - Round @Model.Round_Number</h1>
+<h1>@Model.CompetitionName - Round @Model.RoundNumber</h1>
 <hr>
 
 <!-- Back to previous page button - should have asp.action of id-->
@@ -17,10 +17,10 @@
         <tr>
             <!-- static left column header --> 
             <th scope="col">Team:</th>
-            @foreach(var team in Model.Fixtures)
+            @foreach(var teamLineup in Model.Fixtures)
             {
-                <th scope="col text-center">@team.Home_Team</th>
-                <th scope="col text-center text-middle">@team.Away_Team</th>
+                @* <th scope="col text-center">@teamLineup.</th>
+                <th scope="col text-center text-middle">@team.AwayTeam</th> *@
             }
         </tr>
     </thead>

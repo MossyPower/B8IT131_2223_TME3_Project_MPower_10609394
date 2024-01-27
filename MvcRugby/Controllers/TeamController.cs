@@ -9,14 +9,14 @@ using MvcRugby.Services;
 namespace MvcRugby.Controllers
 {
     //[Authorize]
-    public class ClubController : Controller
+    public class TeamController : Controller
     {
-        private readonly ILogger<ClubController> _logger;
+        private readonly ILogger<TeamController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly RugbyDataApiService _rugbyDataApiService;
         private readonly IHttpClientFactory _clientFactory;
 
-        public ClubController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory, ILogger<ClubController> logger)
+        public TeamController(ApplicationDbContext context, RugbyDataApiService rugbyDataApiService, IHttpClientFactory clientFactory, ILogger<TeamController> logger)
         {
             _context = context;
             _rugbyDataApiService = rugbyDataApiService;
@@ -24,19 +24,19 @@ namespace MvcRugby.Controllers
             _logger = logger;
         }
 
-        // GET: Clubs
+        // GET: Teams
         public async Task<IActionResult> Index()
         {
-            return View(await _rugbyDataApiService.GetAllClubs());
+            return View(await _rugbyDataApiService.GetAllTeams());
         }
 
-        // GET: Club/Details/{id}
+        // GET: Team/Details/{id}
         public async Task<IActionResult> Details(int id)
         {
-            return View(await _rugbyDataApiService.GetClubById(id));  
+            return View(await _rugbyDataApiService.GetTeamById(id));  
         }
 
-        // Get: Club/Create View
+        // Get: Team/Create View
         public async Task<IActionResult> Create()
         {
             try
@@ -46,10 +46,10 @@ namespace MvcRugby.Controllers
                 // Populate the competitions dropdown
                 await CompetitionDropdownList();
                 
-                // Create a new Club instance
-                Club club = new Club();
+                // Create a new Team instance
+                Team team = new Team();
 
-                return View(club);
+                return View(team);
             }
             catch (Exception ex)
             {
@@ -58,10 +58,10 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // Post (Create / Add) Club - Using Interface & Service Layer
+        // Post (Create / Add) Team - Using Interface & Service Layer
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClubId, SportRadar_Competitor_Id, Club_Name, CompetitionId")] Club club)
+        public async Task<IActionResult> Create([Bind("TeamId, SrCompetitorId, TeamName, Country")] Team team)
         {
             try
             {
@@ -69,13 +69,13 @@ namespace MvcRugby.Controllers
                 {
                     _logger.LogInformation("Model State is valid.");
 
-                    await _rugbyDataApiService.AddClub(club);
+                    await _rugbyDataApiService.AddTeam(team);
                     
                     return RedirectToAction("Index");
                 }
                 // Handle invalid model state
                 _logger.LogInformation("Model State is not valid.");
-                return View(club);
+                return View(team);
             }
             catch (HttpRequestException ex)
             {
@@ -90,20 +90,20 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: clubs/Edit/5
+        // GET: teams/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await _rugbyDataApiService.GetClubById(id)); 
+            return View(await _rugbyDataApiService.GetTeamById(id)); 
         }
         
-        // POST: clubs/Edit/5
+        // POST: teams/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("ClubId, SportRadar_Competitor_Id, Club_Name, CompetitionId")] int id, Club club)
+        public async Task<IActionResult> Edit([Bind("TeamId, SrCompetitorId, TeamName, Country")] int id, Team team)
         {
-            if (id != club.ClubId)
+            if (id != team.TeamId)
             {
                 return BadRequest();
             }
@@ -113,12 +113,12 @@ namespace MvcRugby.Controllers
                 {
                     _logger.LogInformation("Model State is valid.");
                     
-                    await _rugbyDataApiService.EditClubById(id, club);
-                    return RedirectToAction("Details", new { id = club.ClubId });
+                    await _rugbyDataApiService.EditTeamById(id, team);
+                    return RedirectToAction("Details", new { id = team.TeamId });
                 }
                 // Handle invalid model state
                 _logger.LogInformation("Model State is not valid.");
-                return View(club);
+                return View(team);
             }
             catch (HttpRequestException ex)
             {
@@ -132,18 +132,18 @@ namespace MvcRugby.Controllers
             }
         }
 
-        // GET: clubs/Delete/5
+        // GET: teams/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            return View(await _rugbyDataApiService.GetClubById(id));
+            return View(await _rugbyDataApiService.GetTeamById(id));
         }
 
-        // POST: clubs/Delete/5
+        // POST: teams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _rugbyDataApiService.DeleteClubById(id);
+            await _rugbyDataApiService.DeleteTeamById(id);
             return RedirectToAction("Index");
         }
 

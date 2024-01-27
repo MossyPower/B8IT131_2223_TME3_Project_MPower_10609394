@@ -24,14 +24,12 @@
   <table class="table">
     <thread>
       <tr>
-        <th scope="col">Club Id</th>
+        <th scope="col">Player Id</th>
+        <th scope="col">Team Id</th>
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
+        <th scope="col">Date of Birth</th>
         <th scope="col">Nationality</th>
-        <th scope="col">Position</th>
-        <th scope="col">Jersey Number</th>
-        <th scope="col">Age</th>
-        <th scope="col">Weight</th>
         <th></th>
       </tr>
     </thread>
@@ -39,14 +37,12 @@
       @foreach (var player in Model)
       {
         <tr>
-          <td>@player.ClubId</td>
-          <td>@player.First_Name</td>
-          <td>@player.Last_Name</td>
+          <td>@player.PlayerId</td>
+          <td>@player.TeamId</td>
+          <td>@player.FirstName</td>
+          <td>@player.LastName</td>
+          <td>@player.DateOfBirth</td>
           <td>@player.Nationality</td>
-          <td>@player.Position</td>
-          <td>@player.Jersey_Number</td>
-          <td>@player.Age</td>
-          <td>@player.Weight</td>
           <td>
             <a class="btn btn-primary" asp-controller="Player" asp-action="Create" asp-route-id="@player.PlayerId">Select Player</a>
             <a class="btn btn-warning" asp-controller="Player" asp-action="Edit" asp-route-id="@player.PlayerId">Edit</a>

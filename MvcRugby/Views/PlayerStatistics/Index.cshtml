@@ -1,4 +1,4 @@
-@model IEnumerable<MvcRugby.Models.FixtureStatistics>
+@model IEnumerable<MvcRugby.Models.PlayerStatistics>
 
 @{
     ViewData["Title"] = "Index";
@@ -51,33 +51,32 @@
         @foreach(var StatSet in Model)
         {
           <tr>
-            <td>@StatSet.SportRadar_Id</td>
             <td>@StatSet.Tries</td>
-            <td>@StatSet.Try_Assists</td>
+            <td>@StatSet.TryAssists</td>
             <td>@StatSet.Conversions</td>
-            <td>@StatSet.Penalty_Goals</td>
-            <td>@StatSet.Drop_Goals</td>
-            <td>@StatSet.Meters_Run</td>
+            <td>@StatSet.PenaltyGoals</td>
+            <td>@StatSet.DropGoals</td>
+            <td>@StatSet.MetersRun</td>
             <td>@StatSet.Carries</td>
             <td>@StatSet.Passes</td>
             <td>@StatSet.Offloads</td>
-            <td>@StatSet.Clean_Breaks</td>
-            <td>@StatSet.Lineouts_Won</td>
-            <td>@StatSet.Lineouts_Lost</td>
+            <td>@StatSet.CleanBreaks</td>
+            <td>@StatSet.LineoutsWon</td>
+            <td>@StatSet.LineoutsLost</td>
             <td>@StatSet.Tackles</td>
-            <td>@StatSet.Tackles_Missed</td>
-            <td>@StatSet.Scrums_Won</td>
-            <td>@StatSet.Scrums_Lost</td>
-            <td>@StatSet.Total_Scrums</td>
-            <td>@StatSet.Turnovers_Won</td>
-            <td>@StatSet.Penalties_Conceded</td>
-            <td>@StatSet.Yellow_Cards</td>
-            <td>@StatSet.Red_Cards</td>
+            <td>@StatSet.TacklesMissed</td>
+            <td>@StatSet.ScrumsWon</td>
+            <td>@StatSet.ScrumsLost</td>
+            <td>@StatSet.TotalScrums</td>
+            <td>@StatSet.TurnoversWon</td>
+            <td>@StatSet.PenaltiesConceded</td>
+            <td>@StatSet.YellowCards</td>
+            <td>@StatSet.RedCards</td>
             <td>
-              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@StatSet.FixtureStatisticsId" asp-controller="CompetitionRound">Select</a>
-              <a class="btn btn-success" asp-action="Details" asp-route-id="@StatSet.FixtureStatisticsId">View Details</a>
-              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@StatSet.FixtureStatisticsId">Edit</a>
-              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@StatSet.FixtureStatisticsId">Delete</a>
+              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@StatSet.PlayerStatisticsId" asp-controller="CompetitionRound">Select</a>
+              <a class="btn btn-success" asp-action="Details" asp-route-id="@StatSet.PlayerStatisticsId">View Details</a>
+              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@StatSet.PlayerStatisticsId">Edit</a>
+              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@StatSet.PlayerStatisticsId">Delete</a>
             </td>
           </tr>
         }

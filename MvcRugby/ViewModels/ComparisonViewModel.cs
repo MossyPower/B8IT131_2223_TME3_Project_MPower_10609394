@@ -18,10 +18,14 @@ namespace MvcRugby.ViewModels
 
         [Required]
         public int CompetitionId { get; set; }
-        public string Competition_Name { get; set; }
-        public int Round_Number { get; set; }
+        public string CompetitionName { get; set; }
+        public int RoundNumber { get; set; }
         public List<Fixture>? Fixtures { get; set; }
-        public List<Player>? Players { get; set; } // Figure out why we have both Players and Player models..!
-        public List<FixtureStatistics>? FixtureStatistics { get; set;}
+        public List<TeamLineup>? TeamLineups { get; set; }
+        public List<PlayerLineup>? PlayerLineups { get; set; }
+        public List<PlayerStatistics>? PlayersStatistics { get; set;}
+
+        public List<Team>? Teams { get; set; }
+        public List<Player>? Players { get; set; }
     }
 }

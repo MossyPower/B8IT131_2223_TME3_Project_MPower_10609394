@@ -6,25 +6,23 @@ namespace MvcRugby.ViewModels
 {
     public class CompetitionFixturesViewModel
     {
-        public class Competition
-        {
-            public int CompetitionId { get; set; } 
-            public string? Competition_Name { get; set; }          
-            public List<Fixture>? Fixtures { get; set; }
-        }
+        
+        public int CompetitionId { get; set; } 
+        public string? CompetitionName { get; set; } 
+        List<Fixture>? Fixtures { get; set; }
 
         public class Fixture
         {
             public int FixtureId { get; set; }
-            public string? SportRadar_Id {get; set;}
-            public int Round_Number { get; set; }
-            public string Fixture_Date { get; set; }
-            public string? Start_Time { get; set; }
+            public string? SportRadarId {get; set;}
+            public int RoundNumber { get; set; }
+            public string FixtureDate { get; set; }
+            public string? StartTime { get; set; }
             public string? Status { get; set; }
-            public string? Home_Team { get; set; }
-            public string? Away_Team { get; set; }
-            public int? Home_Score { get; set; }
-            public int? Away_Score { get; set; }
+            public string? HomeTeam { get; set; }
+            public string? AwayTeam { get; set; }
+            public int? HomeScore { get; set; }
+            public int? AwayScore { get; set; }
         }
     }
 }

@@ -35,18 +35,18 @@ namespace MvcRugby.Controllers
         public async Task<IActionResult> Rounds(int id)
         {
             var competition = await _rugbyDataApiService.GetCompetitionById(id);
-            var compFixtures = await _rugbyDataApiService.GetAllFixturesByCompetitionId(id);
+            var compFixtures = await _rugbyDataApiService.GetCompetitionFixtures(id);
 
             var ViewModel = new RoundsViewModel()
             {
                 
-                CompetitionName = competition.Competition_Name, 
+                CompetitionName = competition.CompetitionName, 
                 CompetitionId = id,
                 // RoundsViewModel Attribute = Competition Model Attribute path
                 // Group By method: https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.groupby?view=net-8.0 : 
                 // 'GroupBy' returns sequence of IGrouping<TKey, TElement> where TKey is the key and TElement is the type of elements within each group. 
                 Rounds = compFixtures
-                .GroupBy(item => item.Round_Number)
+                .GroupBy(item => item.RoundNumber)
                 .Select(group => new RoundInfoViewModel //each item in the list is an instance of the RoundsViewModel (within the CompRoundsViewModel) 
                 {
                     RoundNumber = group.Key, // Group key is the round number
@@ -62,26 +62,58 @@ namespace MvcRugby.Controllers
         // Get: All fixtures for a given round (which includes teams), All players, All player statistics, 
         public async Task<IActionResult> RoundFixtures(int id, int roundNumber)
         {
-            // Get all competitions
+            // 1. Get all competitions
             var competition = await _rugbyDataApiService.GetCompetitionById(id);      
+
+            // 2. Get all fixtures by per round
+            var fixtures = await _rugbyDataApiService.GetCompetitionFixtures(id);
+            var roundFixtures = fixtures.Where(f => f.RoundNumber == roundNumber); // gets a list of competition fixtures, filtered by round number (e.g. all fixtures for the URC, round 1)
+
+            // 3. Get a list of Team Lineups for each round fixture (two teams per fxture)
+            var teamLineups = new List<TeamLineup>(); //new empty list
             
-            // Get all fixtures by per round
-            var fixtures = await _rugbyDataApiService.GetAllFixturesByCompetitionId(id);
-            var roundFixtures = fixtures.Where(f => f.Round_Number == roundNumber);// get all competition fixtures, filtered by round number
+            foreach(var fixture in roundFixtures) // for each fixture in the list of roundFixtures
+            {
+                var fixtureId = fixture.FixtureId; // get the FixtureId
+
+                var teamLineup = await _rugbyDataApiService.GetTeamLineupById(fixtureId); //Get TeamLineups by FixtureId
+
+                teamLineups.Add(teamLineup); //Add the TeamLineup returned to the list
+            }
             
-            // Filter the returned fixtures by CompetitionId 
-            //      For the URC, total fixtures = 18 rounds x 9 fixtures per round = 162 + 7 knock-out fixtures = total 169 fixtures to filter by round
-            //      Similar-ish for other comps
-            //      Need to look at completing this by querying Db in RugbyDataApi instead of completing this in-memory, passing two params
+                        
+            // 4. Get a list of all Player Lineups for each Team Lineup (2x player lineups per team)
+            // var playerLineups = new List<PlayerLineup>(); //new empty list
+            
+            // foreach(var player in teamLineups) // for each fixture in the list of roundFixtures
+            // {
+            //     var playerId = player.PlayerLineups; // get the FixtureId
+
+            //     var teamLineup = await _rugbyDataApiService.GetTeamLineupById(fixtureId); //Get TeamLineups by FixtureId
+
+            //     teamLineups.Add(teamLineup); //Add the TeamLineup returned to the list
+            // }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             var ViewModel = new ComparisonViewModel()
             {
                 CompetitionId = id,
-                Competition_Name = competition.Competition_Name, // get competition name               
-                Round_Number = roundNumber,
+                CompetitionName = competition.CompetitionName, // get competition name               
+                RoundNumber = roundNumber,
                 Fixtures = roundFixtures.ToList(),
-                FixtureStatistics = null,
-                Players = null,
+
             };
+
             return View(ViewModel);
         }
     }
