@@ -24,8 +24,7 @@
         <th scope="col">Club Id</th>
         <th scope="col">Sport Radar Competitor Id</th>
         <th scope="col">Club Name</th>
-        <th scope="col">Competition</th>
-        <th scope="col">Players </th>
+        <th scope="col">Competition Id</th>
         <th scope="col"></th>
       </tr>
     </thread>
@@ -36,8 +35,7 @@
             <td>@club.ClubId</td>
             <td>@club.SportRadar_Competitor_Id</td>
             <td>@club.Club_Name</td>
-            <td>@club.Competition</td>
-            <td>@club.Players</td>
+            <td>@club.CompetitionId</td>
             <td>
               <a class="btn btn-primary" asp-action="Index"  asp-route-id="@club.ClubId" asp-controller="CompetitionRound">Select</a>
               <a class="btn btn-success" asp-action="Details" asp-route-id="@club.ClubId">View Details</a>

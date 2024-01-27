@@ -4,8 +4,10 @@ using MvcRugby.Models;
 using MvcRugby.Mappings;
 using MvcRugby.ViewModels;
 using MvcRugby.Services;
+using MvcRugby.Mappings;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace MvcRugby.Controllers
 {
@@ -13,11 +15,15 @@ namespace MvcRugby.Controllers
     public class SportRadarController : Controller
     {       
         //Create an instance of the SportRadarApiService class
+        private readonly ILogger<SportRadarController> _logger;
         private readonly SportRadarApiService _sportRadarApiService;
         private readonly RugbyDataApiService _rugbyDataApiService;
-        public SportRadarController(SportRadarApiService sportRadarApiService, RugbyDataApiService rugbyDataApiService)
+
+        public SportRadarController(ILogger<SportRadarController> logger, SportRadarApiService sportRadarApiService, RugbyDataApiService rugbyDataApiService)
         {
+            _logger = logger;
             _sportRadarApiService = sportRadarApiService;
+            _rugbyDataApiService = rugbyDataApiService;
         }
         
         // URI: http://localhost:5254/SportRadar/Season
@@ -28,24 +34,166 @@ namespace MvcRugby.Controllers
         }
         
         // Sync Sport Radar Api data with local Rugby Data Api
-        // public async Task<IActionResult> SyncSrApiSeasonLineupEndPoint(string? SeasonId)
+        public async Task<IActionResult> SyncSeasonsEndPoint()
+        {
+            // Not passsing in anything as button acts as trigger only, all logic occurs here
+
+            var seasonInfo = await _sportRadarApiService.GetSeasons();
+            
+            //DateTime startDate = new DateTime(2024, 05, 01); //pass as parameter?
+
+            var newSeasons = new List<Season>();
+
+            // var season = new Season
+            // {
+            //     Id = "3",
+            //     name = "Test3",
+            //     start_date = new DateTime(2024, 1, 3),
+            //     end_date = "2023-01-03",
+            //     year = "23/24",
+            //     competition_Id = "2",
+            // };    
+
+            foreach(var season in seasonInfo.seasons)
+            {
+                //if(season.start_date >= startDate)
+                //{
+                    newSeasons.Add(season);
+                //}
+            }
+            
+            _logger.LogInformation($"Number of seasons: {newSeasons.Count()}");
+            
+            if(newSeasons != null)
+            {
+                // Deserialize the season object to JSON for logging
+                //var seasonJson = JsonConvert.SerializeObject(season);
+                //_logger.LogInformation($"Season JSON: {seasonJson}");
+                
+                foreach(var season in newSeasons)
+                {
+                    await _rugbyDataApiService.SaveSeasons(season);
+                }
+                return RedirectToAction("Index");    
+            }    
+            else
+            {
+                _logger.LogWarning("The 'seasons' object is null in SaveSeasons method.");
+                return BadRequest();
+            }
+            
+
+            //await SaveSeasons(seasonInfo);         
+            
+            //return Ok();
+
+            // try
+            // {
+            //     // Fetch the data from Sport Radar Api Endpoint
+            //     var seasons = await _sportRadarApiService.GetSeasons();
+
+            //     // Log the received seasons data
+            //     _logger.LogInformation("Received seasons data: {@Seasons}", seasons);
+
+            //     // Save data retrieved from Sport Radar API to Rugby Data Api (pass to seperate method below as parameter to complete task)
+            //     await SaveSeasons(seasons);
+
+            //     // Return appropriate result
+            //     return Ok(); // Replace with the appropriate result based on your requirements
+            // }
+            // catch (NullReferenceException ex)
+            // {
+            //     // Log the exception details
+            //     _logger.LogError(ex, "An error occurred in SyncSeasonsEndPoint");
+
+            //     // Return an error response or handle it as needed
+            //     return StatusCode(500, "Internal Server Error");
+            // }
+        }
+        
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // private async Task SaveSeasons(SeasonInfo seasons)
         // {
-        //     // Fetch the data from Sport Radar Api Endpoint
-        //     var seasonLineup = await _sportRadarApiService.GetSrSeasonLineups(SeasonId);
+        //     try
+        //     {               
+        //         // Check if 'seasons' is null before processing
+        //         if (seasons == null)
+        //         {
+        //             _logger.LogWarning("The 'seasons' object is null in SaveSeasons method.");
+        //             return;
+        //         }
 
-        //     // Save data retrieved from Sport Radar API to Rugby Data Api (pass to seperate method below as parameter to complete task)
-        //     await SaveSrApiSeasonLineupData(seasonLineup);
+        //         _logger.LogInformation($"Number of seasons: {seasons.seasons?.Count ?? 0}");
 
-        //     // Return appropriate result
-        //     return Ok(); // Replace with the appropriate result based on your requirements
+        //         // Check if 'seasons' is not null and 'seasons.seasons' is not null
+        //         // if (seasons.seasons != null)
+        //         // {
+        //             //foreach (var season in seasons.seasons)
+        //             //{
+        //                 // Ensure that each season and its properties are not null before processing
+        //                 // if (season != null && !string.IsNullOrEmpty(season.Id) && !string.IsNullOrEmpty(season.name))
+        //                 // {
+        //                     // Deserialize the season object to JSON for logging
+        //                     var seasonJson = JsonConvert.SerializeObject(seasons);
+        //                     _logger.LogInformation($"Season JSON: {seasonJson}");
+
+        //                     // Save the season
+        //                     await _rugbyDataApiService.SaveSeasons(seasons);
+        //                 // }
+        //                 // else
+        //                 // {
+        //                     _logger.LogError("A season or its properties within 'seasons.seasons' is null or empty in SaveSeasons.");
+        //                 // }
+        //             //}
+        //         // }
+        //         // else
+        //         // {
+        //         //     _logger.LogError("The 'seasons.seasons' is null in SaveSeasons.");
+        //         // }
+
+        //         _logger.LogInformation("Seasons processing completed successfully");
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         _logger.LogError(ex, "An error occurred in SaveSeasons.");
+        //     } 
         // }
 
-        // private async Task SaveSrApiSeasonLineupData(SeasonLineups seasonLineups)
-        // {
-        //     await _rugbyDataApiService.AddSrSeasonLineupData(seasonLineups);
-        // }
+        // **********
+        // Sync Sport Radar Season Players Endpoint
+        public async Task<IActionResult> SyncSeasonPlayersEndPoint() //Pass SportRadar Competition Id as a parameter
+        {
+            // fetch the information from the Sport Radar Api
+            var playerInfo = await _sportRadarApiService.GetPlayersBySeasonId("sr:competition:419");
+            
+            // 
+            var newPlayers = new List<SeasonPlayer>();
+            
+            foreach(var player in playerInfo.SeasonPlayers)
+            {
+                newPlayers.Add(player);
+            }
+                _logger.LogInformation($"Number of players: {newPlayers.Count()}");
+                        
+            if(newPlayers != null)
+            {
+                foreach(var player in newPlayers)
+                {
+                    await _rugbyDataApiService.SavePlayers(player);
+                }
+                
+                return RedirectToAction("Index");    
+            }    
+            else
+            {
+                _logger.LogWarning("The 'players' object is null in the SavePlayers method.");
+                
+                return BadRequest();
+            }
+        }
 
-
+        // **********
         public async Task<IActionResult> Competitions()
         {
             // Get SportsRadar data from Api via services
@@ -60,7 +208,7 @@ namespace MvcRugby.Controllers
                 if (competitions != null)
                 {
                     ViewModel.Seasons = competitions?.seasons? // initialise ViewModel with the info from mappings.SeasonInfo.seasons
-                        .Where(season => DateTime.Parse(season.end_date) >= DateTime.Today) // where the seasons end date is the same or later than todays date
+                        .Where(season => DateTime.TryParse(season.end_date, out var endDate) && endDate >= DateTime.Today) // where the seasons end date is the same or later than todays date
                         .Select(season => new SeasonViewModel { Name = season.name, Id = season.Id }) // the info to initialise: name and ID
                         .ToList(); // way to initialse the data, i.e. as a list
                 };

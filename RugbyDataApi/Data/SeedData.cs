@@ -21,31 +21,30 @@ namespace RugbyDataApi.Data
                         new Competition
                         {
                             CompetitionId = 1,
-                            SportRadar_Competition_Id = "sr:competition:401",
+                            SrCompetitionId = "sr:competition:401",
+                            CompetitionName = "European Rugby Champions Cup",
+                            StartDate = new DateTime(2023,12,8),
+                            EndDate = new DateTime(2024, 5, 25),
                             Year = "23/24",
-                            Competition_Name = "European Rugby Champions Cup",
-                            Start_Date = "2023-12-08",
-                            End_Date = "2024-05-25",
-    
                         },
                         new Competition
                         {
                             CompetitionId = 2,
-                            SportRadar_Competition_Id = "sr:competition:419",
+                            SrCompetitionId = "sr:competition:419",
+                            CompetitionName = "United Rugby Championship",
+                            StartDate = new DateTime(2023,10,21),
+                            EndDate = new DateTime(2024,6,22),
                             Year = "23/24",
-                            Competition_Name = "United Rugby Championship",
-                            Start_Date = "2023-10-21",
-                            End_Date = "2024-06-22",
     
                         },
                         new Competition
                         {
                             CompetitionId = 3,
-                            SportRadar_Competition_Id = "sr:competition:752",
+                            SrCompetitionId = "sr:competition:752",
+                            CompetitionName = "European Challenge Cup",
+                            StartDate = new DateTime(2023,12,8),
+                            EndDate = new DateTime(2024,5,24),
                             Year = "23/24",
-                            Competition_Name = "European Challenge Cup",
-                            Start_Date = "2023-12-08",
-                            End_Date = "2024-05-24",
     
                         },
                     };
@@ -56,126 +55,126 @@ namespace RugbyDataApi.Data
                 // ************************************
 
                 // Look for any clubs.
-                if (!context.Clubs.Any())
+                if (!context.Teams.Any())
                 {
                     // Create sample clubs (use URC as example)
-                    var clubs = new List<Club>
+                    var teams = new List<Team>
                     {
-                        new Club
+                        new Team
                         {
-                            ClubId = 1,
-                            SportRadar_Competitor_Id = "sr:competitor:4203",
-                            Club_Name = "Munster",
-                            CompetitionId = 2
+                            TeamId = 1,
+                            SrCompetitorId = "sr:competitor:4203",
+                            TeamName = "Munster",
+                            Country = "Ireland",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 2,
-                            SportRadar_Competitor_Id = "sr:competitor:4210",
-                            Club_Name = "Leinster",
-                            CompetitionId = 2
+                            TeamId = 2,
+                            SrCompetitorId = "sr:competitor:4210",
+                            TeamName = "Leinster",
+                            Country = "Ireland",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 3,
-                            SportRadar_Competitor_Id = "sr:competitor:8083",
-                            Club_Name = "Connacht Rugby",
-                            CompetitionId = 2
+                            TeamId = 3,
+                            SrCompetitorId = "sr:competitor:8083",
+                            TeamName = "Connacht Rugby",
+                            Country = "Ireland",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 4,
-                            SportRadar_Competitor_Id = "sr:competitor:4211",
-                            Club_Name = "Ulster Rugby",
-                            CompetitionId = 2
+                            TeamId = 4,
+                            SrCompetitorId = "sr:competitor:4211",
+                            TeamName = "Ulster Rugby",
+                            Country = "Ireland",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 5,
-                            SportRadar_Competitor_Id = "sr:competitor:4184",
-                            Club_Name = "Lions",
-                            CompetitionId = 2
+                            TeamId = 5,
+                            SrCompetitorId = "sr:competitor:4184",
+                            TeamName = "Lions",
+                            Country = "South Africa",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 6,
-                            SportRadar_Competitor_Id = "sr:competitor:4187",
-                            Club_Name = "The Sharks",
-                            CompetitionId = 2
+                            TeamId = 6,
+                            SrCompetitorId = "sr:competitor:4187",
+                            TeamName = "The Sharks",
+                            Country = "South Africa",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 7,
-                            SportRadar_Competitor_Id = "sr:competitor:4188",
-                            Club_Name = "Stormers",
-                            CompetitionId = 2
+                            TeamId = 7,
+                            SrCompetitorId = "sr:competitor:4188",
+                            TeamName = "Stormers",
+                            Country = "South Africa",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 8,
-                            SportRadar_Competitor_Id = "sr:competitor:4205",
-                            Club_Name = "Scarlets",
-                            CompetitionId = 2
+                            TeamId = 8,
+                            SrCompetitorId = "sr:competitor:4205",
+                            TeamName = "Scarlets",
+                            Country = "Wales",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 9,
-                            SportRadar_Competitor_Id = "sr:competitor:4206",
-                            Club_Name = "Edinburgh Rugby",
-                            CompetitionId = 2
+                            TeamId = 9,
+                            SrCompetitorId = "sr:competitor:4206",
+                            TeamName = "Edinburgh Rugby",
+                            Country = "Scotland",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 10,
-                            SportRadar_Competitor_Id = "sr:competitor:4214",
-                            Club_Name = "Glasgow Warriors",
-                            CompetitionId = 2
+                            TeamId = 10,
+                            SrCompetitorId = "sr:competitor:4214",
+                            TeamName = "Glasgow Warriors",
+                            Country = "Scotland",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 11,
-                            SportRadar_Competitor_Id = "sr:competitor:4215",
-                            Club_Name = "Cardiff Rugby",
-                            CompetitionId = 2
+                            TeamId = 11,
+                            SrCompetitorId = "sr:competitor:4215",
+                            TeamName = "Cardiff Rugby",
+                            Country = "Wales",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 12,
-                            SportRadar_Competitor_Id = "sr:competitor:8082",
-                            Club_Name = "Ospreys",
-                            CompetitionId = 2
+                            TeamId = 12,
+                            SrCompetitorId = "sr:competitor:8082",
+                            TeamName = "Ospreys",
+                            Country = "Wales",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 13,
-                            SportRadar_Competitor_Id = "sr:competitor:8084",
-                            Club_Name = "Dragons",
-                            CompetitionId = 2
+                            TeamId = 13,
+                            SrCompetitorId = "sr:competitor:8084",
+                            TeamName = "Dragons",
+                            Country = "Wales",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 14,
-                            SportRadar_Competitor_Id = "sr:competitor:21798",
-                            Club_Name = "Benetton Treviso",
-                            CompetitionId = 2
+                            TeamId = 14,
+                            SrCompetitorId = "sr:competitor:21798",
+                            TeamName = "Benetton Treviso",
+                            Country = "Italy",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 15,
-                            SportRadar_Competitor_Id = "sr:competitor:75331",
-                            Club_Name = "Zebre",
-                            CompetitionId = 2
+                            TeamId = 15,
+                            SrCompetitorId = "sr:competitor:75331",
+                            TeamName = "Zebre",
+                            Country = "Italy",
                         },
-                        new Club
+                        new Team
                         {
-                            ClubId = 16,
-                            SportRadar_Competitor_Id = "sr:competitor:312136",
-                            Club_Name = "Bulls",
-                            CompetitionId = 2
+                            TeamId = 16,
+                            SrCompetitorId = "sr:competitor:312136",
+                            TeamName = "Bulls",
+                            Country = "South Africa",
                         },
                     };
 
-                    context.Clubs.AddRange(clubs);
+                    context.Teams.AddRange(teams);
                 }
                 context.SaveChanges();
 
@@ -191,113 +190,105 @@ namespace RugbyDataApi.Data
                         new Fixture // Data from: SportRadar Api / Season Lineups Endpoint:
                         {
                             FixtureId = 1,
-                            SportRadar_Id = "sr:sport_event:42404611",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-21",
-                            Start_Time = "12:00:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404611",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,21,12,00,00,00,00),
                             Status = "closed",
-                            Home_Team = "Zebre",
-                            Away_Team = "Ulster Rugby",
-                            Home_Score = 36,
-                            Away_Score = 40,
+                            //Home_Team = "Zebre",
+                            //Away_Team = "Ulster Rugby",
+                            HomeScore = 36,
+                            AwayScore = 40,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 2,
-                            SportRadar_Id = "sr:sport_event:42404613",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-21",
-                            Start_Time = "14:00:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404613",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,21,14,00,00,00,00),
                             Status = "closed",
-                            Home_Team = "Connacht Rugby",
-                            Away_Team = "Ospreys",
-                            Home_Score = 34,
-                            Away_Score = 26,
+                            //Home_Team = "Connacht Rugby",
+                            //Away_Team = "Ospreys",
+                            HomeScore = 34,
+                            AwayScore = 26,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 3,
-                            SportRadar_Id = "sr:sport_event:42404615",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-21",
-                            Start_Time = "14:05:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404615",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,21,14,05,00,00),
                             Status = "closed",
-                            Home_Team = "Lions",
-                            Away_Team = "Stormers",
-                            Home_Score = 33,
-                            Away_Score = 35,
+                            //Home_Team = "Lions",
+                            //Away_Team = "Stormers",
+                            HomeScore = 33,
+                            AwayScore = 35,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 4,
-                            SportRadar_Id = "sr:sport_event:42404617",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-21",
-                            Start_Time = "14:05:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404617",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,21,14,05,00,00,00),
                             Status = "closed",
-                            Home_Team = "Dragons",
-                            Away_Team = "Edinburgh Rugby",
-                            Home_Score = 17,
-                            Away_Score = 22,
+                            //Home_Team = "Dragons",
+                            //Away_Team = "Edinburgh Rugby",
+                            HomeScore = 17,
+                            AwayScore = 22,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 5,
-                            SportRadar_Id = "sr:sport_event:42404619",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-21",
-                            Start_Time = "16:15:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404619",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,21,16,15,00,00,00),
                             Status = "closed",
-                            Home_Team = "Cardiff Rugby",
-                            Away_Team = "Benetton Treviso",
-                            Home_Score = 22,
-                            Away_Score = 23,
+                           // Home_Team = "Cardiff Rugby",
+                            //Away_Team = "Benetton Treviso",
+                            HomeScore = 22,
+                            AwayScore = 23,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 6,
-                            SportRadar_Id = "sr:sport_event:42404621",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-21",
-                            Start_Time = "16:15:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404621",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,21,16,15,00,00,00),
                             Status = "closed",
-                            Home_Team = "Munster",
-                            Away_Team = "The Sharks",
-                            Home_Score = 34,
-                            Away_Score = 21,
+                            //Home_Team = "Munster",
+                            //Away_Team = "The Sharks",
+                            HomeScore = 34,
+                            AwayScore = 21,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 7,
-                            SportRadar_Id = "sr:sport_event:42404623",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-22",
-                            Start_Time = "13:00:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404623",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,22,13,00,00,00,00),
                             Status = "closed",
-                            Home_Team = "Bulls",
-                            Away_Team = "Scarlets",
-                            Home_Score = 63,
-                            Away_Score = 21,
+                            //Home_Team = "Bulls",
+                            //Away_Team = "Scarlets",
+                            HomeScore = 63,
+                            AwayScore = 21,
                             CompetitionId = 2,
                         },
                         new Fixture
                         {
                             FixtureId = 8,
-                            SportRadar_Id = "sr:sport_event:42404625",
-                            Round_Number = 1,
-                            Fixture_Date = "2023-10-22",
-                            Start_Time = "15:00:00+00:00",
+                            SrSportEventId = "sr:sport_event:42404625",
+                            RoundNumber = 1,
+                            StartTime = new DateTime(2023,10,22,15,00,00,00,00),
                             Status = "closed",
-                            Home_Team = "Glasgow Warriors",
-                            Away_Team = "Leinster",
-                            Home_Score = 43,
-                            Away_Score = 25,
+                            //Home_Team = "Glasgow Warriors",
+                            //Away_Team = "Leinster",
+                            HomeScore = 43,
+                            AwayScore = 25,
                             CompetitionId = 2,
                         },
                     };
@@ -306,7 +297,34 @@ namespace RugbyDataApi.Data
                 }
                 context.SaveChanges();
                 // ************************************
-
+                
+                // Look for any Team Lineup.
+                if (!context.TeamLineups.Any())
+                {
+                    // Create sample players
+                    var teamLineups = new List<TeamLineup>
+                    {
+                        new TeamLineup
+                        {
+                            TeamLineupId = 1,
+                            Designation = "Home",
+                            FixtureId = 1,
+                            TeamId = 15,
+                        },
+                        new TeamLineup
+                        {
+                            TeamLineupId = 1,
+                            Designation = "Home",
+                            FixtureId = 1,
+                            TeamId = 4,
+                        },
+                        // Add more sample players as needed
+                    };
+                    context.TeamLineups.AddRange(teamLineups);
+                }
+                context.SaveChanges();
+                // ************************************
+                
                 // Look for any Player.
                 if (!context.Players.Any())
                 {
@@ -316,16 +334,14 @@ namespace RugbyDataApi.Data
                         new Player // Obtain from Sport Radar Api > Season Players Endpoint
                         {
                             PlayerId = 1,
-                            SportRadar_Id = "sr:player:2079939",
-                            First_Name = "Jack",
-                            Last_Name = "Crowley",
+                            SrPlayerId = "sr:player:2079939",
+                            FirstName = "Jack",
+                            LastName = "Crowley",
+                            DateOfBirth = new DateOnly(2000,1,13),
                             Nationality = "Ireland",
-                            Position = "Forward", //Remove
-                            Jersey_Number = "10",
-                            Age = "25", //remove
-                            // add height
-                            Weight = "91", //int
-                            ClubId = 2
+                            JerseyNumber = "10",
+                            TeamId = 2,
+                            TeamLineupId = 1,
                         },
                         // Add more sample players as needed
                     };
@@ -336,239 +352,231 @@ namespace RugbyDataApi.Data
                 // ************************************
 
                 // Look for any Player Match Statistics.
-                if (!context.FixturesStatistics.Any())
+                if (!context.PlayersStatistics.Any())
                 {
                     // Create sample player match statistics
-                    var fixturesStatistics = new List<FixtureStatistics>
+                    var playersStatistics = new List<PlayerStatistics>
                     {
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 1,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 1,
                             Tries = 1,
-                            Try_Assists = 1,
+                            TryAssists = 1,
                             Conversions = 1,
-                            Penalty_Goals = 1,
-                            Drop_Goals = 1,
-                            Meters_Run = 1,
+                            PenaltyGoals = 1,
+                            DropGoals = 1,
+                            MetersRun = 1,
                             Carries = 1,
                             Passes = 1,
                             Offloads = 1,
-                            Clean_Breaks = 1,
-                            Lineouts_Won = 1,
-                            Lineouts_Lost = 1,
+                            CleanBreaks = 1,
+                            LineoutsWon = 1,
+                            LineoutsLost = 1,
                             Tackles = 1,
-                            Tackles_Missed = 1,
-                            Scrums_Won = 1,
-                            Scrums_Lost = 1,
-                            Total_Scrums = 1,
-                            Turnovers_Won = 1,
-                            Penalties_Conceded = 1,
-                            Yellow_Cards = 1,
-                            Red_Cards = 1,
+                            TacklesMissed = 1,
+                            ScrumsWon = 1,
+                            ScrumsLost = 1,
+                            TotalScrums = 1,
+                            TurnoversWon = 1,
+                            PenaltiesConceded = 1,
+                            YellowCards = 1,
+                            RedCards = 1,
                             PlayerId = 1,
                             FixtureId = 1,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 2,
-                            SportRadar_Id = "sr:statistics:002",
+                            PlayerStatisticsId = 2,
                             Tries = 2,
-                            Try_Assists = 2,
+                            TryAssists = 2,
                             Conversions = 2,
-                            Penalty_Goals = 2,
-                            Drop_Goals = 2,
-                            Meters_Run = 2,
+                            PenaltyGoals = 2,
+                            DropGoals = 2,
+                            MetersRun = 2,
                             Carries = 2,
                             Passes = 2,
                             Offloads = 2,
-                            Clean_Breaks = 2,
-                            Lineouts_Won = 2,
-                            Lineouts_Lost = 2,
+                            CleanBreaks = 2,
+                            LineoutsWon = 2,
+                            LineoutsLost = 2,
                             Tackles = 2,
-                            Tackles_Missed = 2,
-                            Scrums_Won = 2,
-                            Scrums_Lost = 2,
-                            Total_Scrums = 2,
-                            Turnovers_Won = 2,
-                            Penalties_Conceded = 2,
-                            Yellow_Cards = 2,
-                            Red_Cards = 2,
+                            TacklesMissed = 2,
+                            ScrumsWon = 2,
+                            ScrumsLost = 2,
+                            TotalScrums = 2,
+                            TurnoversWon = 2,
+                            PenaltiesConceded = 2,
+                            YellowCards = 2,
+                            RedCards = 2,
                             PlayerId = 1,
                             FixtureId = 2,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 3,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 3,
                             Tries = 3,
-                            Try_Assists = 3,
+                            TryAssists = 3,
                             Conversions = 3,
-                            Penalty_Goals = 3,
-                            Drop_Goals = 3,
-                            Meters_Run = 3,
+                            PenaltyGoals = 3,
+                            DropGoals = 3,
+                            MetersRun = 3,
                             Carries = 3,
                             Passes = 3,
                             Offloads = 3,
-                            Clean_Breaks = 3,
-                            Lineouts_Won = 3,
-                            Lineouts_Lost = 3,
+                            CleanBreaks = 3,
+                            LineoutsWon = 3,
+                            LineoutsLost = 3,
                             Tackles = 53,
-                            Tackles_Missed = 3,
-                            Scrums_Won = 3,
-                            Scrums_Lost = 3,
-                            Total_Scrums = 3,
-                            Turnovers_Won = 3,
-                            Penalties_Conceded = 3,
-                            Yellow_Cards = 3,
-                            Red_Cards = 3,
+                            TacklesMissed = 3,
+                            ScrumsWon = 3,
+                            ScrumsLost = 3,
+                            TotalScrums = 3,
+                            TurnoversWon = 3,
+                            PenaltiesConceded = 3,
+                            YellowCards = 3,
+                            RedCards = 3,
                             PlayerId = 1,
                             FixtureId = 3,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 4,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 4,
                             Tries = 4,
-                            Try_Assists = 4,
+                            TryAssists = 4,
                             Conversions = 4,
-                            Penalty_Goals = 4,
-                            Drop_Goals = 4,
-                            Meters_Run = 4,
+                            PenaltyGoals = 4,
+                            DropGoals = 4,
+                            MetersRun = 4,
                             Carries = 4,
                             Passes = 4,
                             Offloads = 4,
-                            Clean_Breaks = 4,
-                            Lineouts_Won = 4,
-                            Lineouts_Lost = 4,
+                            CleanBreaks = 4,
+                            LineoutsWon = 4,
+                            LineoutsLost = 4,
                             Tackles = 4,
-                            Tackles_Missed = 4,
-                            Scrums_Won = 4,
-                            Scrums_Lost = 4,
-                            Total_Scrums = 4,
-                            Turnovers_Won = 4,
-                            Penalties_Conceded = 4,
-                            Yellow_Cards = 4,
-                            Red_Cards = 4,
+                            TacklesMissed = 4,
+                            ScrumsWon = 4,
+                            ScrumsLost = 4,
+                            TotalScrums = 4,
+                            TurnoversWon = 4,
+                            PenaltiesConceded = 4,
+                            YellowCards = 4,
+                            RedCards = 4,
                             PlayerId = 1,
                             FixtureId = 4,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 5,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 5,
                             Tries = 3,
-                            Try_Assists = 3,
+                            TryAssists = 3,
                             Conversions = 3,
-                            Penalty_Goals = 3,
-                            Drop_Goals = 3,
-                            Meters_Run = 3,
+                            PenaltyGoals = 3,
+                            DropGoals = 3,
+                            MetersRun = 3,
                             Carries = 3,
                             Passes = 3,
                             Offloads = 3,
-                            Clean_Breaks = 3,
-                            Lineouts_Won = 3,
-                            Lineouts_Lost = 3,
+                            CleanBreaks = 3,
+                            LineoutsWon = 3,
+                            LineoutsLost = 3,
                             Tackles = 53,
-                            Tackles_Missed = 3,
-                            Scrums_Won = 3,
-                            Scrums_Lost = 3,
-                            Total_Scrums = 3,
-                            Turnovers_Won = 3,
-                            Penalties_Conceded = 3,
-                            Yellow_Cards = 3,
-                            Red_Cards = 3,
+                            TacklesMissed = 3,
+                            ScrumsWon = 3,
+                            ScrumsLost = 3,
+                            TotalScrums = 3,
+                            TurnoversWon = 3,
+                            PenaltiesConceded = 3,
+                            YellowCards = 3,
+                            RedCards = 3,
                             PlayerId = 1,
                             FixtureId = 5,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 6,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 6,
                             Tries = 3,
-                            Try_Assists = 3,
+                            TryAssists = 3,
                             Conversions = 3,
-                            Penalty_Goals = 3,
-                            Drop_Goals = 3,
-                            Meters_Run = 3,
+                            PenaltyGoals = 3,
+                            DropGoals = 3,
+                            MetersRun = 3,
                             Carries = 3,
                             Passes = 3,
                             Offloads = 3,
-                            Clean_Breaks = 3,
-                            Lineouts_Won = 3,
-                            Lineouts_Lost = 3,
+                            CleanBreaks = 3,
+                            LineoutsWon = 3,
+                            LineoutsLost = 3,
                             Tackles = 53,
-                            Tackles_Missed = 3,
-                            Scrums_Won = 3,
-                            Scrums_Lost = 3,
-                            Total_Scrums = 3,
-                            Turnovers_Won = 3,
-                            Penalties_Conceded = 3,
-                            Yellow_Cards = 3,
-                            Red_Cards = 3,
+                            TacklesMissed = 3,
+                            ScrumsWon = 3,
+                            ScrumsLost = 3,
+                            TotalScrums = 3,
+                            TurnoversWon = 3,
+                            PenaltiesConceded = 3,
+                            YellowCards = 3,
+                            RedCards = 3,
                             PlayerId = 1,
                             FixtureId = 6,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 7,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 7,
                             Tries = 3,
-                            Try_Assists = 3,
+                            TryAssists = 3,
                             Conversions = 3,
-                            Penalty_Goals = 3,
-                            Drop_Goals = 3,
-                            Meters_Run = 3,
+                            PenaltyGoals = 3,
+                            DropGoals = 3,
+                            MetersRun = 3,
                             Carries = 3,
                             Passes = 3,
                             Offloads = 3,
-                            Clean_Breaks = 3,
-                            Lineouts_Won = 3,
-                            Lineouts_Lost = 3,
+                            CleanBreaks = 3,
+                            LineoutsWon = 3,
+                            LineoutsLost = 3,
                             Tackles = 53,
-                            Tackles_Missed = 3,
-                            Scrums_Won = 3,
-                            Scrums_Lost = 3,
-                            Total_Scrums = 3,
-                            Turnovers_Won = 3,
-                            Penalties_Conceded = 3,
-                            Yellow_Cards = 3,
-                            Red_Cards = 3,
+                            TacklesMissed = 3,
+                            ScrumsWon = 3,
+                            ScrumsLost = 3,
+                            TotalScrums = 3,
+                            TurnoversWon = 3,
+                            PenaltiesConceded = 3,
+                            YellowCards = 3,
+                            RedCards = 3,
                             PlayerId = 1,
                             FixtureId = 7,
                         },
-                        new FixtureStatistics
+                        new PlayerStatistics
                         {
-                            FixtureStatisticsId = 8,
-                            SportRadar_Id = "sr:statistics:001",
+                            PlayerStatisticsId = 8,
                             Tries = 3,
-                            Try_Assists = 3,
+                            TryAssists = 3,
                             Conversions = 3,
-                            Penalty_Goals = 3,
-                            Drop_Goals = 3,
-                            Meters_Run = 3,
+                            PenaltyGoals = 3,
+                            DropGoals = 3,
+                            MetersRun = 3,
                             Carries = 3,
                             Passes = 3,
                             Offloads = 3,
-                            Clean_Breaks = 3,
-                            Lineouts_Won = 3,
-                            Lineouts_Lost = 3,
+                            CleanBreaks = 3,
+                            LineoutsWon = 3,
+                            LineoutsLost = 3,
                             Tackles = 53,
-                            Tackles_Missed = 3,
-                            Scrums_Won = 3,
-                            Scrums_Lost = 3,
-                            Total_Scrums = 3,
-                            Turnovers_Won = 3,
-                            Penalties_Conceded = 3,
-                            Yellow_Cards = 3,
-                            Red_Cards = 3,
+                            TacklesMissed = 3,
+                            ScrumsWon = 3,
+                            ScrumsLost = 3,
+                            TotalScrums = 3,
+                            TurnoversWon = 3,
+                            PenaltiesConceded = 3,
+                            YellowCards = 3,
+                            RedCards = 3,
                             PlayerId = 1,
                             FixtureId = 8,
                         },
                         // Add more sample player match statistics as needed
                     };
 
-                    context.FixturesStatistics.AddRange(fixturesStatistics);
+                    context.PlayersStatistics.AddRange(playersStatistics);
                 }
                 context.SaveChanges();
             }

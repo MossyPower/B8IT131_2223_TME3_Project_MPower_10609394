@@ -4,6 +4,14 @@ using MvcRugby.Mappings;
 
 public interface IRugbyDataApiService
 {
+    // SEASON ACTION METHODS
+    Task SaveSeasons(Season Season);
+    Task SavePlayers(SeasonPlayer Player);
+
+    // **********************************************   
+    // 3rd Part Api Sport Radar End-point Actions above
+    // **********************************************
+
     // COMPETITION ACTION METHODS
     Task<IEnumerable<Competition>?> GetAllCompetitions();
     Task<RdAPI_Competitions> AllCompsWithRelatedData();

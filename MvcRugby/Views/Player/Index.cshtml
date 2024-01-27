@@ -12,9 +12,12 @@
     <div class="p-3 mb-2 bg-dark text-white">
       <a asp-action="Create" class="btn btn-primary">Add New Player</a>
     </div>
-  <hr />
 </div>
-<br>
+<hr>
+
+<h4>Sync Seasons from Sport Radar Api</h4>
+<a class="btn btn-primary" asp-controller="SportRadar" asp-action="SyncSeasonPlayersEndPoint">Sync</a>
+<hr>
 
 @if (Model != null && Model.Any())
 {

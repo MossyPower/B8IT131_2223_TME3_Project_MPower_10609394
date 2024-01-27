@@ -25,8 +25,51 @@ namespace MvcRugby.Services
             _httpClient.BaseAddress = new Uri(BASE_URL);
         }
 
+        [HttpPost]
+        public async Task SaveSeasons(Season Season)
+        {
+            if(Season != null)
+            {
+                try
+                {
+                    var response = await _httpClient.PostAsJsonAsync<Season>("api/v1/season/", Season);
+                    response.EnsureSuccessStatusCode();
+                }
+                catch (HttpRequestException ex)
+                {
+                    throw new ApplicationException("Error adding the Sport Radar seasons in the API.", ex);
+                }
+            }
+            else
+            {
+                throw new Exception("Season cannot be null.");
+            }
+        }
+
+        [HttpPost]
+        public async Task SavePlayers(SeasonPlayer seasonPlayer)
+        {
+            if(seasonPlayer != null)
+            {
+                try
+                {
+                    var response = await _httpClient.PostAsJsonAsync<SeasonPlayer>("api/v1/seasonplayers/", seasonPlayer);
+                    response.EnsureSuccessStatusCode();
+                }
+                catch (HttpRequestException ex)
+                {
+                    throw new ApplicationException("Error adding the Sport Radar seasons in the API.", ex);
+                }
+            }
+            else
+            {
+                throw new Exception("Season cannot be null.");
+            }
+        }
+
+
         // *****************************************************************************************
-        
+
         // COMPETITION MODEL ACTIONS
         
         [HttpGet]

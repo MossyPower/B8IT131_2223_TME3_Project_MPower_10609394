@@ -17,4 +17,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Fixture> Fixtures { get; set; } = null!;
     public DbSet<FixtureStatistics> FixturesStatistics { get; set; } = null!;
     public DbSet<Player> Players { get; set; } = null!;
+
+    //public DbSet<SeasonInfo> SeasonsInfo { get; set; } = null!;
+    //public DbSet<Seasons> Seasons { get; set; } = null!; 
 }

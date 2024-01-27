@@ -11,6 +11,10 @@
 <a class="btn btn-primary" asp-action="Create">Create</a>
 <hr>
 
+<h4>Sync Seasons from Sport Radar Api</h4>
+<a class="btn btn-primary" asp-controller="SportRadar" asp-action="SyncSeasonsEndPoint">Sync</a>
+<hr>
+
 <!-- Add SCompetition cards -->
 @if (Model != null && Model.Any())
 {

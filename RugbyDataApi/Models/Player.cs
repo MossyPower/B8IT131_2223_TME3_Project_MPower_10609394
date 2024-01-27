@@ -9,22 +9,28 @@ namespace RugbyDataApi.Models
         [Required]
         [Key]
         public int PlayerId { get; set; }
-        public string? SportRadar_Id {get; set;}
-        public string? First_Name { get; set; }
-        public string? Last_Name { get; set; }
-        public string? Nationality { get; set; } 
-        public string? Position { get; set; } 
-        public string? Jersey_Number { get; set; } 
-        public string? Age { get; set; } 
-        public string? Weight { get; set; } 
+        public string? SrPlayerId {get; set;} //e.g: "sr:player:459344"
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateOnly? DateOfBirth { get; set; }
+        public string? Nationality { get; set; }
+        public string? JerseyNumber { get; set; }
         
-        //Setup relationship with Club model/table
+        // PARENT ENTITY RELATIONSHIPS
+
+        // Setup relationship with Team entity
         [Required]
-        [ForeignKey("ClubId")]
-        public int ClubId { get; set; } //Foreign Key
-        public virtual Club? Club { get; set; } //Reference navigation property
+        [ForeignKey("TeamId")]
+        public int TeamId { get; set; } // Foreign Key (Zero or One relationship, allow null / not required)
+        public Team? Team { get; set; } // Reference reverse navigation property
         
-        //Relationship with FixtureStatistics
-        public List<FixtureStatistics>? FixtureStatistics { get; set; } //Reference navigation property
+        // Setup relationship with Team Lineup entity
+        [ForeignKey("TeamLineupId")]
+        public int? TeamLineupId { get; set; } // Foreign Key (Zero or One relationship, allow null / not required)
+        public TeamLineup? TeamLineup { get; set; } // Reference reverse navigation property
+        
+        // CHILD ENTITY RELATIONSHIPS
+        // Setup relationship with Player Statistics entity
+        public List<PlayerStatistics>? PlayersStatistics { get; set; } // Reference navigation property
     }
 }

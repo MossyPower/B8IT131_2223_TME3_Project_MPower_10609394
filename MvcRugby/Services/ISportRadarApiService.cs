@@ -5,8 +5,11 @@ public interface ISportRadarApiService
     Task<SeasonInfo?> GetSeasons();
     
     //Get Sport Radar Api End-point: Season Lineups
-    Task<SeasonLineups?> GetSrSeasonLineups(string? SeasonId);
+    Task<SeasonLineups?> GetSrSeasonLineups(string SeasonId);
 
     //Get Sport Radar Api End-point: Player Profile
-    Task<Players?> GetPlayerProfile(string? PlayerId);
+    //Task<Players?> GetPlayerProfile(string PlayerId);
+    
+    //Get Sport Radar Api End-point: Season Players
+    Task<SeasonPlayersEndPoint?>GetPlayersBySeasonId(string SeasonId);
 }

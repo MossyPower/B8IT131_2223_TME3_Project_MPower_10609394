@@ -27,8 +27,8 @@ namespace MvcRugby.Controllers
             _context = context;
             _rugbyDataApiService = rugbyDataApiService;
             _clientFactory = clientFactory;
-        }
-
+        }     
+        
         // GET: Players
         public async Task<IActionResult> Index()
         {

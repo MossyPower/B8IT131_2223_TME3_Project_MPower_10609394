@@ -1,5 +1,5 @@
 <!-- This view lists all current Competitions & Seasons for user selection -->
-@* @model MvcRugby.ViewModels.CompetitionsViewModel
+@model MvcRugby.ViewModels.CompetitionsViewModel
 @using System.Diagnostics
 @{
     ViewData["Title"] = "Competition Seasons";
@@ -9,30 +9,30 @@
 
 <div class="container">
     <div class="row">
-        <!-- Add condition, if the end-date of a season is before todays date, don't render the data about that competition -->
-        @foreach (var item in Model.Seasons ?? Enumerable.Empty<SeasonViewModel>())
+        <!-- Add condition, if the end-date of a season is before today's date, don't render the data about that competition -->
+        @if (Model.Seasons != null)
         {
-            if (item != null && item.Id != null && item.Name != null)
+            @foreach (var item in Model.Seasons)
             {
-                Debug.WriteLine($"Processing item with ID: {item.Id}, Name: {item.Name}");
+                Debug.WriteLine($"Processing item with ID: {item?.Id}, Name: {item?.Name}");
+
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card text-center" style="width: 18rem;">
-                        <h5 class="card-title">@item.Name</h5>
-                        <a class="btn btn-primary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@item.Id">
-                            <i class="bi bi-eye-fill"></i> Select competition
-                        </a>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card text-center" style="width: 18rem;">
-                        <h5 class="card-title">Invalid data</h5>
-                        <!-- Handle the case where Id or Name is null -->
+                        @if (item != null && item.Id != null && item.Name != null)
+                        {
+                            <h5 class="card-title">@item.Name</h5>
+                            <a class="btn btn-primary" asp-controller="SportRadar" asp-action="CompRounds" asp-route-id="@item.Id">
+                                <i class="bi bi-eye-fill"></i> Select competition
+                            </a>
+                        }
+                        else
+                        {
+                            <h5 class="card-title">Invalid data</h5>
+                            <!-- Handle the case where Id or Name is null -->
+                        }
                     </div>
                 </div>
             }
         }
     </div>
-</div> *@
+</div>
