@@ -1,4 +1,3 @@
-using MvcRugby.Models;
 using MvcRugby.Mappings;
 
 namespace MvcRugby.Services
@@ -20,21 +19,22 @@ namespace MvcRugby.Services
             return await _httpClient.GetFromJsonAsync<SeasonInfo>($"seasons"+API_KEY);
         }     
 
-        //Get Competition Rounds
-        public async Task<SeasonLineups?> GetSrSeasonLineups(string SeasonId) // "Season Lineups" is one of the the Sport Radar Api end point names
-        {   
-            return await _httpClient.GetFromJsonAsync<SeasonLineups>($"seasons/{SeasonId}/lineups{API_KEY}");
-        }
-
-        //Get Player Statistics
-        // public async Task<Players?> GetPlayerProfile(string? PlayerId) // "Player Profile" is one of the the Sport Radar Api end point names
-        // {   
-        //     return await _httpClient.GetFromJsonAsync<Players>($"players/{PlayerId}/profile{API_KEY}");
-        // }
-        public async Task<SeasonPlayersEndPoint?> GetPlayersBySeasonId(string SeasonId) // "Season Lineups" is one of the the Sport Radar Api end point names
+        // Get/Api: Competition players
+        public async Task<SeasonPlayersEndPoint?> GetSrSeasonPlayers(string SeasonId) // Sportreadar Endpoint name "Season Players"
         {   
             return await _httpClient.GetFromJsonAsync<SeasonPlayersEndPoint>($"seasons/{SeasonId}/players{API_KEY}");
         }
-
+        
+        // Get/Api: Competition teams
+        public async Task<SeasonTeamsEndpoint?> GetSrSeasonCompetitors(string SeasonId) // Sportreadar Endpoint name "Season Competitors"
+        {   
+            return await _httpClient.GetFromJsonAsync<SeasonTeamsEndpoint>($"seasons/{SeasonId}/competitors{API_KEY}");
+        }
+        
+        // Get/Api: Competition fixtures
+        public async Task<SeasonLineupsEndpoint?> GetSrSeasonLineups(string SeasonId) // Sportreadar Endpoint name "Season Competitors"
+        {   
+            return await _httpClient.GetFromJsonAsync<SeasonLineupsEndpoint>($"seasons/{SeasonId}/lineups{API_KEY}");
+        }
     }
 }

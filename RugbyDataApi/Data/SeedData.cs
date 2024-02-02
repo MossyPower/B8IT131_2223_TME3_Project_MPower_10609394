@@ -415,6 +415,236 @@ namespace RugbyDataApi.Data
                             Nationality = "Ireland",
                             TeamId = 1,
                         },
+                        new Player
+                        {
+                            PlayerId = 24,
+                            SrPlayerId = "sr:player:2007721",
+                            FirstName = "Henry",
+                            LastName = "Chamberlain",
+                            DateOfBirth = new DateOnly(1999,2,22),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 25,
+                            SrPlayerId = "sr:player:1717311",
+                            FirstName = "James",
+                            LastName = "Venter",
+                            DateOfBirth = new DateOnly(1996,8,21),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 26,
+                            SrPlayerId = "sr:player:1699647",
+                            FirstName = "Phendulani Sikhizane Hendrick",
+                            LastName = "Buthelezi",
+                            DateOfBirth = new DateOnly(1999,5,30),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 27,
+                            SrPlayerId = "sr:player:1648418",
+                            FirstName = "Kerron",
+                            LastName = "van Vuuren",
+                            DateOfBirth = new DateOnly(1995,5,23),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 28,
+                            SrPlayerId = "sr:player:2099582",
+                            FirstName = "Murray",
+                            LastName = "Koster",
+                            DateOfBirth = new DateOnly(1999,2,21),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 29,
+                            SrPlayerId = "sr:player:2146362",
+                            FirstName = "Marnus",
+                            LastName = "Potgieter",
+                            DateOfBirth = new DateOnly(1999,6,20),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 30,
+                            SrPlayerId = "sr:player:2534059",
+                            FirstName = "Emile",
+                            LastName = "van Heerden",
+                            DateOfBirth = null,
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 31,
+                            SrPlayerId = "sr:player:487940",
+                            FirstName = " Lionel",
+                            LastName = "Cronje",
+                            DateOfBirth = new DateOnly(1989,5,25),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 32,
+                            SrPlayerId = "sr:player:496060",
+                            FirstName = "Jacobus Francois",
+                            LastName = "Venter",
+                            DateOfBirth = new DateOnly(1991,4,19),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 33,
+                            SrPlayerId = "sr:player:533774",
+                            FirstName = "Werner",
+                            LastName = "Kok",
+                            DateOfBirth = new DateOnly(1993,1,17),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 34,
+                            SrPlayerId = "sr:player:472696",
+                            FirstName = "Coenrad Victor",
+                            LastName = "Oosthuizen",
+                            DateOfBirth = new DateOnly(1989,3,22),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 35,
+                            SrPlayerId = "sr:player:1002857",
+                            FirstName = "Curwin Dominique",
+                            LastName = "Bosch",
+                            DateOfBirth = new DateOnly(1997,6,25),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 36,
+                            SrPlayerId = "sr:player:762086",
+                            FirstName = "Cameron Robin",
+                            LastName = "Wright",
+                            DateOfBirth = new DateOnly(1994,4,20),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 37,
+                            SrPlayerId = "sr:player:761734",
+                            FirstName = "Daniel Pieter",
+                            LastName = "Hugo",
+                            DateOfBirth = new DateOnly(1990,7,19),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 38,
+                            SrPlayerId = "sr:player:2187046",
+                            FirstName = "Dian",
+                            LastName = "Bleuler",
+                            DateOfBirth = null,
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 39,
+                            SrPlayerId = "sr:player:1706395",
+                            FirstName = "Aphelele",
+                            LastName = "Fassi",
+                            DateOfBirth = new DateOnly(1998,1,23),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 40,
+                            SrPlayerId = "sr:player:2099570",
+                            FirstName = "Hanru",
+                            LastName = "Jacobs",
+                            DateOfBirth = new DateOnly(2000,3,14),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 41,
+                            SrPlayerId = "sr:player:528730",
+                            FirstName = "Rohan",
+                            LastName = "Janse van Rensburg",
+                            DateOfBirth = new DateOnly(1994,9,11),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 42,
+                            SrPlayerId = "sr:player:1262460",
+                            FirstName = "Daniel",
+                            LastName = "Jooste",
+                            DateOfBirth = new DateOnly(1998,2,11),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 43,
+                            SrPlayerId = "sr:player:762542",
+                            FirstName = " Zee",
+                            LastName = "Mkhabela",
+                            DateOfBirth = new DateOnly(1994,10,15),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 44,
+                            SrPlayerId = "sr:player:535492",
+                            FirstName = "Sikhumbuzo",
+                            LastName = "Notshe",
+                            DateOfBirth = new DateOnly(1993,5,28),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 45,
+                            SrPlayerId = "sr:player:1699649",
+                            FirstName = " Vincent",
+                            LastName = "Tshikaya Tshituka",
+                            DateOfBirth = new DateOnly(1998,9,10),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
+                        new Player
+                        {
+                            PlayerId = 46,
+                            SrPlayerId = "sr:player:2152260",
+                            FirstName = "Ntuthuko",
+                            LastName = "Mchunu",
+                            DateOfBirth = new DateOnly(1999,4,5),
+                            Nationality = "South Africa",
+                            TeamId = 6,
+                        },
                     };
 
                     context.Players.AddRange(players);
@@ -839,6 +1069,191 @@ namespace RugbyDataApi.Data
                             SrPlayerId = "sr:player:2464931",
                             JerseyNumber = 23,
                         },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 24,
+                            TeamLineupId = 12,
+                            PlayerId = 46,
+                            SrPlayerId = "sr:player:2152260",
+                            JerseyNumber = 1,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 25,
+                            TeamLineupId = 12,
+                            PlayerId = 27,
+                            SrPlayerId = "sr:player:1648418",
+                            JerseyNumber = 2,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 26,
+                            TeamLineupId = 12,
+                            PlayerId = 34,
+                            SrPlayerId = "sr:player:472696",
+                            JerseyNumber = 3,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 27,
+                            TeamLineupId = 12,
+                            PlayerId = 30,
+                            SrPlayerId = "sr:player:2534059",
+                            JerseyNumber = 4,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 28,
+                            TeamLineupId = 12,
+                            PlayerId = 37,
+                            SrPlayerId = "sr:player:761734",
+                            JerseyNumber = 5,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 29,
+                            TeamLineupId = 12,
+                            PlayerId = 25,
+                            SrPlayerId = "sr:player:1717311",
+                            JerseyNumber = 6,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 30,
+                            TeamLineupId = 12,
+                            PlayerId = 26,
+                            SrPlayerId = "sr:player:1699647",
+                            JerseyNumber = 7,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 31,
+                            TeamLineupId = 12,
+                            PlayerId = 31,
+                            SrPlayerId = "sr:player:487940",
+                            JerseyNumber = 8,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 32,
+                            TeamLineupId = 12,
+                            PlayerId = 36,
+                            SrPlayerId = "sr:player:762086",
+                            JerseyNumber = 9,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 33,
+                            TeamLineupId = 12,
+                            PlayerId = 35,
+                            SrPlayerId = "sr:player:1002857",
+                            JerseyNumber = 10,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 34,
+                            TeamLineupId = 12,
+                            PlayerId = 29,
+                            SrPlayerId = "sr:player:2146362",
+                            JerseyNumber = 11,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 35,
+                            TeamLineupId = 12,
+                            PlayerId = 32,
+                            SrPlayerId = "sr:player:496060",
+                            JerseyNumber = 12,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 36,
+                            TeamLineupId = 12,
+                            PlayerId = 28,
+                            SrPlayerId = "sr:player:2099582",
+                            JerseyNumber = 13,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 37,
+                            TeamLineupId = 12,
+                            PlayerId = 33,
+                            SrPlayerId = "sr:player:533774",
+                            JerseyNumber = 14,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 38,
+                            TeamLineupId = 12,
+                            PlayerId = 24,
+                            SrPlayerId = "sr:player:2007721",
+                            JerseyNumber = 15,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 39,
+                            TeamLineupId = 12,
+                            PlayerId = 42,
+                            SrPlayerId = "sr:player:1262460",
+                            JerseyNumber = 16,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 40,
+                            TeamLineupId = 12,
+                            PlayerId = 38,
+                            SrPlayerId = "sr:player:2187046",
+                            JerseyNumber = 17,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 41,
+                            TeamLineupId = 12,
+                            PlayerId = 40,
+                            SrPlayerId = "sr:player:2099570",
+                            JerseyNumber = 18,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 42,
+                            TeamLineupId = 12,
+                            PlayerId = 45,
+                            SrPlayerId = "sr:player:1699649",
+                            JerseyNumber = 19,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 43,
+                            TeamLineupId = 12,
+                            PlayerId = 44,
+                            SrPlayerId = "sr:player:535492",
+                            JerseyNumber = 20,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 44,
+                            TeamLineupId = 12,
+                            PlayerId = 43,
+                            SrPlayerId = "sr:player:762542",
+                            JerseyNumber = 21,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 45,
+                            TeamLineupId = 12,
+                            PlayerId = 41,
+                            SrPlayerId = "sr:player:528730",
+                            JerseyNumber = 22,
+                        },
+                        new PlayerLineup
+                        {
+                            PlayerLineupId = 46,
+                            TeamLineupId = 12,
+                            PlayerId = 39,
+                            SrPlayerId = "sr:player:1706395",
+                            JerseyNumber = 23,
+                        },
+
                     };
                     context.PlayerLineups.AddRange(playerLineups);
                 }

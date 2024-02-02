@@ -37,6 +37,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="FixtureId" />
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
+        <a class ="btn btn-secondary reset-btn" asp-route-competitionId="@Model.CompetitionId" asp-action="Index">Back to fixtures</a>
     </form>
 </div>

@@ -33,6 +33,26 @@ namespace RugbyDataApi.Controllers
         }
 
         // GET: api/PlayerStatistics/5
+        [HttpGet("player/{playerId}/fixture/{fixtureId}")]
+        public async Task<ActionResult<PlayerStatistics>> GetPlayerFixtureStatistics(int playerId, int fixtureId)
+        {
+            if (_context.PlayersStatistics == null)
+            {
+                return NotFound("No Player Statistics Id provided");
+            }
+            var playerStatistics = await _context.PlayersStatistics
+                .Where(p => p.PlayerId == playerId && p.FixtureId == fixtureId)
+                .FirstOrDefaultAsync();
+
+            if (playerStatistics == null)
+            {
+                return NotFound();
+            }
+
+            return playerStatistics;
+        }
+
+        // GET: api/PlayerStatistics/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PlayerStatistics>> GetPlayerStatistics(int id)
         {

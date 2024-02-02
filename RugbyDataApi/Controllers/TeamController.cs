@@ -36,7 +36,7 @@ namespace RugbyDataApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Team>> GetTeam(int id)
         {
-          if (_context.Teams == null)
+            if (_context.Teams == null)
             {
                 return NotFound();
             }
@@ -48,6 +48,47 @@ namespace RugbyDataApi.Controllers
             }
 
             return team;
+        }
+
+        // GET: return all teams by team id
+        [HttpGet("fixture/{id}")]
+        public async Task<ActionResult<IEnumerable<Team>>> GetFixtureTeamLineups(int id)
+        {
+            if (_context.TeamLineups == null)
+            {
+                return NotFound("No fixture Id provided");
+            }
+            var teams = await _context.Teams
+                .Where(t => t.TeamId == id)
+                .ToListAsync();
+
+            if (teams == null)
+            {
+                return NotFound();
+            }
+
+            return teams;
+        }
+
+        //GET: list of all the Teams for each round, using a list of teamIds
+        [HttpGet("roundteams")]
+        public async Task<ActionResult<IEnumerable<Team>>> GetRoundTeams([FromQuery] List<int> roundTeamsIds)
+        {
+            if (roundTeamsIds == null || roundTeamsIds.Count == 0)
+            {
+                return BadRequest("No fixture IDs provided");
+            }
+
+            var teams = await _context.Teams
+                .Where(p => roundTeamsIds.Contains(p.TeamId))  // return all Teams in the Db if the teamsId matches the list of teamsIds provided
+                .ToListAsync(); // Add all the Teams found to a list
+
+            if (teams == null || teams.Count == 0)
+            {
+                return NotFound("No team lineups found for the provided fixture IDs");
+            }
+
+            return teams;
         }
 
         // PUT: api/Team/5
@@ -86,18 +127,19 @@ namespace RugbyDataApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Team>> PostTeam(Team team)
         {
-          if (_context.Teams == null)
+            if (_context.Teams == null)
             {
-              return Problem("Entity set 'RugbyDataDbContext.Team'  is null.");
+              return Problem("Entity set 'RugbyDataDbContext.Team' is null.");
             }
             _context.Teams.Add(team);
+            
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (TeamExists(team.TeamId))
+                if (TeamExists(team.TeamId) || TeamExistsBySrId(team.SrCompetitorId)) 
                 {
                     return Conflict();
                 }
@@ -133,6 +175,10 @@ namespace RugbyDataApi.Controllers
         private bool TeamExists(int id)
         {
             return (_context.Teams?.Any(e => e.TeamId == id)).GetValueOrDefault();
+        }
+        private bool TeamExistsBySrId(string SrCompetitorId)
+        {
+            return (_context.Teams?.Any(e => e.SrCompetitorId == SrCompetitorId)).GetValueOrDefault();
         }
     }
 }

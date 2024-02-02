@@ -2,13 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MvcRugby.Data;
 using MvcRugby.Models;
-using MvcRugby.Mappings;
-using MvcRugby.ViewModels;
 using MvcRugby.Services;
 
 namespace MvcRugby.Controllers
 {
-    //[Authorize]
     public class TeamController : Controller
     {
         private readonly ILogger<TeamController> _logger;
@@ -43,7 +40,7 @@ namespace MvcRugby.Controllers
             {
                 _logger.LogInformation("Create GET action called.");
                 
-                // Populate the competitions dropdown
+                // add in the dropdown
                 await CompetitionDropdownList();
                 
                 // Create a new Team instance
@@ -54,7 +51,7 @@ namespace MvcRugby.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in Create GET action: {ex.Message}");
-                throw; // Rethrow the exception for now to see it in the console
+                throw;
             }
         }
 

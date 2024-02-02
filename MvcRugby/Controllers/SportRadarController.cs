@@ -26,163 +26,42 @@ namespace MvcRugby.Controllers
             _rugbyDataApiService = rugbyDataApiService;
         }
         
-        // URI: http://localhost:5254/SportRadar/Season
-        
-        public IActionResult Index()
+        // Sync Sportradar Competition Players Endpoint - 50% complete: TeamId restriction needs to be resolved
+        public async Task<IActionResult> SyncSeasonPlayersEndPoint(string id) //Pass SportRadar Competition Id as a parameter
         {
-            return View();
-        }
-        
-        // Sync Sport Radar Api data with local Rugby Data Api
-        public async Task<IActionResult> SyncSeasonsEndPoint()
-        {
-            // Not passsing in anything as button acts as trigger only, all logic occurs here
-
-            var seasonInfo = await _sportRadarApiService.GetSeasons();
+            // fetch the information from the Sport Radar Api, parameter required is Sportradar Competition Id
+            var playerInfo = await _sportRadarApiService.GetSrSeasonPlayers("sr:competition:419"); //manualy include parameter to test
             
-            //DateTime startDate = new DateTime(2024, 05, 01); //pass as parameter?
-
-            var newSeasons = new List<Season>();
-
-            // var season = new Season
-            // {
-            //     Id = "3",
-            //     name = "Test3",
-            //     start_date = new DateTime(2024, 1, 3),
-            //     end_date = "2023-01-03",
-            //     year = "23/24",
-            //     competition_Id = "2",
-            // };    
-
-            foreach(var season in seasonInfo.seasons)
-            {
-                //if(season.start_date >= startDate)
-                //{
-                    newSeasons.Add(season);
-                //}
-            }
+            // new empty list to transfer each player from Sportradar mapping to local Api model
+            var newPlayers = new List<Player>();
             
-            _logger.LogInformation($"Number of seasons: {newSeasons.Count()}");
-            
-            if(newSeasons != null)
-            {
-                // Deserialize the season object to JSON for logging
-                //var seasonJson = JsonConvert.SerializeObject(season);
-                //_logger.LogInformation($"Season JSON: {seasonJson}");
-                
-                foreach(var season in newSeasons)
-                {
-                    await _rugbyDataApiService.SaveSeasons(season);
-                }
-                return RedirectToAction("Index");    
-            }    
-            else
-            {
-                _logger.LogWarning("The 'seasons' object is null in SaveSeasons method.");
-                return BadRequest();
-            }
-            
-
-            //await SaveSeasons(seasonInfo);         
-            
-            //return Ok();
-
-            // try
-            // {
-            //     // Fetch the data from Sport Radar Api Endpoint
-            //     var seasons = await _sportRadarApiService.GetSeasons();
-
-            //     // Log the received seasons data
-            //     _logger.LogInformation("Received seasons data: {@Seasons}", seasons);
-
-            //     // Save data retrieved from Sport Radar API to Rugby Data Api (pass to seperate method below as parameter to complete task)
-            //     await SaveSeasons(seasons);
-
-            //     // Return appropriate result
-            //     return Ok(); // Replace with the appropriate result based on your requirements
-            // }
-            // catch (NullReferenceException ex)
-            // {
-            //     // Log the exception details
-            //     _logger.LogError(ex, "An error occurred in SyncSeasonsEndPoint");
-
-            //     // Return an error response or handle it as needed
-            //     return StatusCode(500, "Internal Server Error");
-            // }
-        }
-        
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // private async Task SaveSeasons(SeasonInfo seasons)
-        // {
-        //     try
-        //     {               
-        //         // Check if 'seasons' is null before processing
-        //         if (seasons == null)
-        //         {
-        //             _logger.LogWarning("The 'seasons' object is null in SaveSeasons method.");
-        //             return;
-        //         }
-
-        //         _logger.LogInformation($"Number of seasons: {seasons.seasons?.Count ?? 0}");
-
-        //         // Check if 'seasons' is not null and 'seasons.seasons' is not null
-        //         // if (seasons.seasons != null)
-        //         // {
-        //             //foreach (var season in seasons.seasons)
-        //             //{
-        //                 // Ensure that each season and its properties are not null before processing
-        //                 // if (season != null && !string.IsNullOrEmpty(season.Id) && !string.IsNullOrEmpty(season.name))
-        //                 // {
-        //                     // Deserialize the season object to JSON for logging
-        //                     var seasonJson = JsonConvert.SerializeObject(seasons);
-        //                     _logger.LogInformation($"Season JSON: {seasonJson}");
-
-        //                     // Save the season
-        //                     await _rugbyDataApiService.SaveSeasons(seasons);
-        //                 // }
-        //                 // else
-        //                 // {
-        //                     _logger.LogError("A season or its properties within 'seasons.seasons' is null or empty in SaveSeasons.");
-        //                 // }
-        //             //}
-        //         // }
-        //         // else
-        //         // {
-        //         //     _logger.LogError("The 'seasons.seasons' is null in SaveSeasons.");
-        //         // }
-
-        //         _logger.LogInformation("Seasons processing completed successfully");
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogError(ex, "An error occurred in SaveSeasons.");
-        //     } 
-        // }
-
-        // **********
-        // Sync Sport Radar Season Players Endpoint
-        public async Task<IActionResult> SyncSeasonPlayersEndPoint() //Pass SportRadar Competition Id as a parameter
-        {
-            // fetch the information from the Sport Radar Api
-            var playerInfo = await _sportRadarApiService.GetPlayersBySeasonId("sr:competition:419");
-            
-            // 
-            var newPlayers = new List<SeasonPlayer>();
-            
+            // transfer each player
             foreach(var player in playerInfo.SeasonPlayers)
             {
-                newPlayers.Add(player);
+                var newPlayer = new Player()
+                {
+                    SrPlayerId = player.id,
+                    FirstName = player.first_name,
+                    LastName = player.last_name,
+                    DateOfBirth = null,
+                    Nationality = null,
+                    //TeamId = null, => Required, foreign key... [Sportradar endpoint does not include player team info]
+                };               
+                
+                // add each new player to the newPlayers list
+                newPlayers.Add(newPlayer);
             }
-                _logger.LogInformation($"Number of players: {newPlayers.Count()}");
-                        
+            // check how many (if any) players were added
+            _logger.LogInformation($"Number of players: {newPlayers.Count()}");
+
+            // check if the newPlayers list is null      
             if(newPlayers != null)
             {
+                // add each new player to the Api Db
                 foreach(var player in newPlayers)
                 {
-                    await _rugbyDataApiService.SavePlayers(player);
+                    await _rugbyDataApiService.AddPlayer(player);
                 }
-                
                 return RedirectToAction("Index");    
             }    
             else
@@ -192,8 +71,188 @@ namespace MvcRugby.Controllers
                 return BadRequest();
             }
         }
+          
+        // Sync Sportradar Season Teams Endpoint - 80% Complete: update Api to stop duplicate entries 
+        public async Task<IActionResult> SyncSeasonTeamsEndPoint(string id) //Pass SportRadar Season Id as a parameter
+        {
+            // fetch the information from the Sport Radar Api, parameter required is Sportradar Season Id, update Db for Sr Season Id as well as Sr Competition Id
+            var srCompetitionTeams = await _sportRadarApiService.GetSrSeasonCompetitors("sr:season:106497");
+            
+            // new empty list to transfer each team from Sportradar mapping to local Api model
+            var newTeams = new List<Team>();
+            
+            // transfer each player
+            foreach(var team in srCompetitionTeams.Season_Competitors)
+            {
+                var newTeam = new Team()
+                {
+                    SrCompetitorId = team.id,
+                    TeamName = team.name,
+                    Country = null,
+                };
+                
+                // add each new player to the newPlayers list
+                newTeams.Add(newTeam);
+            }
+            // check how many (if any) players were added
+            _logger.LogInformation($"Number of players: {newTeams.Count()}");
+
+            // check if the newPlayers list is null      
+            if(newTeams != null)
+            {
+                // add each new player to the Api Db
+                foreach(var team in newTeams)
+                {
+                    await _rugbyDataApiService.AddTeam(team);
+                }
+                return RedirectToAction("Index");    
+            }    
+            else
+            {
+                _logger.LogWarning("The 'teams' object is null in the SavePlayers method.");
+                
+                return BadRequest();
+            }
+        }
+
+        // Sync Sportradar Season Lineup Endpoint - 80% Complete: update Api to stop duplicate entries 
+        public async Task<IActionResult> SyncCompetitionLineup(int competitionId, string srSeasonId) //Pass SportRadar Season Id as a parameter
+        {
+            _logger.LogInformation($"SyncCompetitionLineup action method called, retriving Sportradar Season Lineups using action method 'GetSrSeasonLineups'");
+            
+            // fetch the information from the Sport Radar Api, parameter required is Sportradar Season Id
+            var srCompetitionFixtures = await _sportRadarApiService.GetSrSeasonLineups("sr:season:106497"); //sr:season:106497
+            
+            // new empty list to transfer each team from Sportradar mapping to local Api model
+            var newFixtures = new List<Fixture>();
+            
+            // transfer each player
+            foreach(var sportEvent in srCompetitionFixtures.lineups)
+            {
+                var newFixture = new Fixture()
+                {
+                    SrSportEventId = sportEvent.sport_event.id,
+                    RoundNumber = sportEvent.sport_event.sport_event_context.round.number,
+                    StartTime = sportEvent.sport_event.start_time,
+                    Status = sportEvent.sport_event_status.status,
+                    HomeScore = sportEvent.sport_event_status.home_score,
+                    AwayScore = sportEvent.sport_event_status.away_score,
+                    CompetitionId = competitionId,
+                };
+                
+                // add each new player to the newPlayers list
+                newFixtures.Add(newFixture);
+            }
+            // check how many (if any) players were added
+            _logger.LogInformation($"Number of fixtures: {newFixtures.Count()}");
+
+            // check if the newPlayers list is null      
+            if(newFixtures != null)
+            {
+                if(ModelState.IsValid)
+                {
+                    // add each new player to the Api Db
+                    foreach(var fixture in newFixtures)
+                    {
+                        _logger.LogInformation($"Fixture data being posted: {Newtonsoft.Json.JsonConvert.SerializeObject(fixture)}");
+                        await _rugbyDataApiService.AddFixture(fixture);
+                    }
+                }
+                return RedirectToAction("Index");    
+            }    
+            else
+            {
+                _logger.LogWarning("The 'teams' object is null in the SavePlayers method.");
+                
+                return BadRequest();
+            }
+        }
+        
+        public async Task<IActionResult> SyncCompetitionTeamLineups(int competitionId) //Pass SportRadar Season Id as a parameter
+        {
+        
+            _logger.LogInformation($"***************SyncCompetitionLineup action method called, retriving Sportradar Season Lineups using action method 'GetSrSeasonLineups'");
+            
+            var srCompetitionFixtures = await _sportRadarApiService.GetSrSeasonLineups("sr:season:106497"); //sr:season:106497
+            
+            // retrieve all fixtures (including new Ids generated by the Db, add the teamlineups from theretrieved endpoint data)
+            var allCompetitionFixtures = await _rugbyDataApiService.GetCompetitionFixtures(competitionId);
+            _logger.LogInformation($"team lineup data: {allCompetitionFixtures}");
+
+            var allTeams = await _rugbyDataApiService.GetAllTeams();
+            _logger.LogInformation($"team lineup data: {allTeams}");
+
+            //New teamLineupList
+            var newTeamLineups = new List<TeamLineup>();
+            foreach(var fixture in allCompetitionFixtures) //for a fixture
+            {                
+                foreach (var team in allTeams) //for a team
+                {
+                    foreach(var sportEvent in srCompetitionFixtures.lineups) //for each event lineup
+                    {
+                        foreach(var lineup in sportEvent.sport_event.competitors) //for each lineup competitor
+                        {
+                            if(fixture.SrSportEventId == sportEvent.sport_event.id && team.SrCompetitorId == lineup.id)
+                            {
+                                if(lineup.qualifier == "home")
+                                {
+                                    var newTeamLineup = new TeamLineup()
+                                    {
+                                        Designation = "home",
+                                        FixtureId = fixture.FixtureId,
+                                        TeamId = team.TeamId,
+                                    };
+                                    newTeamLineups.Add(newTeamLineup);
+                                }
+                                else if(lineup.qualifier == "away")
+                                {
+                                    var newTeamLineup = new TeamLineup()
+                                    {
+                                        Designation = "away",
+                                        FixtureId = fixture.FixtureId,
+                                        TeamId = team.TeamId,
+                                    };
+                                    newTeamLineups.Add(newTeamLineup);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            _logger.LogInformation($"Number of team Lineups: {newTeamLineups.Count()}");
+            _logger.LogInformation($"team lineup data: {newTeamLineups}");
+
+            if(newTeamLineups != null)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                // add each new team lineup to the Api Db
+                foreach(var teamLineup in newTeamLineups)
+                {
+                    _logger.LogInformation($"TeamLineup Data: {Newtonsoft.Json.JsonConvert.SerializeObject(teamLineup)}");
+
+                    await _rugbyDataApiService.AddTeamLineup(teamLineup);
+                }
+                return RedirectToAction("Index");    
+            }
+            else
+            {
+                _logger.LogWarning("The 'teams' object is null in the SavePlayers method.");
+                
+                return BadRequest();
+            }
+        }
 
         // **********
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Competitions()
         {
             // Get SportsRadar data from Api via services
@@ -246,7 +305,6 @@ namespace MvcRugby.Controllers
                         {
                             RoundNumber = group.Key ?? -1, // Group key is the round number
                             Status = group.First().sport_event_status?.status,
-                            StartTime = DateTime.Parse(group.First().sport_event?.start_time),
                             StartTimeConfirmed = group.First().sport_event?.start_time_confirmed ?? false
                         })
                         .ToList()
@@ -256,10 +314,9 @@ namespace MvcRugby.Controllers
             }
             else
             {
-                return NotFound(); // else return 404 error
+                return NotFound();
             }
         }
-        
         
         // URI: http://localhost:5254/SportRadar/RoundLineup/sr%3Aseason%3A107205
         //[HttpGet("RoundLineup/{id}")]
@@ -318,17 +375,10 @@ namespace MvcRugby.Controllers
                                         };
 
                                         teamViewModel.Players.Add(matchSquad);
-                                        
-                                        //await Task.Delay(1000);
-
-                                        // Collect tasks for player statistics retrieval
-                                        //tasks.Add(_sportRadarApiService.GetPlayerStatistics(matchSquad.PlayerId));
                                     }
                                 }
                                 viewModel.RoundDetails.FirstOrDefault()?.Teams.Add(teamViewModel);
                             }
-                            // Await all player statistics retrieval tasks
-                            //await Task.WhenAll(tasks);
                         }
                         return View(viewModel);
                     }

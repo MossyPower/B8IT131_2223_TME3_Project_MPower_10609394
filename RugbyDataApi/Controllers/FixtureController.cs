@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RugbyDataApi.Data;
 using RugbyDataApi.Models;
+using RugbyDataApi.DTOs;
 
 namespace RugbyDataApi.Controllers
 {
@@ -14,10 +15,12 @@ namespace RugbyDataApi.Controllers
     [ApiController]
     public class FixtureController : ControllerBase
     {
+        private readonly ILogger<FixtureController> _logger;
         private readonly RugbyDataDbContext _context;
 
-        public FixtureController(RugbyDataDbContext context)
+        public FixtureController(ILogger<FixtureController> logger, RugbyDataDbContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
@@ -51,7 +54,27 @@ namespace RugbyDataApi.Controllers
 
             return fixtures;
         }
-        
+
+        // GET: api/Fixtures by Competition Id & round number
+        [HttpGet("competition/{id}/round/{number}")]
+        public async Task<ActionResult<IEnumerable<Fixture>>> GetRoundFixtures(int id, int number)
+        {
+            if (_context.Fixtures == null)
+            {
+                return NotFound();
+            }
+            var fixtures = await _context.Fixtures
+                .Where(f => f.CompetitionId == id && f.RoundNumber == number)
+                .ToListAsync();
+
+            if (fixtures == null)
+            {
+                return NotFound();
+            }
+
+            return fixtures;
+        }
+
         // GET: api/Fixture/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Fixture>> GetFixture(int id)
@@ -68,6 +91,65 @@ namespace RugbyDataApi.Controllers
             }
 
             return competitionGame;
+        }
+
+        //GET: Fixture by Id, including all related data
+        [HttpGet("withRelatedData/{id}")]
+        public async Task<ActionResult<IEnumerable<FixtureDto>>> GetFixtureWithRelatedData(int id)
+        {   
+            var fixtureWithRelatedData = _context.Fixtures
+                .Where(f => f.FixtureId == id) // Fetch Competition from Db, by Id
+                .Include(f => f.TeamLineups)
+                .Include(f => f.PlayersStatistics)  // Include related fixtures data,
+                .Select(fixture => 
+                    new FixtureDto{ // add the Fixture model data to the FixtureDto 
+                    FixtureId = fixture.FixtureId,
+                    SrSportEventId = fixture.SrSportEventId,
+                    RoundNumber = fixture.RoundNumber,
+                    StartTime = fixture.StartTime,
+                    Status = fixture.Status,
+                    HomeScore = fixture.HomeScore,
+                    AwayScore = fixture.AwayScore,  
+                    TeamLineups = fixture.TeamLineups.Select(teamLineup =>
+                        new TeamLineupDto{
+                        TeamLineupId = teamLineup.TeamLineupId,
+                        Designation = teamLineup.Designation,
+                        PlayerLineups = teamLineup.PlayerLineups.Select(playerLineups => 
+                            new PlayerLineupDto{
+                            PlayerLineupId = playerLineups.PlayerLineupId,
+                            SrPlayerId = playerLineups.SrPlayerId,
+                            JerseyNumber = playerLineups.JerseyNumber,
+                            }).ToList(),    
+                        }).ToList(),
+                        
+                    PlayersStatistics = fixture.PlayersStatistics.Select(playerStats =>
+                        new PlayerStatisticsDto{
+                        PlayerStatisticsId = playerStats.PlayerStatisticsId,
+                        Tries = playerStats.Tries,
+                        TryAssists = playerStats.TryAssists,
+                        Conversions = playerStats.Conversions,
+                        PenaltyGoals = playerStats.PenaltyGoals,
+                        DropGoals = playerStats.DropGoals,
+                        MetersRun = playerStats.MetersRun,
+                        Carries = playerStats.Carries,
+                        Passes = playerStats.Passes,
+                        Offloads = playerStats.Offloads,
+                        CleanBreaks = playerStats.CleanBreaks,
+                        LineoutsWon = playerStats.LineoutsWon,
+                        LineoutsLost = playerStats.LineoutsLost,
+                        Tackles = playerStats.Tackles,
+                        TacklesMissed = playerStats.TacklesMissed,
+                        ScrumsWon = playerStats.ScrumsWon,
+                        ScrumsLost = playerStats.ScrumsLost,
+                        TotalScrums = playerStats.TotalScrums,
+                        TurnoversWon = playerStats.TurnoversWon,
+                        PenaltiesConceded = playerStats.PenaltiesConceded,
+                        YellowCards = playerStats.YellowCards,
+                        RedCards = playerStats.RedCards,
+                        }).ToList(),
+                }).ToList();
+
+            return fixtureWithRelatedData;
         }
 
         // PUT: api/Fixture/5
@@ -104,20 +186,20 @@ namespace RugbyDataApi.Controllers
         // POST: api/Fixture
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Fixture>> PostFixture(Fixture competitionGame)
+        public async Task<ActionResult<Fixture>> PostFixture(Fixture fixture)
         {
             if (_context.Fixtures == null)
             {
                 return Problem("Entity set 'RugbyDataDbContext.Fixtures'  is null.");
             }
-            _context.Fixtures.Add(competitionGame);
+            _context.Fixtures.Add(fixture);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (FixtureExists(competitionGame.FixtureId))
+                if (FixtureExists(fixture.FixtureId) || FixtureExistsBySrid(fixture.SrSportEventId))
                 {
                     return Conflict();
                 }
@@ -127,7 +209,7 @@ namespace RugbyDataApi.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFixture", new { id = competitionGame.FixtureId }, competitionGame);
+            return CreatedAtAction("GetFixture", new { id = fixture.FixtureId }, fixture);
         }
 
         // DELETE: api/Fixture/5
@@ -153,6 +235,10 @@ namespace RugbyDataApi.Controllers
         private bool FixtureExists(int id)
         {
             return (_context.Fixtures?.Any(e => e.FixtureId == id)).GetValueOrDefault();
+        }
+        private bool FixtureExistsBySrid(string SrSportEventId)
+        {
+            return (_context.Fixtures?.Any(f => f.SrSportEventId == SrSportEventId)).GetValueOrDefault();
         }
     }
 }

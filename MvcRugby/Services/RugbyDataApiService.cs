@@ -1,26 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using MvcRugby.Models;
-using MvcRugby.Services;
 using MvcRugby.Mappings;
 
 namespace MvcRugby.Services
 {
     public class RugbyDataApiService : IRugbyDataApiService
     {
+        private readonly ILogger<RugbyDataApiService> _logger;
         private string BASE_URL = "http://localhost:5217/";
         private readonly HttpClient _httpClient;
-        public RugbyDataApiService(HttpClient httpClient)
+        public RugbyDataApiService(ILogger<RugbyDataApiService> logger, HttpClient httpClient)
         {
+            _logger = logger;
             _httpClient = httpClient;
             _httpClient.BaseAddress = new Uri(BASE_URL);
         }
@@ -53,20 +44,19 @@ namespace MvcRugby.Services
             {
                 try
                 {
-                    var response = await _httpClient.PostAsJsonAsync<SeasonPlayer>("api/v1/seasonplayers/", seasonPlayer);
+                    var response = await _httpClient.PostAsJsonAsync<SeasonPlayer>("api/v1/player/", seasonPlayer);
                     response.EnsureSuccessStatusCode();
                 }
                 catch (HttpRequestException ex)
                 {
-                    throw new ApplicationException("Error adding the Sport Radar seasons in the API.", ex);
+                    throw new ApplicationException("Error adding the Sport Radar players in the API.", ex);
                 }
             }
             else
             {
-                throw new Exception("Season cannot be null.");
+                throw new Exception("Players cannot be null.");
             }
         }
-
 
         // *****************************************************************************************
 
@@ -123,12 +113,12 @@ namespace MvcRugby.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"/api/v1/club/{id}");
+                var response = await _httpClient.DeleteAsync($"/api/v1/competition/{id}");
                 response.EnsureSuccessStatusCode();
             }
             catch (HttpRequestException ex)
             {
-                throw new ApplicationException("Error deleting the club in the API.", ex);
+                throw new ApplicationException("Error deleting the competition in the API.", ex);
             }
         }
 
@@ -146,11 +136,22 @@ namespace MvcRugby.Services
         {
             return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>($"api/v1/fixture/competition/{id}");
         }
+        [HttpGet]
+        public async Task<IEnumerable<Fixture>?> GetRoundFixtures(int competitionId, int roundNumber)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Fixture>>($"api/v1/fixture/competition/{competitionId}/round/{roundNumber}");
+        }
 
         [HttpGet]
         public async Task<Fixture> GetFixtureById(int id)
         {
             return await _httpClient.GetFromJsonAsync<Fixture>($"api/v1/fixture/{id}");
+        }
+
+        [HttpGet]
+        public async Task<RdAPI_Fixture> GetFixtureWithRelatedData(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<RdAPI_Fixture>("api/v1/fixture/withrelateddata");
         }
 
         [HttpPost]
@@ -208,6 +209,18 @@ namespace MvcRugby.Services
             return await _httpClient.GetFromJsonAsync<Player>($"api/v1/player/{id}");
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<Player>> GetAllFixturePlayersById(List<int> ids)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Player>>($"api/v1/player/allfixtureplayers?ids={string.Join(",", ids)}");
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<Player>> GetRoundPlayers(List<int> roundPlayersIds)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Player>>($"api/v1/player/roundplayers?roundPlayersIds={string.Join("&roundPlayersIds=", roundPlayersIds)}");
+        }
+
         [HttpPost]
         public async Task AddPlayer(Player player)        
         {
@@ -262,7 +275,25 @@ namespace MvcRugby.Services
         {
             return await _httpClient.GetFromJsonAsync<PlayerLineup>($"api/v1/playerlineup/{id}");
         }
+        
+        [HttpGet]
+        public async Task<IEnumerable<PlayerLineup>> GetPlayerLineupByTeamLineupId(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerLineup>>($"api/v1/playerlineup/roundplayerlineups/{id}");
+        }
 
+        [HttpGet]
+        public async Task <IEnumerable<PlayerLineup>> GetAllPlayerLineupsById(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerLineup>>($"api/v1/playerlineup/teamlineup/{id}");
+        }
+        
+        [HttpGet]
+        public async Task<IEnumerable<PlayerLineup>> GetRoundPlayerLineups(List<int> teamLineupIds)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerLineup>>($"api/v1/playerlineup/round?teamlineupids={string.Join("&teamlineupids=", teamLineupIds)}");
+        }
+        
         [HttpPost]
         public async Task AddPlayerLineup(PlayerLineup playerLineup)        
         {
@@ -290,6 +321,12 @@ namespace MvcRugby.Services
             }
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<PlayerLineup>> GetFixturePlayerLineups(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerLineup>>($"api/v1/playerlineup/fixture/{id}");
+        }
+        
         public async Task DeletePlayerLineupById(int id)
         {
             try
@@ -312,11 +349,11 @@ namespace MvcRugby.Services
             return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerStatistics>>("api/v1/playerstatistics/");
         }
         
-        // [HttpGet]
-        // public async Task<IEnumerable<PlayerStatistics>?> GetPlayersStatisticsByPlayerId(List<int> playerIds)
-        // {
-        //     return await _httpClient.GetFromJsonAsync<IEnumerable<PlayerStatistics>>($"api/v1/playerstatistics/players/{playerIds}");
-        // }
+        [HttpGet]
+        public async Task<PlayerStatistics> GetPlayerFixtureStatistics(int playerId, int fixtureId)
+        {
+            return await _httpClient.GetFromJsonAsync<PlayerStatistics>($"api/v1/playerstatistics/player/{playerId}/fixture/{fixtureId}");
+        }
 
         [HttpGet]
         public async Task<PlayerStatistics> GetPlayerStatisticsById(int id)
@@ -370,15 +407,27 @@ namespace MvcRugby.Services
         [HttpGet]
         public async Task<IEnumerable<Team>> GetAllTeams()
         {
-            return await _httpClient.GetFromJsonAsync<IEnumerable<Team>>("api/v1/team/");
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Team>>("api/v1/team");
         }
-        
+
         [HttpGet]
         public async Task<Team> GetTeamById(int id)
         {
             return await _httpClient.GetFromJsonAsync<Team>($"api/v1/team/{id}");
         }
 
+        [HttpGet("fixture/{id}")]
+        public async Task<IEnumerable<Team>> GetFixtureTeams(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Team>>($"api/v1/team/fixture/{id}");
+        }
+        
+        [HttpGet]
+        public async Task<IEnumerable<Team>> GetRoundTeams(List<int> roundTeamsIds)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<Team>>($"api/v1/team/roundteams?roundTeamsIds={string.Join("&roundTeamsIds=", roundTeamsIds)}");
+        }
+        
         [HttpPost]
         public async Task AddTeam(Team team)        
         {
@@ -415,7 +464,7 @@ namespace MvcRugby.Services
             }
             catch (HttpRequestException ex)
             {
-                throw new ApplicationException("Error deleting the club in the API.", ex);
+                throw new ApplicationException("Error deleting the team in the API.", ex);
             }
         }
 
@@ -433,17 +482,40 @@ namespace MvcRugby.Services
         {
             return await _httpClient.GetFromJsonAsync<TeamLineup>($"api/v1/teamlineup/{id}");
         }
+        
+        [HttpGet]
+        public async Task<IEnumerable<TeamLineup>> GetFixtureTeamLineups(int id)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeamLineup>>($"api/v1/teamlineup/fixture/{id}");
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<TeamLineup>> GetRoundTeamLineups(List<int> fixtureIds)
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<TeamLineup>>($"api/v1/teamlineup/fixtures?fixtureids={string.Join("&fixtureids=", fixtureIds)}");
+        }
 
         [HttpPost]
         public async Task AddTeamLineup(TeamLineup teamLineup)        
         {
+            _logger.LogInformation("SyncCompetitionTeamLineups payload successfully reached AddTeamLineup sevice task method");
+            _logger.LogInformation($"TeamLineup Data: {Newtonsoft.Json.JsonConvert.SerializeObject(teamLineup)}");
+            
+            
             try
             {
                 var response = await _httpClient.PostAsJsonAsync<TeamLineup>("api/v1/teamlineup/", teamLineup);
                 response.EnsureSuccessStatusCode();
+                
+                // Log the response details
+                _logger.LogInformation($"API Response: {await response.Content.ReadAsStringAsync()}");
             }
             catch (HttpRequestException ex)
             {
+                if (ex.InnerException != null)
+                {
+                    _logger.LogError($"Inner Exception: {ex.InnerException.Message}");
+                }
                 throw new ApplicationException("Error creating the team lineup in the API.", ex);
             }
         }

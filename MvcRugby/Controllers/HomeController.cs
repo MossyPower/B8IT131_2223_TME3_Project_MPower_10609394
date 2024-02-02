@@ -1,8 +1,5 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using MvcRugby.Models;
-using MvcRugby.Mappings;
-using MvcRugby.ViewModels;
 using MvcRugby.ViewModels;
 
 namespace MvcRugby.Controllers;

@@ -11,85 +11,91 @@
 <a class="btn btn-primary" asp-controller="Comparison" asp-action="Rounds" asp-route-id="@Model.CompetitionId" >Back to Competition Rounds</a>
 <hr>
 
-<table class="table table-dark table-bordered table-responsive">
+<table class="table table-dark table-bordered table-responsive text-center">
     <!-- Table headers -->
     <thead>
         <tr>
             <!-- static left column header --> 
             <th scope="col">Team:</th>
-            @foreach(var teamLineup in Model.Fixtures)
+            @foreach(var teamLineup in Model.TeamLineups)
             {
-                @* <th scope="col text-center">@teamLineup.</th>
-                <th scope="col text-center text-middle">@team.AwayTeam</th> *@
+                @foreach(var team in Model.Teams)
+                {
+                    @if(teamLineup.TeamId == team.TeamId)
+                    {
+                        <th scope="col text-center">@team.TeamName.</th>
+                    }
+                }
             }
         </tr>
     </thead>
     <!-- table content -->
     <tbody>
-        <!-- iterate over each team position -->
-        @for (int i = 1; i <= 23; i++) //repeat 23 times for each position on a rugby team
+        @foreach(var teamLineup in Model.TeamLineups) // List of TeamLineups - 16 Teams
         {
+            @foreach(var playerLineup in Model.PlayerLineups) // List of PlayerLineups - 23 per Team x 16 = 368
+            {
+
+            }
+        }
+
+        <!-- iterate over each team position -->
+        @for (int i = 0; i <= 23; i++) //repeat 23 times for each position on a rugby team
+        {
+            int k = i + 1;
             <!-- Add row of data -->
             <tr>
-                <table class="table table-striped table-bordered">
+                <table class="table table-striped table-sm table-fixed table-bordered">
                     <tbody>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 Player:
                                 <br>
-                                Position: @i
+                                Position: @k
                             </th>
-                            @for (int j = 1; j <= 16; j++) //Repeat x16 for each team in the round
+                            @foreach (var teamPlayers in Model.Players)
                             {
-                                <td class="text-center">[Player Name]</td>
+                                if (teamPlayers.Count > i) // Check if the team has players at the current index
+                                {
+                                    var player = teamPlayers[i];
+                                    <th scope="col text-center">@player.FirstName @player.LastName</th>
+                                }
+                                else
+                                {
+                                    <td scope="col text-center">Team not named</td>
+                                }
                             }
-                            @foreach(var player in Model.Fixtures)
-                            {
-                                //<td></td>
-                            }
-                        </tr>
-                        <tr>
-                            <button id="ShowHideTableButton" onclick="ShowHideTable()">Show / hide</button>
                         </tr>
                         <div id="ComparisonTable">
-                            <tr>
-                                <td>Position: </td>
-                                @for (int j = 1; j <= 16; j++)
-                                {
-                                    <td class="text-center">0</td>
-                                }
-                                @foreach(var player in Model.Fixtures)
-                                {
-                                    //<td></td>
-                                }
-                            </tr>
                             <tr>
                                 <td>Carries: </td>
                                 @for (int j = 1; j <= 16; j++)
                                 {
-                                    <td class="text-center">0</td>
+                                    <td scope="col" class="text-center">0</td>
                                 }
-                                @foreach(var player in Model.Fixtures)
+                                @foreach(var statistic in Model.PlayersStatistics)
                                 {
-                                    //<td></td>
+                                    // player statistics -> carries
+                                    // player 2 from each team
                                 }
                             </tr>
                             <tr>
                                 <td>Clean Breaks: </td>
                                 @for (int j = 1; j <= 16; j++)
                                 {
-                                    <td class="text-center">0</td>
+                                    <td scope="col" class="text-center">0</td>
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    //<td></td>
+                                    // player 2 from each team
+                                    // player statistics -> carries
                                 }
                             </tr>
                             <tr>
                                 <td>Conversions: </td>
                                 @for (int j= 1; j <= 16; j++)
                                 {
-                                    <td class="text-center">0</td>
+                                    <td scope="col" class="text-center">0</td>
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
@@ -100,11 +106,11 @@
                                 <td>Drop Goals: </td>
                                 @for (int j = 1; j <= 16; j++)
                                 {
-                                    <td class="text-center">0</td>
+                                    <td scope="col" class="text-center">0</td>
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -115,7 +121,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -126,7 +132,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -137,7 +143,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -148,7 +154,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -159,7 +165,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                  
                                 }
                             </tr>
                             <tr>
@@ -170,7 +176,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                   
                                 }
                             </tr>
                             <tr>
@@ -181,7 +187,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -192,7 +198,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -203,7 +209,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -214,7 +220,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                   
                                 }
                             </tr>
                             <tr>
@@ -225,7 +231,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                  
                                 }
                             </tr>
                             <tr>
@@ -236,7 +242,6 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
                                 }
                             </tr>
                             <tr>
@@ -247,7 +252,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                 
                                 }
                             </tr>
                             <tr>
@@ -258,7 +263,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                    
                                 }
                             </tr>
                             <tr>
@@ -269,7 +274,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                   
                                 }
                             </tr>
                             <tr>
@@ -280,7 +285,7 @@
                                 }
                                 @foreach(var player in Model.Fixtures)
                                 {
-                                    @* <td></td> *@
+                                   
                                 }
                             </tr>
                         </div>

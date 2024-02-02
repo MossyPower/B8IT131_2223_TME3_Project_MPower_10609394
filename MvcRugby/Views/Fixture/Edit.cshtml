@@ -4,9 +4,9 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Competition Fixture</h1>
+<h1>Edit</h1>
 
-<h4>Fixture</h4>
+<h4>[Competition Name] Fixture</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -51,7 +51,7 @@
             <br>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-warning" />
-                <a class ="btn btn-secondary reset-btn" asp-action="Details">Back to List</a>
+                <a class ="btn btn-secondary reset-btn" asp-route-competitionId="@Model.CompetitionId" asp-action="Index">Back to fixtures</a>
             </div>
         </form>
     </div>

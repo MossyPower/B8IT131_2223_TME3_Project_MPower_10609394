@@ -1,61 +1,91 @@
-@model IEnumerable<MvcRugby.Models.Fixture>
+@model MvcRugby.ViewModels.FixtureViewModel
 
 @{
   ViewData["Title"] = "Index";
 }
-<h1>[Competition Name] Fixtures</h1>
 
+<h1>Fixtures for: @Model.CompetitionName</h1>
 <br>
 
 <div class="container">
-  <hr />
+  <hr>
     <div class="p-3 mb-2 bg-dark text-white">
       <h4>Admin Tools</h4>
-      <br>
-      <a class="btn btn-primary" asp-action="Create" asp-route-id="" >Add New [Competition Name] Fixture</a>
+      <hr>
+      <h4>Add new fixture for @Model.CompetitionName</h4>
+      <a class="btn btn-primary" asp-action="Create" asp-route-competitionId="@Model.CompetitionId" >Add</a>
+      @* <a class="btn btn-primary" asp-action="Create" asp-route-competitionId="2" >Add</a> *@
+      <hr>
+      <h4>Sync @Model.CompetitionName fixtures from Sport Radar Api</h4>
+      <a class="btn btn-primary" asp-controller="SportRadar" asp-action="SyncCompetitionLineup" asp-route-competitionId="@Model.CompetitionId" asp-route-srSeasonId="@Model.SrCompetitionId">
+        Add
+      </a>
+      @* <hr> *@
+      @* <h4>Add @Model.CompetitionName fixture team lineups from Sport Radar Api</h4> *@
+      @* <a class="btn btn-primary" asp-controller="SportRadar" asp-action="SyncCompetitionTeamLineups" asp-route-competitionId="@Model.CompetitionId" asp-route-srSeasonId="@Model.SrCompetitionId">Add</a> *@
+      @* <hr> *@
+      @* <h4>Sync @Model.CompetitionName fixture data from Sport Radar Api</h4> *@
+      @* <a class="btn btn-primary" asp-controller="SportRadar" asp-action="SyncCompetitionEndPoint" asp-route-competitionId="@Model.CompetitionId" asp-route-srSeasonId="@Model.SrCompetitionId">Sync</a> *@
     </div>
-  <hr />
+  <hr>
 </div>
 
-@if (Model != null && Model.Any())
+<div>
+  <a class ="btn btn-secondary reset-btn" asp-controller="Competition" asp-action="Index">Back to Competitions</a>
+</div>
+<hr>
+
+@if (Model.FixturesInfo != null && Model.FixturesInfo.Any())
 {
-  <table class="table">
-    <thread>
+  <table class="table table-striped text-center">
+    <thead>
       <tr>
-        <th scope="col">Fixture Id</th>
-        <th scope="col">Sportradar Sport Event Id</th>
-        <th scope="col">Round Number</th>
+        @* <th scope="col">Fixture Id</th> *@
+        @* <th scope="col">Sportradar Sport Event Id</th> *@
         <th scope="col">Start Time</th>
+        <th scope="col">Round Number</th>
         <th scope="col">Status</th>
+        <th scope="col">Home Team</th>
         <th scope="col">Home Score</th>
         <th scope="col">Away Score</th>
-        <th scope="col">Competition Id</th>
+        <th scope="col">Away Team</th>
+        <th></th>
+        @* <th scope="col">Competition Id</th> *@
+        <th class="mb-2 bg-dark text-white">Admin Tools</th>
       </tr>
-    </thread>
+    </thead>
     <tbody>
-        @foreach(var fixture in Model)
+        @foreach(var fixture in Model.FixturesInfo)
         {
-          <tr>
-            <td>@fixture.FixtureId</td>
-            <td>@fixture.SrSportEventId</td>
-            <td>@fixture.RoundNumber</td>
-            <td>@fixture.StartTime</td>
-            <td>@fixture.Status</td>
-            <td>@fixture.HomeScore</td>
-            <td>@fixture.AwayScore</td>
-            <td>@fixture.CompetitionId</td>
-            <td>
-              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@fixture.FixtureId" asp-controller="CompetitionRound">Select</a>
-              <a class="btn btn-success" asp-action="Details" asp-route-id="@fixture.FixtureId">View Details</a>
-              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@fixture.FixtureId">Edit</a>
-              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@fixture.FixtureId">Delete</a>
-            </td>
-          </tr>
+          if(fixture != null)
+          {
+            <tr>
+              @* FixtureId *@
+              @* SrSportEventId *@
+              <td>@fixture.StartTime</td>
+              <td>@fixture.RoundNumber</td>
+              <td>@fixture.Status</td>
+              @* HomeTeamId *@
+              <td>@fixture.HomeTeamName</td>
+              <td>@fixture.HomeScore</td>
+              <td>@fixture.AwayScore</td>
+              @* AwayTeamId *@
+              <td>@fixture.AwayTeamName</td>
+              <td><a class="btn btn-primary" asp-controller="TeamLineup" asp-action="Index" asp-route-competitionId="@Model.CompetitionId" asp-route-fixtureId="@fixture.FixtureId">View Lineup</a></td>
+              <td class="mb-2 bg-dark text-white">
+                <a class="btn btn-primary" asp-controller="TeamLineup" asp-action="Create" asp-route-competitionId="@Model.CompetitionId" asp-route-fixtureId="@fixture.FixtureId">Add Teams</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@fixture.FixtureId">Edit</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@fixture.FixtureId">Delete</a>
+              </td>
+            </tr>
+          }
         }
     </tbody>
   </table>
 }
 else
 {
-  <p>No Fixtures found for this competition</p>
+  <hr>
+  <h3> We are currently experiencing technical difficulties, please check back later </h3>
+  <hr>
 }

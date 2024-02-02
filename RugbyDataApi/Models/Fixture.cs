@@ -19,7 +19,7 @@ namespace RugbyDataApi.Models
         
         // Setup relationship with Competition entity
         [Required]
-        [ForeignKey("CompetitionId")]
+        [ForeignKey("Competition")]
         public int CompetitionId { get; set; } // Foreign Key
         public Competition? Competition { get; set; } // Reference reverse navigation property
         

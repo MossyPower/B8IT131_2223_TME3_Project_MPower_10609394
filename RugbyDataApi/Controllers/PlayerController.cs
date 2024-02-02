@@ -34,12 +34,12 @@ namespace RugbyDataApi.Controllers
 
         // GET: api/Player/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Player>> GetPlayer(int id)
+        public async Task<ActionResult<Player>> GetPlayerById(int id)
         {
-          if (_context.Players == null)
-          {
-              return NotFound();
-          }
+            if (_context.Players == null)
+            {
+                return NotFound();
+            }
             var player = await _context.Players.FindAsync(id);
 
             if (player == null)
@@ -49,7 +49,49 @@ namespace RugbyDataApi.Controllers
 
             return player;
         }
+        
+        // GET: api/Player/5
+        [HttpGet("/allfixtureplayers")]
+        public async Task<ActionResult<IEnumerable<Player>>> GetPlayersByIds([FromQuery]List<int> ids)
+        {
+            if (_context.Players == null)
+            {
+                return NotFound();
+            }
+            // get a list of all players by playerId (list of IDs passed in as param)
+            var players = await _context.Players
+                .Where(player => ids.Contains(player.PlayerId))
+                .ToListAsync();
 
+            if (players == null)
+            {
+                return NotFound();
+            }
+
+            return players;
+        }
+        
+        //GET: list of all the PlayerLineups for each round, using a list of teamLineupIds
+        [HttpGet("roundplayers")]
+        public async Task<ActionResult<IEnumerable<Player>>> GetRoundPlayers([FromQuery] List<int> roundPlayersIds)
+        {
+            if (roundPlayersIds == null || roundPlayersIds.Count == 0)
+            {
+                return BadRequest("No fixture IDs provided");
+            }
+
+            var players = await _context.Players
+                .Where(p => roundPlayersIds.Contains(p.PlayerId))  // return all Players in the Db if the playerId matches the list of playerIds provided
+                .ToListAsync(); // Add all the Players found to a list
+
+            if (players == null || players.Count == 0)
+            {
+                return NotFound("No team lineups found for the provided fixture IDs");
+            }
+
+            return players;
+        }
+        
         // PUT: api/Player/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

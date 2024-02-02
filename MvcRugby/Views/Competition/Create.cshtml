@@ -3,9 +3,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Competition Season</h4>
+<h2>Add New Competition</h2>
 <hr />
 
 <div class="row">
@@ -37,13 +35,14 @@
                 <input asp-for="SrCompetitionId" class="form-control" />
                 <span asp-validation-for="SrCompetitionId" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<br>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to Competitions</a>
 </div>

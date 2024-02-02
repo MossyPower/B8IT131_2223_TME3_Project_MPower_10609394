@@ -1,0 +1,53 @@
+@model MvcRugby.ViewModels.CreateTeamLineupViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Fixture Team Lineup</h1>
+Competition Id: @Model.CompetitionId
+
+<h4></h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateTeamLineup" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="CompetitionId" />
+            <div class="form-group">
+                <label asp-for="TeamLineup.FixtureId" class="control-label"></label>
+                <input asp-for="TeamLineup.FixtureId" class="form-control" type="number"/>
+                <span asp-validation-for="TeamLineup.FixtureId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TeamLineup.Designation" class="control-label"></label>
+                <select asp-for="TeamLineup.Designation" class="form-control">
+                    <option value="home">Home</option>
+                    <option value="away">Away</option>
+                </select>
+                <span asp-validation-for="TeamLineup.Designation" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="TeamId" class="control-label"></label>
+                <input asp-for="TeamId" class="form-control" />
+                <span asp-validation-for="TeamId" class="text-danger"></span>
+            </div> *@
+            
+            <!-- Referance Microsoft Documentation: "Tutorial: Update related data - ASP.NET MVC with EF Core". 
+                Available at: https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/update-related-data?view=aspnetcore-8.0 -->
+    
+            <!--Referance YouTube video: "Create DROPDOWNS in ASP.NET Core using DropDownList and GetEnumSelectList!".
+                Available at: https://www.youtube.com/watch?v=pigM1PojI0Q&ab_channel=tutorialsEU-C%23 -->
+            <div>
+                <label class="form-label">Team</label>
+                @Html.DropDownListFor(model => model.TeamLineup.TeamId, (SelectList)ViewBag.teams, "Select Team", new { @class = "form-control" })
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="CreateTeamLineup" class="btn btn-primary" />
+                <a class="btn btn-secondary reset-btn" asp-controller="Fixture" asp-action="Index" asp-route-competitionId="@Model.CompetitionId">Back to Fixtures</a>
+            </div>
+        </form>
+    </div>
+</div>

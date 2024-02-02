@@ -11,21 +11,26 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SrSportEventId" class="control-label"></label>
+                <label>Competition Id</label>
+                <input asp-for="CompetitionId" class="form-control" type="number"/>
+                <span asp-validation-for="CompetitionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Sportradar Sport Event Id</label>
                 <input asp-for="SrSportEventId" class="form-control" />
                 <span asp-validation-for="SrSportEventId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RoundNumber" class="control-label"></label>
-                <input asp-for="RoundNumber" class="form-control" input="number"/>
+                <label>Round Number</label>
+                <input asp-for="RoundNumber" class="form-control" type="number"/>
                 <span asp-validation-for="RoundNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
+                <label>Start Time</label>
+                <input asp-for="StartTime" class="form-control" type="datetime-local"/>
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,18 +39,14 @@
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HomeScore" class="control-label"></label>
-                <input asp-for="HomeScore" class="form-control" input="number"/>
+                <label>Home Score</label>
+                <input asp-for="HomeScore" class="form-control" type="number"/>
                 <span asp-validation-for="HomeScore" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AwayScore" class="control-label"></label>
-                <input asp-for="AwayScore" class="form-control" input="number"/>
+                <label>Away Score</label>
+                <input asp-for="AwayScore" class="form-control" type="number"/>
                 <span asp-validation-for="AwayScore" class="text-danger"></span>
-            </div>
-            <div>
-                <label class="from-label">Competition</label>
-                @Html.DropDownListFor(model => model.CompetitionId, (SelectList)ViewBag.competitions, "Select Competition", new { @class = "form-control" })
             </div>
             <br>
             <div class="form-group">
@@ -57,6 +58,6 @@
 <hr>
 
 <div>
-    <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
+    <a class ="btn btn-secondary reset-btn" asp-route-competitionId="@Model.CompetitionId" asp-action="Index">Back to fixtures</a>
 </div>
 <br>

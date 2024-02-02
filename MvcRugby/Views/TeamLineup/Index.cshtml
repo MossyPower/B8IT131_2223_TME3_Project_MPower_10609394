@@ -1,0 +1,178 @@
+@model MvcRugby.ViewModels.FixtureLineupViewModel
+
+@{
+  ViewData["Title"] = "Index";
+}
+@if(Model != null)
+{
+
+
+    <h1>@Model.Competition.CompetitionName Fixtures</h1>
+    <br>
+
+    <div>
+    <a class ="btn btn-secondary reset-btn" asp-controller="Fixture" asp-route-competitionId="@Model.Competition.CompetitionId" asp-action="Index">Back to fixtures</a>
+    </div>
+    <hr>
+    <h4>Select a Player to View Their Performance Statistics </h4>
+    <!-- As teamlineups are  -->
+    <div class="container">
+        <div class="row">
+            @if (Model != null)
+            {   
+                <div class="col-5">
+                    <table class="table table-striped table-bordered text-center">
+                        <thread>
+                            @if(Model.HomeTeam != null)
+                            {
+                                <tr>
+                                    <th>@Model.HomeTeam.TeamName</th>  
+                                </tr>
+                                <tr>
+                                    <th>@Model.Fixture.HomeScore</th>
+                                </tr>
+                            }
+                        </thread>
+                        <tbody>
+                            <div>
+                                @if(Model.HomePlayers.Any())
+                                {
+                                    @foreach(var player in Model.HomePlayers)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a class="nav-link active text-dark" 
+                                                        asp-controller="PlayerStatistics" 
+                                                        asp-action="Index" 
+                                                        asp-route-competitionId="@Model.Competition.CompetitionId" 
+                                                        asp-route-playerId="@player.PlayerId" 
+                                                        asp-route-fixtureId="@Model.Fixture.FixtureId">
+                                                    @player.FirstName @player.LastName
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    @for(int j=1; j <= 23; j++)
+                                    {
+                                        <tr>
+                                            <td>Team has not been named yet</td>
+                                        </tr>
+                                    }
+                                }
+                            </div>
+                            <div class="text-center ">
+                                <div class="p-3 mb-2 bg-dark text-white">
+                                <h4>Admin Tools - Home Team Lineup</h4>
+                                <a class="btn btn-primary" asp-action="Create" asp-route-fixtureId="@Model.Fixture.FixtureId">Add Player</a>
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Fixture.FixtureId">Edit Player</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Fixture.FixtureId">Delete Player</a>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="col-2">
+                    <table class="table table-striped table-bordered text-center">
+                        <thread>
+                            <tr>
+                                <th>
+                                    @Model.Fixture.StartTime
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Match Score</th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            <div>
+                                @for(int i=1; i <= 23; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a class="nav-link disabled text-dark" asp-action="">@i</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </div>
+                            <div class="text-center ">
+                                <div class="p-3 mb-2 bg-dark text-white">
+                                    <br>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="col-5">
+                    <table class="table table-striped table-bordered text-center">
+                        <thread>
+                            @if(Model.AwayTeam != null)
+                            {
+                                <tr>
+                                    <th>
+                                        @Model.AwayTeam.TeamName
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>@Model.Fixture.AwayScore</th>
+                                </tr>
+                            }
+                        </thread>
+                        <tbody>
+                            <div>
+                            @if(Model.AwayPlayers.Any())
+                            {
+                                @foreach(var player in Model.AwayPlayers)
+                                {
+                                    <tr>
+                                        <td class="nav-item">
+                                            <a class="nav-link active text-dark" 
+                                                    asp-controller="PlayerStatistics" 
+                                                    asp-action="Index" 
+                                                    asp-route-competitionId="@Model.Competition.CompetitionId" 
+                                                    asp-route-playerId="@player.PlayerId" 
+                                                    asp-route-fixtureId="@Model.Fixture.FixtureId">
+                                                @player.FirstName @player.LastName
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                @for(int j=1; j <= 23; j++)
+                                {
+                                    <tr>
+                                        <td>Team has not been named yet</td>
+                                    </tr>
+                                }
+                            }
+                            </div>
+                            <div class="text-center ">
+                                <div class="p-3 mb-2 bg-dark text-white">
+                                <h4>Admin Tools - Away Team Lineup</h4>
+                                <a class="btn btn-primary" asp-action="Create" asp-route-fixtureId="@Model.Fixture.FixtureId"
+                                        asp-route-designation="@Model.AwayTeamLineup.Designation">
+                                    Add Team
+                                </a>
+                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Fixture.FixtureId">Edit Team</a>
+                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Fixture.FixtureId">Delete Team</a>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p>Teams not names for this fixture yet</p>
+}

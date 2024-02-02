@@ -1,21 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using MvcRugby.Data;
 using MvcRugby.Models;
-using MvcRugby.Mappings;
-using MvcRugby.ViewModels;
 using MvcRugby.Services;
-using Microsoft.AspNetCore.Authorization;
-using System.Net;
+
 
 namespace MvcRugby.Controllers
 {
-    //[Authorize]
     public class PlayerController : Controller
     {
         private readonly ApplicationDbContext _context;

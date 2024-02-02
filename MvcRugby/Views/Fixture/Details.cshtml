@@ -63,5 +63,5 @@
 </div>
 <div>
     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.FixtureId">Edit</a>
-    <a class ="btn btn-secondary reset-btn" asp-action="Index">Back to List</a>
+    <a class ="btn btn-secondary reset-btn" asp-route-competitionId="@Model.CompetitionId" asp-action="Index">Back to fixtures</a>
 </div>

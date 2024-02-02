@@ -11,7 +11,7 @@ using RugbyDataApi.Data;
 namespace RugbyDataApi.Migrations
 {
     [DbContext(typeof(RugbyDataDbContext))]
-    [Migration("20240127123649_AddRugbyData")]
+    [Migration("20240130174024_AddRugbyData")]
     partial class AddRugbyData
     {
         /// <inheritdoc />

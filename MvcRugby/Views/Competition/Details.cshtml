@@ -45,26 +45,6 @@
             @Html.DisplayFor(model => model.SrCompetitionId)
         </dd>
         <!-- -->
-        <dt class = "col-sm-3">
-            See all Competition Fixtures
-        </dt>
-        <dd class = "col-sm-9">
-            <a class="btn btn-primary" asp-controller="Fixture" asp-action="Index" asp-route-id="@Model?.CompetitionId">Select</a>
-        </dd>
-        <!-- -->
-        <dt class = "col-sm-3">
-            See all Competition Clubs
-        </dt>
-        <dd class = "col-sm-9">
-            <a class="btn btn-primary" asp-controller="Club" asp-action="Index" asp-route-id="@Model?.CompetitionId">Select</a>
-        </dd>
-        <!-- -->        
-        <dt class = "col-sm-3">
-            See all Competition Players
-        </dt>
-        <dd class = "col-sm-9">
-            <a class="btn btn-primary" asp-controller="Player" asp-action="Index" asp-route-id="@Model?.CompetitionId">Select</a>
-        </dd>
     </dl>
 </div>
 <div>

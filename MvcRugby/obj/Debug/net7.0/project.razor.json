@@ -16570,6 +16570,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\TeamLineup\\Index.cshtml",
+      "TargetPath": "Views\\TeamLineup\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Comparison\\Rounds.cshtml",
       "TargetPath": "Views\\Comparison\\Rounds.cshtml",
       "FileKind": "mvc"
@@ -16602,6 +16607,11 @@
     {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\TeamLineup\\Edit.cshtml",
+      "TargetPath": "Views\\TeamLineup\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -16640,6 +16650,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\PlayerLineup\\Delete.cshtml",
+      "TargetPath": "Views\\PlayerLineup\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\PlayerStatistics\\Delete.cshtml",
       "TargetPath": "Views\\PlayerStatistics\\Delete.cshtml",
       "FileKind": "mvc"
@@ -16667,6 +16682,16 @@
     {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Fixture\\Delete.cshtml",
       "TargetPath": "Views\\Fixture\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\PlayerLineup\\Index.cshtml",
+      "TargetPath": "Views\\PlayerLineup\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\TeamLineup\\Delete.cshtml",
+      "TargetPath": "Views\\TeamLineup\\Delete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -16725,6 +16750,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\PlayerLineup\\Create.cshtml",
+      "TargetPath": "Views\\PlayerLineup\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Comparison\\RoundFixtures.cshtml",
       "TargetPath": "Views\\Comparison\\RoundFixtures.cshtml",
       "FileKind": "mvc"
@@ -16745,8 +16775,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\TeamLineup\\Create.cshtml",
+      "TargetPath": "Views\\TeamLineup\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\Fixture\\Index.cshtml",
       "TargetPath": "Views\\Fixture\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mossy\\Documents\\GitHub\\B8IT131_2223_TME3_Project_MPower_10609394\\MvcRugby\\Views\\PlayerLineup\\Edit.cshtml",
+      "TargetPath": "Views\\PlayerLineup\\Edit.cshtml",
       "FileKind": "mvc"
     },
     {

@@ -1,17 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using MvcRugby.Data;
 using MvcRugby.Models;
-using MvcRugby.Mappings;
 using MvcRugby.ViewModels;
 using MvcRugby.Services;
-using Microsoft.AspNetCore.Authorization;
-using System.Net;
 
 namespace MvcRugby.Controllers
 {
@@ -26,13 +17,52 @@ namespace MvcRugby.Controllers
             _context = context;
             _rugbyDataApiService = rugbyDataApiService;
             _clientFactory = clientFactory;
+        }    
+        
+        public async Task<IActionResult> Index(int competitionId, int playerId, int fixtureId)
+        {
+            if(competitionId != 0 && playerId != 0 && fixtureId != 0)
+            {
+                var competition = await _rugbyDataApiService.GetCompetitionById(competitionId); 
+                var player = await _rugbyDataApiService.GetPlayerById(playerId);           
+                var fixture = await _rugbyDataApiService.GetFixtureById(fixtureId);          
+                var playerStatistics = await _rugbyDataApiService.GetPlayerFixtureStatistics(playerId, fixtureId);                
+            
+                if (playerStatistics != null)
+                {
+                    var ViewModel = new PlayerStatisticsViewModel()
+                    {
+                        CompetitionId = competitionId,
+                        CompetitionName = competition.CompetitionName,
+                        FixtureId = fixtureId,
+                        FixtureStartTime = fixture.StartTime,
+                        PlayerId = playerId,
+                        PlayerFirstName = player.FirstName,
+                        PlayerLastName = player.LastName,
+                        PlayerStatistics = playerStatistics,
+                        Placeholder = null,
+                    };
+                    return View(ViewModel);
+                }
+                else
+                {
+                    var ViewModel = new PlayerStatisticsViewModel()
+                    {
+                        Placeholder = "There are no statistics currently recorded for this player or fixture",
+                    };
+                    return View(ViewModel);
+                }
+            }
+            else
+            {
+                var ViewModel = new PlayerStatisticsViewModel()
+                {
+                    Placeholder = "There are no statistics currently recorded for this player or fixture",
+                };
+                return View(ViewModel);
+            }
         }
 
-        // GET: PlayerStatistics
-        public async Task<IActionResult> Index()
-        {
-            return View(await _rugbyDataApiService.GetAllPlayersStatistics());
-        }
 
         // GET: PlayerStatistics/Details/5
        public async Task<IActionResult> Details(int id)

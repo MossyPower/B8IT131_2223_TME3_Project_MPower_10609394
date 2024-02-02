@@ -19,6 +19,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddLogging(logging =>
+{
+    logging.AddConsole();
+});
+
 var app = builder.Build();
 
 // Add for SeedData at startup

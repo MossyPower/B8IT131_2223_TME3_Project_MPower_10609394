@@ -19,7 +19,7 @@ namespace MvcRugby.Models
 
         // Setup relationship with Team entity
         [Required]
-        [ForeignKey("TeamId")]
+        [ForeignKey("Team")]
         public int TeamId { get; set; } // Foreign Key (Zero or One relationship, allow null / not required)
         public Team? Team { get; set; } // Reference reverse navigation property
         

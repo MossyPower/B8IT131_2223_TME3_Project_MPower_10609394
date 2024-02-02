@@ -1,89 +1,147 @@
-@model IEnumerable<MvcRugby.Models.PlayerStatistics>
+@model MvcRugby.ViewModels.PlayerStatisticsViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
-<h1>Competition Player Fixture Statistics</h1>
+
+<h1>@Model.CompetitionName</h1>
+<hr>
+<h3>Fixture date & start time: @Model.FixtureStartTime </h3>
 <br>
+<h4>Fixture Performance Statistics for: @Model.PlayerFirstName @Model.PlayerLastName</h4>
+<br>
+<a class ="btn btn-secondary reset-btn" asp-controller="TeamLineup" asp-action="Index" asp-route-competitionId="@Model.CompetitionId" asp-route-fixtureId="@Model.FixtureId">Back to fixture lineup</a>
+<hr>
 
-<div class="container">
-  <hr />
-    <div class="p-3 mb-2 bg-dark text-white">
-      <h4>Admin Tools</h4>
-      <br>
-      <a asp-action="Create" class="btn btn-primary">Add New Players Fixture Statistics</a>
-    </div>
-  <hr />
-</div>
-
-@if (Model != null && Model.Any())
+@if (Model.PlayerStatistics != null)
 {
-  <table class="table">
-    <thread>
-      <tr>
-        <th scope="col">SportRadar Id</th>
-        <th scope="col">Tries</th>
-        <th scope="col">Try Assists</th>
-        <th scope="col">Conversions</th>
-        <th scope="col">Penalty Goals</th>
-        <th scope="col">Drop Goals</th>
-        <th scope="col">Ball Possessition</th>
-        <th scope="col">Meters Run</th>
-        <th scope="col">Carries</th>
-        <th scope="col">Passes</th>
-        <th scope="col">Offloads</th>
-        <th scope="col">Clean Breaks</th>
-        <th scope="col">Lineouts Won</th>
-        <th scope="col">Lineouts Lost</th>
-        <th scope="col">Tackles</th>
-        <th scope="col">Tackles Missed</th>
-        <th scope="col">Scrums Won</th>
-        <th scope="col">Scrums Lost</th>
-        <th scope="col">Total Scrums</th>
-        <th scope="col">Turnovers Won</th>
-        <th scope="col">Penalties Conceded</th>
-        <th scope="col">Yellow Cards</th>
-        <th scope="col">Red Cards</th>
-        <th scope="col"></th>
-      </tr>
-    </thread>
-    <tbody>
-        @foreach(var StatSet in Model)
-        {
-          <tr>
-            <td>@StatSet.Tries</td>
-            <td>@StatSet.TryAssists</td>
-            <td>@StatSet.Conversions</td>
-            <td>@StatSet.PenaltyGoals</td>
-            <td>@StatSet.DropGoals</td>
-            <td>@StatSet.MetersRun</td>
-            <td>@StatSet.Carries</td>
-            <td>@StatSet.Passes</td>
-            <td>@StatSet.Offloads</td>
-            <td>@StatSet.CleanBreaks</td>
-            <td>@StatSet.LineoutsWon</td>
-            <td>@StatSet.LineoutsLost</td>
-            <td>@StatSet.Tackles</td>
-            <td>@StatSet.TacklesMissed</td>
-            <td>@StatSet.ScrumsWon</td>
-            <td>@StatSet.ScrumsLost</td>
-            <td>@StatSet.TotalScrums</td>
-            <td>@StatSet.TurnoversWon</td>
-            <td>@StatSet.PenaltiesConceded</td>
-            <td>@StatSet.YellowCards</td>
-            <td>@StatSet.RedCards</td>
-            <td>
-              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@StatSet.PlayerStatisticsId" asp-controller="CompetitionRound">Select</a>
-              <a class="btn btn-success" asp-action="Details" asp-route-id="@StatSet.PlayerStatisticsId">View Details</a>
-              <a class="btn btn-warning" asp-action="Edit" asp-route-id="@StatSet.PlayerStatisticsId">Edit</a>
-              <a class="btn btn-danger" asp-action="Delete" asp-route-id="@StatSet.PlayerStatisticsId">Delete</a>
-            </td>
-          </tr>
-        }
-    </tbody>
-  </table>
+  <div class="Container">
+    <div class="Row">
+      <div class="col-3"></div>
+        <div class="col-6">
+          <table class="table table-bordered table-striped table-sm table-hover table-responsive">
+            <thread class="thead-dark">
+              <tr>
+                <th scope="col">Statistics</th>
+                <th scope="col" class="text-center">Quantity</th>
+              </tr>
+            </thread>
+            <tbody>
+                <tr>
+                  <th scope="col">Tries</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.Tries</td>
+                </tr>
+                <tr>
+                  <th scope="col">Try Assists</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.TryAssists</td>
+                </tr>
+                <tr>
+                  <th scope="col">Conversions</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.Conversions</td>
+                </tr>
+                <tr>
+                  <th scope="col">Penalty Goals</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.PenaltyGoals</td>
+                </tr>
+                <tr>
+                  <th scope="col">Drop Goals</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.DropGoals</td>
+                </tr>
+                <tr>
+                  <th scope="col">Meters Run</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.MetersRun</td>
+                </tr>
+                <tr>
+                  <th scope="col">Carries</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.Carries</td>
+                </tr>
+                <tr>
+                  <th scope="col">Passes</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.Passes</td>
+                </tr>
+                <tr>
+                  <th scope="col">Offloads</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.Offloads</td>
+                </tr>
+                <tr>
+                  <th scope="col">Clean Breaks</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.CleanBreaks</td>
+                </tr>
+                <tr>
+                  <th scope="col">Lineouts Won</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.LineoutsWon</td>
+                </tr>
+                <tr>
+                  <th scope="col">Lineouts Lost</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.LineoutsLost</td>
+                </tr>
+                <tr>
+                  <th scope="col">Tackles</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.Tackles</td>
+                </tr>
+                <tr>
+                  <th scope="col">Tackles Missed</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.TacklesMissed</td>
+                </tr>
+                <tr>
+                  <th scope="col">Scrums Won</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.ScrumsWon</td>
+                </tr>
+                <tr>
+                  <th scope="col">Scrums Lost</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.ScrumsLost</td>
+                </tr>
+                <tr>
+                  <th scope="col">Total Scrums</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.TotalScrums</td>
+                </tr>
+                <tr>
+                  <th scope="col">Turnovers Won</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.TurnoversWon</td>
+                </tr>
+                <tr>
+                  <th scope="col">Penalties Conceded</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.PenaltiesConceded</td>
+                </tr>
+                <tr>
+                  <th scope="col">Yellow Cards</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.YellowCards</td>
+                </tr>
+                <tr>
+                  <th scope="col">Red Cards</th>
+                  <td scope="col" class="text-center">@Model.PlayerStatistics.RedCards</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      <div class="col"></div>
+    </div>
+  </div>
+  <div class="container">
+    <hr />
+      <div class="p-3 mb-2 bg-dark text-white">
+        <h4>Admin Tools</h4>
+        <br>
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.PlayerStatistics.PlayerStatisticsId">Edit</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.PlayerStatistics.PlayerStatisticsId">Delete</a>
+      </div>
+    <hr />
+  </div>
 }
 else
 {
-  <p>No Fixtures found</p>
+  <h4>@Model.Placeholder</h4>
+  <hr>
+  <a class ="btn btn-secondary reset-btn" asp-controller="TeamLineup" asp-action="Index" asp-route-competitionId="@Model.CompetitionId" asp-route-fixtureId="@Model.FixtureId">Back to fixture lineup</a>
+
+  <div class="container">
+    <hr />
+      <div class="p-3 mb-2 bg-dark text-white">
+        <h4>Admin Tools</h4>
+        <br>
+        <h4>Follow the below link to add a record of player statistics for this fixture</h4>
+        <a class="btn btn-primary" asp-action="Create" asp-route-id="@Model.PlayerStatistics.PlayerStatisticsId" asp-controller="PlayerStatistics">Create</a>
+      </div>
+    <hr />
+  </div>
 }

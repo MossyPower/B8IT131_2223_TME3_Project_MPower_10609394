@@ -3,18 +3,25 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>Club</h1>
+<h1>Team</h1>
 <br>
 
 <div class="container">
   <hr />
     <div class="p-3 mb-2 bg-dark text-white">
       <h4>Admin Tools</h4>
-      <br>
-      <a asp-action="Create" class="btn btn-primary">Add New Team</a>
+      <hr>
+      <h4>Add new Team</h4>
+      <a asp-action="Create" class="btn btn-primary">Add</a>
+      <hr>
+      <h4>Sync Competition teams from Sport Radar Api</h4>
+      <!-- Add asp-route-id="competition.Sr.CompetitionId" => need to set up view model to pass in the sport radar season id-->
+      <a class="btn btn-primary" asp-controller="SportRadar" asp-action="SyncSeasonTeamsEndPoint">Sync</a>
+      <hr>
     </div>
   <hr />
 </div>
+
 
 @if (Model != null && Model.Any())
 {
@@ -37,7 +44,7 @@
             <td>@team.TeamName</td>
             <td>@team.Country</td>
             <td>
-              <a class="btn btn-primary" asp-action="Index"  asp-route-id="@team.TeamId" asp-controller="CompetitionRound">Select</a>
+              <a class="btn btn-primary" asp-controller="Player" asp-action="Index" asp-route-id="@team.TeamId" asp-controller="CompetitionRound">See Players</a>
               <a class="btn btn-success" asp-action="Details" asp-route-id="@team.TeamId">View Details</a>
               <a class="btn btn-warning" asp-action="Edit" asp-route-id="@team.TeamId">Edit</a>
               <a class="btn btn-danger" asp-action="Delete" asp-route-id="@team.TeamId">Delete</a>
